@@ -5,9 +5,15 @@
 		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
+		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"enhance": true
+		"autoAudits": false,
+		"coverView": true,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"enhance": true,
+		"useCompilerModule": true
 	},
 	"appid": "wx46ddb31f7d3bd0a4",
 	"projectname": "YaYaMoney",
