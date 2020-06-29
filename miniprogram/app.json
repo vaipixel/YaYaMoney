@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/project/welcome/welcome",
+
     "pages/project/home/home",
     "pages/index/index",
     "pages/userConsole/userConsole",
@@ -14,7 +16,6 @@
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
     "pages/im/room/room",
-    "pages/project/welcome/welcome",
 
     "pages/project/accountDetail/accountDetail",
     "pages/project/addAccount/addAccount"

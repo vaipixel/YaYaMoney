@@ -1,1 +1,12 @@
 /* miniprogram/pages/project/welcome/welcome.wxss */
+@import '/style/main.wxss';
+
+.root {
+  position: fixed;
+  height: 100%;
+  background-color: #187A99;
+}
+
+.alert-text {
+  width: 50%;
+}
