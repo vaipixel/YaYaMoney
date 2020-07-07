@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/project/home/home",
     "pages/project/welcome/welcome",
 
-    "pages/project/home/home",
+    
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",

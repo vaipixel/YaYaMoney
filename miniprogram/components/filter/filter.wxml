@@ -1,0 +1,4 @@
+<!--components/filter/filter.wxml-->
+<view class="root">
+<text wx:for="{{filterIndex}}">{{item}}</text>
+</view>
