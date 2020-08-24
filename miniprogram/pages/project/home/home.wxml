@@ -30,5 +30,5 @@
     <view class="account"></view>
   </view>
 
-  <button>新增记录</button>
+  <button class="btn">新增记录</button>
 </view>
