@@ -1,0 +1,6 @@
+<!--miniprogram/pages/project/welcome/welcome.wxml-->
+<view class="root">
+  <text class="btn-text alert-text">看来你是第一次用吖吖资产呢，你需要先创建或加入一个“组”</text>
+  <button class="btn">创建</button>
+  <button class="btn">加入</button>
+</view>

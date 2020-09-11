@@ -1,0 +1,10 @@
+.btn-text {
+  color: #F8FFFF;
+}
+
+.btn {
+  width: 300rpx;
+  height: 100rpx;
+  border-radius: 50rpx;
+  background-color: #90B0B7;
+}

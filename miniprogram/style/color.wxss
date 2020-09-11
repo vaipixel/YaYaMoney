@@ -1,0 +1,39 @@
+.primary-color {
+  color: #187A99;
+}
+
+.accent-color {
+  color: #658089;
+}
+
+.title-color {
+  color: #38485A;
+}
+
+.subtitle-color {
+  color: #90B0B7;
+}
+
+.btn-text-color {
+  color: #F8FFFF;
+}
+
+.content-color {
+  color: #F6F6F6;
+}
+
+.divider-color {
+  color: #F0EFEC;
+}
+
+.item-color {
+  color: #FEFEFE;
+}
+
+.red {
+  color: #E64E64;
+}
+
+.green {
+  color: #80A756;
+}

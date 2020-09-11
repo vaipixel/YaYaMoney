@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "filter": "/components/filter/filter",
+    "account-item": "/components/account-item/account-item"
+  }
+}

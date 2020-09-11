@@ -1,0 +1,4 @@
+/* components/filter/filter.wxss */
+.root {
+  background-color: #658089;
+}

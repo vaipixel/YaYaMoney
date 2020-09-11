@@ -1,0 +1,30 @@
+/* miniprogram/pages/project/home/home.wxss */
+@import '/style/main.wxss';
+
+.root {
+
+}
+
+.overview {
+
+}
+
+.member-group {
+
+}
+
+.account-list {
+
+}
+
+.account-list .avator {
+
+}
+
+.account-list .name {
+
+}
+
+.account-list .desc {
+  
+}
