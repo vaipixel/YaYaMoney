@@ -1,0 +1,64 @@
+/* miniprogram/components/homeHead/homeHead.wxss */
+@import '/style/red.wxss';
+
+.overview {
+    width: 100%;
+    height: 55%;
+}
+.title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.all_bill{
+    color: rgb(24, 24, 92);
+    font-family: SimHei;
+    font-weight: bold;
+}
+.flag{
+    color: rgb(24, 24, 92);
+    font-family: SimHei;
+    font-weight: bold;
+    font-size: xx-large;
+    letter-spacing: 5rpx;
+    padding-top: 5%;
+}
+.money{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: rgb(24, 24, 92);
+    font-family: SimHei;
+    font-weight: bolder;
+    font-size: 80px;
+    padding-left: 3%;
+}
+.title_under{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.month{
+    width: 20%;
+    height: 60rpx;
+    border: gainsboro solid 1rpx;
+    text-align: center;
+    border-radius: 50rpx;
+    color: white;
+    background-color: #658089;
+    line-height: 60rpx;
+}
+.month_rate{
+    width: 30%;
+    height: 60rpx;
+    line-height: 60rpx;
+}
+
+.member-group {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

@@ -1,0 +1,7 @@
+image{
+    width: 100rpx;
+    height: 100rpx;
+    border: black solid 1rpx;
+    border-radius: 100%;
+   
+}

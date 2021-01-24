@@ -1,0 +1,55 @@
+/* miniprogram/components/home-card/home-card.wxss */
+@import '/style/image.wxss';
+
+.member-group{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.member-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.member-frame{
+    display: flex;
+    align-items: center;
+    width : 45%;
+    height: 80%;
+    border:black solid 1rpx;
+    align-items: center;
+    border-radius: 20rpx;
+}
+.member-frame>view{
+    margin-left: 5%;
+    
+}
+.member-info{
+    width: 100%;
+    
+}
+.who{
+    color: rgb(24, 24, 92);
+    font-size: 40rpx;
+    font-weight: bold;
+}
+.member-text{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.red{
+    font-size: 30rpx;
+    color: red;
+    text-align: right;
+    
+}
+.money{
+    color: rgb(49, 49, 119);
+    font-size: 35rpx;
+    padding-left: 7%;
+
+}
+

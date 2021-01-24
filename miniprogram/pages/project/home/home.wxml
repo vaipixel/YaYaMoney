@@ -1,34 +1,23 @@
 <!--miniprogram/pages/project/home/home.wxml-->
-<view class="root">
-	<view class="overview">
-		<view>
-			<text>总额</text>
-			<text>CNY</text>
-		</view>
-		<text>1000K</text>
-		<view>
-			<text>每月</text>
-			<text>20,20(3.56%)</text>
-		</view>
+<view class="body">
+	<view style="height:{{bottom + 8}}px">
+		<TitleBar />
 	</view>
-	<view class="member-group">
-		<view class="member-frame">
-			<image class="avator"></image>
-			<view class="member-info">
-				<view>
-					<text>我</text>
-					<text>▴ 4.3%</text>
-				</view>
-				<text>¥ 1000</text>
-			</view>
+	<view class="root">
+		<view class="home_head">
+			<homeHead money="{{money}}" month="{{month}}" all_rate="{{all_rate}}"></homeHead>
 		</view>
+		<view class="home_card">
+			<home-card></home-card>
+		</view>
+		<view class="filter"> 
+			<filter></filter>
+		</view>
+
+		<view class="account-list">
+			<account-item></account-item>
+		</view>
+
+		<button class="btn">新增记录</button>
 	</view>
-
-  <filter></filter>
-
-  <view class="account-list">
-    <view class="account"></view>
-  </view>
-
-  <button class="btn">新增记录</button>
 </view>

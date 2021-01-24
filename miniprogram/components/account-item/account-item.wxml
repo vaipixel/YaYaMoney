@@ -1,2 +1,43 @@
 <!--components/account-item/account-item.wxml-->
-<text>components/account-item/account-item.wxml</text>
+<view class="account-all">
+
+    <view class="context" catchtap="Select" wx:for="{{account}}" wx:key="{{index}}"  data-id="{{index}}">
+
+        <view class="account">
+            <view class="account-image">
+                <image src=""></image>
+            </view>
+            <view class="account-text">
+                <view class="top">
+                    <view class="found">{{item.name}}</view>
+                    <view class="money">￥ {{item.money}}</view>
+                </view>
+                <view class="bottom">
+                    <view class="found_text">{{item.found_text}}</view>
+                    <view class="red">▴ {{item.reta}}%</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="{{item.flag == true ? 'account-menu' : 'no'}}" >
+
+            <view wx:for="{{item.menu}}">
+            <view class="menu-image">
+                <image src=""></image>
+            </view>
+            <view class="menu-text">
+                <view class="menu-top">
+                    <view class="menu-found">{{item.name}}</view>
+                    <view class="menu-money">{{item.money}}</view>
+                </view>
+                <view class="menu-bottom">
+                    <view class="menu-moneyReta">￥ {{item.retaMoney}}({{item.reta}})</view>
+                </view>
+            </view>
+        </view>
+
+        </view>
+      
+
+    </view>
+</view>

@@ -1,0 +1,15 @@
+<!--miniprogram/components/homeHead/homeHead.wxml-->
+<view class="overview">
+    <view class="title">
+        <view>
+            <view class="all_bill">总额</view>
+            <view class="flag">CNY</view>
+        </view>
+        <view class="money">{{money}}K</view>
+    </view>
+
+    <view class="title_under">
+        <view class="month">每月</view>
+        <view class="month_rate"><text class="red">{{month}}({{all_rate}})%</text></view>
+    </view>
+</view>

@@ -1,33 +1,35 @@
 {
-  "pages": [
-    "pages/project/home/home",
-    "pages/project/welcome/welcome",
-
-    
-    "pages/index/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/openapi/serverapi/serverapi",
-    "pages/openapi/callback/callback",
-    "pages/openapi/cloudid/cloudid",
-    "pages/im/im",
-    "pages/im/room/room",
-
-    "pages/project/accountDetail/accountDetail",
-    "pages/project/addAccount/addAccount"
-  ],
-  "window": {
-    "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#187A99",
-    "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "white"
-  },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2"
+    "pages": [
+        "pages/project/home/home",
+        "pages/project/welcome/welcome",
+        "components/TitleBar/TitleBar",
+        "pages/index/index",
+        "pages/userConsole/userConsole",
+        "pages/storageConsole/storageConsole",
+        "pages/databaseGuide/databaseGuide",
+        "pages/addFunction/addFunction",
+        "pages/deployFunctions/deployFunctions",
+        "pages/chooseLib/chooseLib",
+        "pages/openapi/openapi",
+        "pages/openapi/serverapi/serverapi",
+        "pages/openapi/callback/callback",
+        "pages/openapi/cloudid/cloudid",
+        "pages/im/im",
+        "pages/im/room/room",
+        "pages/project/accountDetail/accountDetail",
+        "pages/project/addAccount/addAccount",
+        "components/homeHead/homeHead",
+        "components/home-card/home-card",
+        "components/home-item/home-item"
+    ],
+    "window": {
+        "backgroundColor": "#F6F6F6",
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#187A99",
+        "navigationBarTitleText": "云开发 QuickStart",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom"
+    },
+    "sitemapLocation": "sitemap.json",
+    "style": "v2"
 }

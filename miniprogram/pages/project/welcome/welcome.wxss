@@ -1,12 +1,48 @@
 /* miniprogram/pages/project/welcome/welcome.wxss */
 @import '/style/main.wxss';
-
+page{
+  width: 100%;
+  height: 100%;
+}
+body{
+  width: 100%;
+  height: 100%;
+}
 .root {
   position: fixed;
+  display: flex;
   height: 100%;
+  width: 100%;
   background-color: #187A99;
+  justify-content: center;
+  align-items: center;
 }
 
 .alert-text {
   width: 50%;
+}
+.content{
+  width: 100%;
+  height: 50%;
+  align-items: center;
+}
+.c-text{
+  height: 80%;
+  display: flex;
+  align-items: center;
+}
+.con-text{
+  width: 100%;
+  text-align: center;
+}
+.con-but{
+  display: flex;
+}
+
+.con-but>button{
+  width: 100px;
+  font-family: Helvetica,arial,'Hiragino Sans GB',\5b8b\4f53,sans-serif;
+  background-color: grey;
+  border-radius: 40rpx;
+  text-align: center;
 }

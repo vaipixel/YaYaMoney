@@ -12,16 +12,31 @@ Component({
    */
   data: {
     filterIndex: [
-      '全部',
-      '我',
-      '老婆'
-    ]
+      {
+       name : '全部',
+      },
+      {
+        name : '我',
+      },
+      {
+      name : '老婆',
+      },
+    ],
+    flag : 0,
+    
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+    
+    Change : function (e) {
+      this.setData({
+        flag : e.currentTarget.dataset.id
+      })  
+   },
   }
+
+  
 })

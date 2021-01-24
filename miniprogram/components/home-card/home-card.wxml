@@ -1,0 +1,13 @@
+<!--miniprogram/components/home-card/home-card.wxml-->
+<view class="member-group">
+		<view class="member-frame" wx:for="{{context}}">
+			<view class="member-image"><image class="avator"></image></view>
+			<view class="member-info">
+				<view class="member-text">
+					<text class="who">{{item.name}}</text>
+					<text class="red">▴ {{item.rate}}</text>
+				</view>
+				<view class="money">¥ {{item.money}}</view>
+			</view>
+		</view>
+	</view>

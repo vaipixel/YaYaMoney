@@ -1,1 +1,66 @@
 /* components/account-item/account-item.wxss */
+@import '/style/image.wxss';
+
+.account-all{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 254, 251);
+}
+.account-image{
+    
+    margin-left: 5%;
+}
+.context{
+    width: 100%;
+    height: 100%;
+}
+.account{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.account-text{
+    width: 100%;
+    height: 100%;
+    margin-left: 2%;
+}
+.top{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+.bottom{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.found{
+    font-size: 40rpx;
+    color: #05465c;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.money{
+    font-size: 40rpx;
+    color: #05465c;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.found_text{
+    font-size: small;
+    color:  #a1c5d1;
+}
+.account-menu{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.no{
+    display: none;
+}

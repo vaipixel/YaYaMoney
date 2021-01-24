@@ -1,6 +1,10 @@
 {
   "usingComponents": {
     "filter": "/components/filter/filter",
-    "account-item": "/components/account-item/account-item"
+    "account-item": "/components/account-item/account-item",
+    "TitleBar" : "/components/TitleBar/TitleBar",
+    "homeHead" : "/components/homeHead/homeHead",
+    "home-card" : "/components/home-card/home-card"
+
   }
 }

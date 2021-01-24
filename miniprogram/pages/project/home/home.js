@@ -5,6 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    top : getApp().globalData.top,
+    bottom : getApp().globalData.bottom,   //定义body与顶部的距离
+    money : "1000",
+    month : "20120",
+    all_rate : "3.56%",
+    myRate : 4.3,
+    title : getApp().globalData.mainTitleName,
 
   },
 

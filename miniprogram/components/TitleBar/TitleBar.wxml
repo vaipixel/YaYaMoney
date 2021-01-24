@@ -1,0 +1,9 @@
+<!--miniprogram/components/TitleBar/TitleBar.wxml-->
+<view class="topbar" style="padding-top:{{top + 8}}px;height:{{bottom-top}}px">
+    <view class="top">
+        <view class="top-left">菜单</view>
+        <view class="top-center">{{title}}</view>
+        <view></view>
+    </view>
+   
+</view>

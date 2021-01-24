@@ -15,6 +15,11 @@ App({
       })
     }
 
-    this.globalData = {}
+    this.globalData = {
+      top : wx.getMenuButtonBoundingClientRect()['top'],
+      bottom: wx.getMenuButtonBoundingClientRect()['bottom'],
+      mainTitleName : "吖吖资产",
+      scendTitleName : "新增用户"
+    }
   }
 })

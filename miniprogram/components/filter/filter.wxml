@@ -1,4 +1,8 @@
 <!--components/filter/filter.wxml-->
-<view class="root">
-<text wx:for="{{filterIndex}}">{{item}}</text>
+<view class="nav_all">
+    <view class="nav">
+        <view class="nav_item">
+            <view wx:for="{{filterIndex}}" wx:key="{{index}}" data-id="{{index}}" class="{{flag == index ? 'false' : 'true'}}" bindtap="Change">{{item.name}}</view>
+        </view>
+    </view>
 </view>
