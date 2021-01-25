@@ -12,6 +12,7 @@ Page({
     all_rate : "3.56%",
     myRate : 4.3,
     title : getApp().globalData.mainTitleName,
+    top_menu : "菜单",
 
   },
 

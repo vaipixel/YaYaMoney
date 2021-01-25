@@ -1,1 +1,84 @@
 /* miniprogram/pages/project/addAccount/addAccount.wxss */
+page{
+    width: 100%;
+    height: 100%;
+}
+.body{
+    width: 100%;
+    height: 100%;
+}
+.input_view{
+    margin-top: 5%;
+}
+.list{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+.input_text{
+    width: 100%;
+    display: flex;
+}
+.name{
+    font-size: 40rpx;
+    color: rgb(22, 17, 88);
+}
+.title{
+    padding-top: 10rpx;
+    padding-left: 10rpx;
+    font-size: 30rpx;
+    color: rgb(78, 93, 126);
+}
+.input_inp{
+    width: 100%;
+    height: 20%;
+}
+.input_inp>input{
+    margin-top: 2%;
+    border: rgb(229, 229, 230) solid 1rpx;
+    height: 60rpx;
+    text-align: right;
+}
+::-webkit-input-placeholder{
+    color: rgb(34, 25, 155);
+}
+.input_checkbox{
+    width: 100%;
+    height: 150rpx;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.check_box{
+    width: 45%;
+    height: 50%;
+    text-align: center;
+    line-height: 75rpx;
+    background-color: aqua;
+}
+.bottom_button{
+    display: flex;
+    position: fixed;
+    bottom: 5%;
+    width: 100%;
+    justify-content: space-around;
+    
+}
+.but{
+    width: 100%;
+}
+.but>view{
+
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.but>view>button{
+    padding: 0;
+    text-align: center;
+    line-height: 100rpx;
+    width:100%;
+    background-color: aqua;
+    border-radius: 50rpx;
+    text-align: center;
+}

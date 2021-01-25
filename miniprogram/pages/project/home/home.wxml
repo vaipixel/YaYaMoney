@@ -1,23 +1,28 @@
 <!--miniprogram/pages/project/home/home.wxml-->
 <view class="body">
 	<view style="height:{{bottom + 8}}px">
-		<TitleBar />
+		<TitleBar title="{{title}}" top_menu="{{top_menu}}" />
 	</view>
-	<view class="root">
-		<view class="home_head">
-			<homeHead money="{{money}}" month="{{month}}" all_rate="{{all_rate}}"></homeHead>
-		</view>
-		<view class="home_card">
-			<home-card></home-card>
-		</view>
-		<view class="filter"> 
-			<filter></filter>
+	<view class="home_head">
+		<homeHead money="{{money}}" month="{{month}}" all_rate="{{all_rate}}"></homeHead>
+	</view>
+	<view class="home_card">
+		<home-card></home-card>
+	</view>
+	<view class="filter">
+		<filter></filter>
+	</view>
+
+	<view class="account-list">
+		<account-item></account-item>
+	</view>
+
+	<view class="bottom">
+		<view class="bottom-btn">
+			<view class="btn">
+				<button class="btn-text">新增记录</button>
+			</view>
 		</view>
 
-		<view class="account-list">
-			<account-item></account-item>
-		</view>
-
-		<button class="btn">新增记录</button>
 	</view>
 </view>

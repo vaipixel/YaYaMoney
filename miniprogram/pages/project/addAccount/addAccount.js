@@ -5,7 +5,59 @@ Page({
    * 页面的初始数据
    */
   data: {
+    bottom : getApp().globalData.bottom,
+    top_menu : "〈",
+    title : getApp().globalData.scendTitleName,
+    list : [
+      {
+        name : "账户信息",
+        title : "Name",
+        flag : 0,
+        inp : 0,
+      },
+      {
+        name : "账户类型",
+        title : "Type",
+        flag : 0,
+        inp : 0,
+      },
+      {
+        name : "初始金额",
+        title : "Money",
+        flag : 1,
+        inp : 0,
+      },
+      {
+        name : "备注",
+        title : "Remark",
+        flag : 0,
+        inp : 0,
+      },
+      {
+        name : "成员列表",
+        title : "Member",
+        inp : 1,
+        grop : [
+          {
+            name : "我",
+            checked : "true",
+          },
 
+          {
+            name : "老婆",
+            checked : "true",
+          },
+        ],
+      },
+    ],
+    but : [
+      {
+        name : "取消"
+      },
+      {
+        name : "创建"
+      }
+    ],
   },
 
   /**

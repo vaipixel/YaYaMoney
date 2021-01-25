@@ -11,13 +11,15 @@ Component({
    * 组件的初始数据
    */
   data: {
+   
     account : [
       {
         name : "基金",
         money : 10000,
         found_text : "在蛋卷基金上的投资",
         reta : 4.5,
-        flag : false,
+        flag : 0,
+        list: [],
         menu :[
           {
             name : "Claire",
@@ -38,7 +40,8 @@ Component({
         money : 10000,
         found_text : "在蛋卷基金上的投资",
         reta : 4.5,
-        flag : false,
+        flag : 0,
+        list: [],
         menu :[
           {
             name : "Claire",
@@ -63,20 +66,19 @@ Component({
   methods: {
     Select : function (e) {
       var index = e.currentTarget.dataset.id;
-      var list = this.data.account;
-      console.log(list[index].flag)
-      if(!list[index].flag){
-        list[index].flag = true,
+      var array = this.data.account;
+      var flag = array[index].flag;
+      if(flag == 0){
+        array[index].flag = 1,
         this.setData({
-          account : list,
+          account : array,
         })
       }else{
-        list[index].flag = false,
+        array[index].flag = 0,
         this.setData({
-          account : list,
+          account : array,
         })
       }
-      console.log(list[index].flag)
      
     }
   }

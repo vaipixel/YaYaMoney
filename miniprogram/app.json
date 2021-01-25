@@ -1,6 +1,8 @@
 {
     "pages": [
         "pages/project/home/home",
+        "components/account-item/account-item",
+        "pages/project/addAccount/addAccount",
         "pages/project/welcome/welcome",
         "components/TitleBar/TitleBar",
         "pages/index/index",
@@ -17,7 +19,6 @@
         "pages/im/im",
         "pages/im/room/room",
         "pages/project/accountDetail/accountDetail",
-        "pages/project/addAccount/addAccount",
         "components/homeHead/homeHead",
         "components/home-card/home-card",
         "components/home-item/home-item"
