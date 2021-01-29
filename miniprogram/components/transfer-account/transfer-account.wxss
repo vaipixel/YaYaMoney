@@ -1,0 +1,42 @@
+/* components/transfer-account/transfer-account.wxss */
+@import '/style/main.wxss';
+@import '/style/input.wxss';
+
+.top_inp{
+    margin-bottom: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+.head{
+    margin-top: 5%;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+.head>view{
+    width: 40%;
+}
+.inp{
+    border: black solid 1rpx;
+    height: 80rpx;
+    border-radius: 20rpx;
+}
+.body{
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+.body>.inp{
+
+    margin-bottom: 5%;
+}
+.but{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.btn{
+    width: 40%;
+}
+

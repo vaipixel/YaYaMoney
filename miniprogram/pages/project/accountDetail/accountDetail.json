@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "TitleBar" : "/components/TitleBar/TitleBar",
+    "setFound" : "/components/account-setFound/account-setFound",
+    "transfer" : "/components/account-transfer/account-transfer"
+  }
 }

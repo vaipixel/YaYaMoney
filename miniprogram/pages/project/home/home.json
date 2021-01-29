@@ -4,7 +4,8 @@
     "account-item": "/components/account-item/account-item",
     "TitleBar" : "/components/TitleBar/TitleBar",
     "homeHead" : "/components/homeHead/homeHead",
-    "home-card" : "/components/home-card/home-card"
-
+    "home-card" : "/components/home-card/home-card",
+    "monthDialog" : "/components/monthDialog/monthDialog",
+    "setDialog" : "/components/home-foundSet/home-foundSet"
   }
 }

@@ -14,6 +14,23 @@ Component({
             type : String,
                 value : "",
             },
-                
+        
+        },
+    data: {
+        h_flag : false,
+    },
+    methods:{
+        SetMonth : function (params) {
+            if(this.data.h_flag){
+                this.setData({
+                    h_flag : false
+                })
+            }else{
+                this.setData({
+                    h_flag : true
+                })
+            }
         }
+    }
+
 })

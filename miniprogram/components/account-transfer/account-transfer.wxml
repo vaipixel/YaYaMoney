@@ -1,0 +1,8 @@
+<!--miniprogram/components/account-transfer/account-transfer.wxml-->
+<view class="transfer" hidden="{{hidden}}">
+    <view class="head">
+        <view class="left">转账</view>
+        <view class="right" catchtap="show">关闭</view>
+    </view>
+    <transfer></transfer>
+</view>

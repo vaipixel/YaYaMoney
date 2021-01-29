@@ -1,9 +1,9 @@
 <!--miniprogram/components/TitleBar/TitleBar.wxml-->
 <view class="topbar" style="padding-top:{{top + 8}}px;height:{{bottom-top}}px">
     <view class="top">
-        <view class="top-left">{{top_menu}}</view>
+        <view class="top-left" catchtap="Capture">{{top_menu}}</view>
         <view class="top-center">{{title}}</view>
         <view></view>
     </view>
-   
+   <dialog class="dialog" t_flag="{{t_flag}}"></dialog>
 </view>

@@ -4,24 +4,16 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    filterIndex: {
+      type : Array
+    },
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    filterIndex: [
-      {
-       name : '全部',
-      },
-      {
-        name : '我',
-      },
-      {
-      name : '老婆',
-      },
-    ],
+    
     flag : 0,
     
   },
@@ -32,9 +24,12 @@ Component({
   methods: {
     
     Change : function (e) {
+      var id = e.currentTarget.dataset.id
       this.setData({
         flag : e.currentTarget.dataset.id
-      })  
+      });
+
+      this.triggerEvent('setFlag', id) 
    },
   }
 

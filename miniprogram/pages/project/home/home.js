@@ -13,7 +13,23 @@ Page({
     myRate : 4.3,
     title : getApp().globalData.mainTitleName,
     top_menu : "菜单",
-
+    filterIndex: [
+      {
+       name : '全部',
+      },
+      {
+        name : '我',
+      },
+      {
+      name : '老婆',
+      },
+    ],
+    hidden : true,
+  },
+  show : function (e) {
+      this.setData({
+        hidden : false
+      })
   },
 
   /**

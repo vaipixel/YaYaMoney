@@ -1,0 +1,12 @@
+<!--miniprogram/components/menuDialog/menuDialog.wxml-->
+<view class="all" hidden="{{t_flag}}">
+    <view class="menu">
+        <view class="menu_an" wx:for="{{menu}}">
+            <view class="item">
+                <view class="item_text">{{item.name}}</view>
+            </view>
+            <view class="black"></view>
+        </view>
+        
+    </view>
+</view>

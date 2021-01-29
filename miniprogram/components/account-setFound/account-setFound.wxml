@@ -1,0 +1,9 @@
+<!--miniprogram/components/account-setFound/account-setFound.wxml-->
+<view class="setfound" hidden="{{hidden}}">
+    <view class="head">
+        <view class="left">调整金额</view>
+        <view class="right" catchtap="show">关闭</view>
+    </view>
+    
+    <setFound></setFound>
+</view>

@@ -1,0 +1,15 @@
+<!--miniprogram/components/home-foundSet/home-foundSet.wxml-->
+<view class="home-set-found" hidden="{{hidden}}">
+    <view>
+        <view class="close" catchtap="setHidden">取消</view>
+    </view>
+    <view class="nav">
+        <nav  filterIndex="{{filterIndex}}" bind:setFlag="setFlag" ></nav>
+    </view>
+    <view class="sum" hidden="{{flag == 0 ? false : true}}">
+        <sum></sum>
+    </view>
+    <view class="found"  hidden="{{flag == 1 ? false : true}}">
+        <found></found>`
+    </view>
+</view>

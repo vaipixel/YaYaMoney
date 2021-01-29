@@ -80,6 +80,11 @@ Component({
         })
       }
      
+    },
+    ToAccountDetail : function(){
+      wx.navigateTo({
+        url: '/pages/project/accountDetail/accountDetail',
+      })
     }
   }
 })

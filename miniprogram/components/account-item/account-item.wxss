@@ -1,5 +1,6 @@
 /* components/account-item/account-item.wxss */
 @import '/style/image.wxss';
+@import '/style/red.wxss';
 
 page{
     width: 100%;
@@ -31,6 +32,7 @@ page{
     width: 100%;
     height: 90%;
     margin-left: 5%;
+    margin-right: 5%;
 }
 .top{
     width: 100%;
@@ -119,4 +121,14 @@ page{
 .menu-money{
     font-size: small;
     color:  #a1c5d1;
+}
+.hidden{
+    display: none;
+}
+.show{
+    position: relative;
+    animation: mymove .5s ;
+    width: 100%;
+    text-align: right;
+    background-color: rgb(241, 240, 240);
 }

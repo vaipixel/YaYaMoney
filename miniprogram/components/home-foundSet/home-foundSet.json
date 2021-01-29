@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "nav" : "/components/filter/filter",
+    "found" : "/components/transfer-account/transfer-account",
+    "sum" : "/components/setSum/setSum"
+  }
+}

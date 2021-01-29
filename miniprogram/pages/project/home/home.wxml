@@ -3,6 +3,10 @@
 	<view style="height:{{bottom + 8}}px">
 		<TitleBar title="{{title}}" top_menu="{{top_menu}}" />
 	</view>
+	
+	 <view class="month_dialog">
+		<monthDialog></monthDialog>
+	 </view>
 	<view class="home_head">
 		<homeHead money="{{money}}" month="{{month}}" all_rate="{{all_rate}}"></homeHead>
 	</view>
@@ -10,7 +14,7 @@
 		<home-card></home-card>
 	</view>
 	<view class="filter">
-		<filter></filter>
+		<filter filterIndex="{{filterIndex}}" ></filter>
 	</view>
 
 	<view class="account-list">
@@ -20,9 +24,11 @@
 	<view class="bottom">
 		<view class="bottom-btn">
 			<view class="btn">
-				<button class="btn-text">新增记录</button>
+				<button class="btn-text" catchtap="show">新增记录</button>
 			</view>
 		</view>
-
+	</view>
+	<view>
+		<setDialog hidden="{{hidden}}"></setDialog>
 	</view>
 </view>

@@ -1,0 +1,20 @@
+/* miniprogram/components/account-setFound/account-setFound.wxss */
+.setfound{
+    position: absolute;
+    bottom: 0;
+    background-color: whitesmoke;
+}
+.head{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   height: 100rpx;
+   margin-bottom: 5%;
+}
+.left{
+    margin-left: 5%;
+}
+.right{
+    margin-right: 5%;
+}

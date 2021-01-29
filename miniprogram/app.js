@@ -19,7 +19,10 @@ App({
       top : wx.getMenuButtonBoundingClientRect()['top'],
       bottom: wx.getMenuButtonBoundingClientRect()['bottom'],
       mainTitleName : "吖吖资产",
-      scendTitleName : "新增用户"
+      scendTitleName : "新增用户",
+      year : new Date().getFullYear(),
+      month : (new Date().getMonth() + 1 < 10 ? '0' + (new Date().getMonth() + 1) : new Date().getMonth() + 1),
+      day : new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate(),
     }
   }
 })

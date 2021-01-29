@@ -1,0 +1,38 @@
+/* miniprogram/components/setSum/setSum.wxss */
+@import '/style/main.wxss';
+@import '/style/input.wxss';
+
+.head{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+.head>view{
+    width: 40%;
+}
+.inp{
+    border: black solid 1rpx;
+    height: 80rpx;
+    border-radius: 20rpx;
+}
+.body{
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+.body>.inp{
+
+    margin-bottom: 5%;
+}
+.but{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.btn{
+    width: 40%;
+    margin-bottom: 6%;
+}
+
+

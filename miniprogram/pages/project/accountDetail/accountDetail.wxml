@@ -1,2 +1,46 @@
 <!--miniprogram/pages/project/accountDetail/accountDetail.wxml-->
-<text>miniprogram/pages/project/accountDetail/accountDetail.wxml</text>
+<view class="all">
+    <view style="height:{{bottom + 8}}px">
+        <TitleBar title="{{title}}" top_menu="{{top_menu}}"></TitleBar>
+    </view>
+    <view class="body_top">
+        <view class="head">
+            <view class="content-echarts">
+                <canvas canvas-id="Statistical1"></canvas>
+            </view>
+        </view>
+        <view class="head">
+            <view class="content-echarts">
+                <canvas canvas-id="Statistical2"></canvas>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="body_context" wx:for="{{list}}">
+            <view class="list_head">
+                <text>{{item.title_one}}</text> <text> / {{item.title_two}}.</text>
+            </view>
+            <view class="list" data-id="{{index}}" wx:for="{{item.array}}" catchtap="showDialog">
+                <view class="image">
+                    <image src=""></image>
+                </view>
+                <view class="list_text">
+                    <view class="over">
+                        <view>{{item.title}}</view>
+                        <view>￥ {{item.money}}</view>
+                    </view>
+                    <view class="down">
+                        <view>{{item.bank}} > {{item.type}} @ {{item.name}}</view>
+                        <view>{{item.month}}/{{item.day}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <setFound hidden="{{!sum_hidden}}"></setFound>
+    </view>
+    <view>
+        <transfer  hidden="{{!tran_hidden}}"></transfer>
+    </view>
+</view>

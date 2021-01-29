@@ -1,0 +1,10 @@
+<!--miniprogram/components/monthDialog/mothDialog.wxml-->
+<view class="all" hidden="{{!h_flag}}">
+    <view class="item" wx:for="{{text}}">
+        <view class="item_text" catchtap="check">
+            <text>{{item.frist}}</text>
+            <text>{{item.scend}}</text>
+        </view>
+        <view class="black"></view>
+    </view>
+</view>

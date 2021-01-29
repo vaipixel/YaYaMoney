@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "transfer" : "/components/transfer-account/transfer-account"
+  }
+}

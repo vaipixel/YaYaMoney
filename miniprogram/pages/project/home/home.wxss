@@ -42,6 +42,8 @@
 .btn{
     width: 50%;
 }
-.btn>button{
-    
+
+.month_dialog{
+    border: rgb(238, 236, 236) solid 1rpx;
+    border-radius: 50rpx;
 }

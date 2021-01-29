@@ -1,6 +1,6 @@
 <!--components/account-item/account-item.wxml-->
 <view class="account-all">
-    <view class="body"  catchtap="Select" wx:for="{{account}}" wx:key="{{index}}" data-id="{{index}}">
+    <view class="body" catchtap="Select" wx:for="{{account}}" wx:key="{{index}}" data-id="{{index}}">
         <view class="context">
 
             <view class="account">
@@ -20,23 +20,29 @@
             </view>
 
             <view class="all">
-                <view wx:for="{{((item.flag == 1) ? item.menu : item.list)}}" class="scend">
-                    <view class="menu">
-                        <view class="menu-image">
-                            <image src=""></image>
-                        </view>
-                        <view class="menu-text">
-                            <view class="menu-top">
-                                <view class="menu-found">{{item.name}}</view>
-                                <view class="menu-money">￥ {{item.money}}</view>
+                <view wx:for="{{((item.flag == 1) ? item.menu : item.list)}}" >
+                    <view class="scend">
+                        <view class="menu">
+                            <view class="menu-image">
+                                <image src=""></image>
                             </view>
-                            <view class="menu-bottom">
-                                <view class="menu-moneyReta">￥ {{item.retaMoney}}({{item.reta}})</view>
+                            <view class="menu-text">
+                                <view class="menu-top">
+                                    <view class="menu-found">{{item.name}}</view>
+                                    <view class="menu-money">￥ {{item.money}}</view>
+                                </view>
+                                <view class="menu-bottom">
+                                    <view class="menu-moneyReta">￥ {{item.retaMoney}}({{item.reta}})</view>
+                                </view>
                             </view>
                         </view>
                     </view>
                 </view>
+                <view catchtap="ToAccountDetail" class="{{item.flag == 1 ? 'show' : 'hidden'}}"> 
+                        详细信息>>
+                    </view>
             </view>
+
         </view>
     </view>
 
