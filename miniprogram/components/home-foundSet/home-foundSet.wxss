@@ -6,6 +6,7 @@
     position: absolute;
     bottom: 0;
     background-color: white;
+    z-index: 5000;
 }
 .nav{
     width: 100%;

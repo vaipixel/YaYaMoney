@@ -17,6 +17,7 @@ Page({
         array :[
           { 
             title : "转账",
+            img : '',
             money : 1000, 
             bank : "招行",
             type : "基金",
@@ -26,6 +27,7 @@ Page({
           },
           { 
             title : "调整金额",
+            img : '',
             money : 1000, 
             bank : "招行",
             type : "基金",
@@ -43,6 +45,7 @@ Page({
         array :[
           { 
             title : "转账",
+            img : '',
             money : 1000, 
             bank : "招行",
             type : "基金",
@@ -52,6 +55,7 @@ Page({
           },
           { 
             title : "调整金额",
+            img : '',
             money : 1000, 
             bank : "招行",
             type : "基金",

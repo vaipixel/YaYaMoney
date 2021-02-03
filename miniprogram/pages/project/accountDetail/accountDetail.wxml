@@ -22,7 +22,7 @@
             </view>
             <view class="list" data-id="{{index}}" wx:for="{{item.array}}" catchtap="showDialog">
                 <view class="image">
-                    <image src=""></image>
+                    <image src="{{item.img}}"></image>
                 </view>
                 <view class="list_text">
                     <view class="over">

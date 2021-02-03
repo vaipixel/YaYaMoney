@@ -3,14 +3,15 @@
     position: absolute;
     bottom: 0;
     background-color: whitesmoke;
+    z-index: 5000;
 }
 .head{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-   height: 100rpx;
-   margin-bottom: 5%;
+    height: 100rpx;
+    margin-bottom: 5%;
 }
 .left{
     margin-left: 5%;

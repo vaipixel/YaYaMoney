@@ -7,12 +7,14 @@ Page({
     data: {
         context : [
             {
+                img: '',
                 name : "我",
                 rate : 4.3,
                 money: 1000,
 
             },
             {
+                img: '',
                 name : "我",
                 rate : 4.3,
                 money: 1000,
