@@ -1,59 +1,55 @@
-<!--index.wxml-->
+<!-- miniprogram/pages/index/index.wxml -->
 <view class="container">
-
-  <!-- 用户 openid -->
-  <view class="userinfo">
-    <button 
-      open-type="getUserInfo" 
-      bindgetuserinfo="onGetUserInfo"
-      class="userinfo-avatar"
-      style="background-image: url({{avatarUrl}})"
-      size="default"
-    ></button>
-    <view class="userinfo-nickname-wrapper">
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+    <!-- 头部 -->
+    <view class="header">
+        <!-- 整体概览 -->
+        <view class="summary">
+            <!-- 总额部分 -->
+            <view class="top">
+                <!-- 总额 -->
+                <view class="top-left">
+                    <text>总额</text>
+                    <text>CNY</text>
+                </view>
+                <!-- 金额 -->
+                <view class="top-right">
+                    <text>1000K</text>
+                </view>
+            </view>
+            <view class="bottom">
+                <view class="bottom-left">每月</view>
+                <view class="bottom-right">2020（21%）</view>
+            </view>
+        </view>
+        <!-- 用户概览 -->
+        <view class="users">
+            <view class="user">
+                <image src="/assets/images/avatar.png" />
+                <view class="info-group">
+                    <view class="name-group">
+                        <text>我</text>
+                        <text>10%</text>
+                    </view>
+                    <text class="amount">1000</text>
+                </view>
+            </view>
+            <view class="user">
+                <image src="/assets/images/avatar.png" />
+                <view class="info-group">
+                    <view class="name-group">
+                        <text>我</text>
+                        <text>10%</text>
+                    </view>
+                    <text class="amount">1000</text>
+                </view>
+            </view>
+        </view>
     </view>
-  </view>
-
-
-  <!-- 上传图片 -->
-  <view class="uploader">
-    <view class="uploader-text" bindtap="doUpload">
-      <text>上传图片</text>
+    <!-- 内容 -->
+    <view class="body">
+        <!-- 过滤器 -->
+        <view class="filter"></view>
+        <!-- 账户列表 -->
+        <view class="accounts"></view>
     </view>
-    <view class="uploader-container" wx:if="{{imgUrl}}">
-      <image class="uploader-image" src="{{imgUrl}}" mode="aspectFit" bindtap="previewImg"></image>
-    </view>
-  </view>
-
-
-  <!-- 操作数据库 -->
-  <view class="uploader">
-    <navigator url="../databaseGuide/databaseGuide" open-type="navigate" class="uploader-text">
-      <text>前端操作数据库</text>
-    </navigator>
-  </view>
-
-  <!-- 即时通信 -->
-  <view class="uploader">
-    <navigator url="../im/im" open-type="navigate" class="uploader-text">
-      <text>即时通信 Demo</text>
-    </navigator>
-  </view>
-
-  <!-- 新建云函数 -->
-  <view class="uploader">
-    <navigator url="../addFunction/addFunction" open-type="navigate" class="uploader-text">
-      <text>快速新建云函数</text>
-    </navigator>
-  </view>
-
-  <!-- 云调用 -->
-  <view class="uploader">
-    <navigator url="../openapi/openapi" open-type="navigate" class="uploader-text">
-      <text>云调用</text>
-    </navigator>
-  </view>
-
-
 </view>
