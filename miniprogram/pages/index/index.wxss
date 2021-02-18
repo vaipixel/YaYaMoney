@@ -283,3 +283,26 @@ text {
     position: absolute;
     bottom: 58rpx;
 }
+
+.time-pick-dialog .time-container {
+    width: 300rpx;
+    display: flex;
+    flex-direction: column;
+    background: #FEFEFE;
+    border-radius: 20rpx;
+    padding: 42rpx;
+}
+
+.time-pick-dialog .time-container .item {
+    text-align: center;
+    font-size: 40rpx;
+    line-height: 100rpx;
+    color: #38485A;
+    text-indent: 40rpx;
+    letter-spacing: 40rpx;
+}
+
+.time-pick-dialog .time-container .divider {
+    border: 0.5rpx solid #F0EFEC;
+    transform: rotate(0.4deg);
+}

@@ -1,2 +1,8 @@
 <!--components/list-dialog/list-dialog.wxml-->
-<text>components/list-dialog/list-dialog.wxml</text>
+<view class="dialog" hidden="{{isHidden}}">
+    <view class="mask" bindtap="dismiss">
+        <view class="item-container" catchtap="doNothing" hover-stop-propagation="true">
+            <slot></slot>
+        </view>
+    </view>
+</view>

@@ -1,1 +1,26 @@
 /* components/list-dialog/list-dialog.wxss */
+
+.dialog {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+}
+
+.dialog .mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog .item-container {}
+
+.dialog .item {
+    background: white;
+}
