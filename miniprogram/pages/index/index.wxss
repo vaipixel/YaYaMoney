@@ -1,1 +1,163 @@
 /* miniprogram/pages/index/index.wxss */
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+text {
+    font-family: 'PingFang SC'; 
+    font-weight: 600;
+    font-style: normal;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary {
+    width: 452rpx;
+    height: 192rpx;
+}
+
+.summary .top {
+    display: flex;
+}
+
+.summary .top-left {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.summary .top-left text {
+    color: #38485A;
+}
+
+.summary .top-left .total {
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.summary .top-left .unit {
+    font-size: 48rpx;
+    line-height: 68rpx;
+}
+
+.summary .top-right .amount {
+    display: block;
+    color: #187A99;
+    font-size: 110rpx;
+    line-height: 154rpx;
+    text-align: center;
+    margin: 0 0 0 28rpx;
+}
+
+.summary .bottom {
+    display: flex;
+    justify-content: space-between;
+    height: 48rpx;
+}
+
+.summary .time-pick {
+    display: block;
+    text-align: center;
+    width: 132rpx;
+    height: 48rpx;
+    background: #658089;
+    border-radius: 24rpx;
+
+    font-size: 28rpx;
+    line-height: 48rpx;
+    color: #F8FFFF;
+}
+
+.summary .income {
+    font-size: 28rpx;
+    line-height: 48rpx;
+}
+
+.users {
+    width: 100%;
+    height: 140rpx;
+    display: flex;
+    justify-content: space-evenly;
+
+    margin: 46rpx 0 0 0;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    width: 340rpx;
+    height: 140rpx;
+    background: #FEFEFE;
+    border-radius: 20rpx;
+    box-shadow: 0 8rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.user image {
+    width: 100rpx;
+    height: 100rpx;
+    margin: 20rpx;
+}
+
+.user .info-group {
+    width: 55%;
+}
+
+.user .name-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user .name {
+    font-size: 40rpx;
+    line-height: 56rpx;
+    color: #38485A;
+}
+
+.user .rate {
+    font-size: 24rpx;
+    line-height: 34rpx;
+}
+
+.user .amount {
+    font-size: 28rpx;
+
+    color: #90B0B7;
+}
+
+.body {
+    margin: 50rpx 0 0 0;
+}
+
+.filter-group {
+    height: 70rpx;
+    border-radius: 35rpx;
+    background: #658089;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+}
+
+.filter-group .mask {
+    left: 100px;
+    top: 0;
+    position: absolute;
+    width: 100rpx;
+    height: 70rpx;
+    border-radius: 35rpx;
+    background: #FEFEFE;
+}
+
+.filter-group .filter-item {
+    font-size: 32rpx;
+    color: #FEFEFE;
+    line-height: 70rpx;
+    margin: 0 35rpx 0 35rpx;
+}

@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "navigationBarBackgroundColor": "#187A99",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "吖吖资产",
+  "usingComponents": {
+    "filter": "/components/account-filter/account-filter"
+  }
 }

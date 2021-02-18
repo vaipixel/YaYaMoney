@@ -8,17 +8,17 @@
             <view class="top">
                 <!-- 总额 -->
                 <view class="top-left">
-                    <text>总额</text>
-                    <text>CNY</text>
+                    <text class="total">总额</text>
+                    <text class="unit">CNY</text>
                 </view>
                 <!-- 金额 -->
                 <view class="top-right">
-                    <text>1000K</text>
+                    <text class="amount">1000K</text>
                 </view>
             </view>
             <view class="bottom">
-                <view class="bottom-left">每月</view>
-                <view class="bottom-right">2020（21%）</view>
+                <text class="time-pick">每月</text>
+                <text class="income">2020（21%）</text>
             </view>
         </view>
         <!-- 用户概览 -->
@@ -27,20 +27,20 @@
                 <image src="/assets/images/avatar.png" />
                 <view class="info-group">
                     <view class="name-group">
-                        <text>我</text>
-                        <text>10%</text>
+                        <text class="name">我</text>
+                        <text class="rate">10%</text>
                     </view>
-                    <text class="amount">1000</text>
+                    <text class="amount">¥ 1000</text>
                 </view>
             </view>
             <view class="user">
                 <image src="/assets/images/avatar.png" />
                 <view class="info-group">
                     <view class="name-group">
-                        <text>我</text>
-                        <text>10%</text>
+                        <text class="name">我</text>
+                        <text class="rate">10%</text>
                     </view>
-                    <text class="amount">1000</text>
+                    <text class="amount">¥ 1000</text>
                 </view>
             </view>
         </view>
@@ -48,7 +48,17 @@
     <!-- 内容 -->
     <view class="body">
         <!-- 过滤器 -->
-        <view class="filter"></view>
+        <view class="filter-group">
+            <!-- filter -->
+            <view class="filter" accounts="">
+                <!-- filter mask -->
+                <view class="mask"></view>
+                <!-- filter-item -->
+                <text class="filter-item">全部</text>
+                <text class="filter-item">我</text>
+                <text class="filter-item">老婆</text>
+            </view>
+        </view>
         <!-- 账户列表 -->
         <view class="accounts"></view>
     </view>
