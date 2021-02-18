@@ -53,9 +53,35 @@
         <view class="accounts">
             <view class="account">
                 <view class="overview">
-                    
+                    <view class="account-info">
+                        <image class="avatar" src="/assets/images/avatar.png" />
+                        <view class="info">
+                            <text class="item name">基金</text>
+                            <text class="item desc">在蛋卷基金上的投资</text>
+                        </view>
+                    </view>
+                    <view class="account-amount">
+                        <text class="item amount">¥ 10000</text>
+                        <text class="item rate">▴ 4.5%</text>
+                    </view>
                 </view>
-                <view class="users"></view>
+                <view class="users">
+                    <view class="user">
+                        <view class="user-info">
+                            <image src="/assets/images/avatar.png" class="avatar" />
+                            <view class="info">
+                                <text class="name">Claire</text>
+                                <text class="amount">1000K</text>
+                            </view>
+                        </view>
+                        <view class="user-status">
+                            <text class="status">¥ 1039 (4.3%)</text>
+                        </view>
+                    </view>
+                    <view class="detail">
+                        <text class="btn">详细信息 >></text>
+                    </view>
+                </view>
             </view>
         </view>
     </view>
