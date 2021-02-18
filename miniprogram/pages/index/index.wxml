@@ -47,19 +47,16 @@
     </view>
     <!-- 内容 -->
     <view class="body">
-        <!-- 过滤器 -->
-        <view class="filter-group">
-            <!-- filter -->
-            <view class="filter" accounts="">
-                <!-- filter mask -->
-                <view class="mask"></view>
-                <!-- filter-item -->
-                <text class="filter-item">全部</text>
-                <text class="filter-item">我</text>
-                <text class="filter-item">老婆</text>
+        <!-- filter -->
+        <filter></filter>
+        <!-- 账户列表 -->
+        <view class="accounts">
+            <view class="account">
+                <view class="overview">
+                    
+                </view>
+                <view class="users"></view>
             </view>
         </view>
-        <!-- 账户列表 -->
-        <view class="accounts"></view>
     </view>
 </view>

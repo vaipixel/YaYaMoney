@@ -1,2 +1,9 @@
-<!--components/account-filter/account-filter.wxml-->
-<text>components/account-filter/account-filter.wxml</text>
+<!-- components/account-filter/account-filter.wxml -->
+<view class="filter" accounts="">
+    <!-- filter mask -->
+    <!-- filter-item -->
+    <text class="filter-item selected">全部</text>
+    <text class="filter-item">我</text>
+    <text class="filter-item">老婆</text>
+    <view class="mask"></view>
+</view>

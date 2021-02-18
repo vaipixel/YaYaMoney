@@ -1,11 +1,13 @@
 /* miniprogram/pages/index/index.wxss */
+
 .container {
     display: flex;
     flex-direction: column;
+    background: #F6F6F6;
 }
 
 text {
-    font-family: 'PingFang SC'; 
+    font-family: 'PingFang SC';
     font-weight: 600;
     font-style: normal;
 }
@@ -15,6 +17,7 @@ text {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 26rpx 0 0 0;
 }
 
 .summary {
@@ -68,7 +71,6 @@ text {
     height: 48rpx;
     background: #658089;
     border-radius: 24rpx;
-
     font-size: 28rpx;
     line-height: 48rpx;
     color: #F8FFFF;
@@ -84,7 +86,6 @@ text {
     height: 140rpx;
     display: flex;
     justify-content: space-evenly;
-
     margin: 46rpx 0 0 0;
 }
 
@@ -128,36 +129,13 @@ text {
 
 .user .amount {
     font-size: 28rpx;
-
     color: #90B0B7;
 }
 
 .body {
+    width: 100%;
     margin: 50rpx 0 0 0;
-}
-
-.filter-group {
-    height: 70rpx;
-    border-radius: 35rpx;
-    background: #658089;
     display: flex;
-    justify-content: space-between;
-    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
-}
-
-.filter-group .mask {
-    left: 100px;
-    top: 0;
-    position: absolute;
-    width: 100rpx;
-    height: 70rpx;
-    border-radius: 35rpx;
-    background: #FEFEFE;
-}
-
-.filter-group .filter-item {
-    font-size: 32rpx;
-    color: #FEFEFE;
-    line-height: 70rpx;
-    margin: 0 35rpx 0 35rpx;
+    flex-direction: column;
+    align-items: center;
 }

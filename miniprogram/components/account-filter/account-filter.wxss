@@ -1,1 +1,36 @@
 /* components/account-filter/account-filter.wxss */
+.filter {
+    width: fit-content;
+    height: 70rpx;
+    border-radius: 35rpx;
+    background: #658089;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+
+    display: grid;
+    grid-template-columns: fit-content(150rpx) fit-content(150rpx) fit-content(150rpx);
+}
+
+.filter .mask {
+    width: 130rpx;
+    height: 70rpx;
+    grid-area: 1/1/1/1;
+    position: absolute;
+    z-index: 1;
+    border-radius: 35rpx;
+    box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+    background: #FEFEFE;
+}
+
+.filter .filter-item {
+    width: max-content;
+    text-align: center;
+    font-size: 32rpx;
+    color: #FEFEFE;
+    line-height: 70rpx;
+    z-index: 2;
+    margin: 0 35rpx 0 35rpx;
+}
+
+.filter .selected {
+    color: #38485A;
+}
