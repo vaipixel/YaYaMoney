@@ -266,3 +266,20 @@ text {
     line-height: 34rpx;
     color: #658089;
 }
+
+
+/* 按钮 */
+
+.add-record-btn {
+    width: 240rpx;
+    height: 104rpx;
+    background: #187A99;
+    color: #F8FFFF;
+    font-size: 34rpx;
+    box-shadow: 0 8rpx 8rpx rgba(116, 200, 207, 0.46);
+    border-radius: 52rpx;
+    text-align: center;
+    line-height: 104rpx;
+    position: absolute;
+    bottom: 58rpx;
+}

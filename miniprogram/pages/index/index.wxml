@@ -85,4 +85,7 @@
             </view>
         </view>
     </view>
+    <view class="add-record-btn" bindtap="addRecord">
+        <text class="text">新增记录</text>
+    </view>
 </view>
