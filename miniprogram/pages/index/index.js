@@ -68,5 +68,11 @@ Page({
         this.setData({
             isTimePickDialogHidden: false
         })
+    },
+    navToAccountDetail: function() {
+        console.log('navToAccountDetail');
+        wx.navigateTo({
+            url: '/pages/account/account?accountId=1'
+        })
     }
 })

@@ -1,2 +1,40 @@
-<!--miniprogram/pages/account/account.wxml-->
-<text>miniprogram/pages/account/account.wxml</text>
+<!-- miniprogram/pages/account/account.wxml -->
+<view class="container">
+  <wxs src="./account.wxs" module="accountUtils"></wxs>
+  <!-- Chart -->
+  <view class="chart"></view>
+  <view class="record-list">
+    <view
+      class="month"
+      wx:for="{{accountInfo.recordList}}"
+      wx:for-index="index"
+      wx:for-item="month"
+      wx:key="index"
+    >
+      <view class="title-group">
+        <text class="title">{{month.name}}</text>
+        <text class="subtitle">{{accountUtils.getMonthSubName(month.name)}}</text>
+      </view>
+      <view class="record-group">
+        <!-- 记录条目，可以预定义一些 -->
+        <view class="item-wrap" wx:for="{{month.record}}" wx:key="index" wx:for-item="record">
+          <view class="item">
+            <view class="info-group">
+              <image class="icon" src="{{accountUtils.getRecordIcon(record.type)}}" />
+              <view class="name-group">
+                <text class="name">{{accountUtils.getRecordName(record.type)}}</text>
+                <text class="desc">{{record.desc}}</text>
+              </view>
+            </view>
+            <view class="status-group">
+              <text class="amount">¥ {{record.amount}}</text>
+              <text class="date">{{record.date}}</text>
+            </view>
+          </view>
+          <view wx:if="{{index == month.record.length - 1}}"></view>
+          <view wx:else class="divider"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,52 @@
+var getMonthSubName = function(monthName) {
+    switch (monthName) {
+        case '一月':
+            return '/ Jan.'
+        case '二月':
+            return '/ Feb.'
+        case '三月':
+            return '/ Mar.'
+        case '四月':
+            return '/ Apr.'
+        case '五月':
+            return '/ May.'
+        case '六月':
+            return '/ Jun.'
+        case '七月':
+            return '/ Jul.'
+        case '八月':
+            return '/ Aug.'
+        case '九月':
+            return '/ Sept.'
+        case '十月':
+            return '/ Oct.'
+        case '十一月':
+            return '/ Nov.'
+        case '十二月':
+            return '/ Dec.'
+    }
+}
+
+var getRecordIcon = function(recordType) {
+    switch (recordType) {
+        case 1:
+            return "/assets/images/transfer.svg"
+        case 2:
+            return "/assets/images/adjust-money.svg"
+    }
+}
+
+var getRecordName = function(recordType) {
+    switch (recordType) {
+        case 1:
+            return "转账"
+        case 2:
+            return "调整余额"
+    }
+}
+
+module.exports = {
+    getMonthSubName: getMonthSubName,
+    getRecordIcon: getRecordIcon,
+    getRecordName: getRecordName
+}

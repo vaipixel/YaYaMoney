@@ -79,7 +79,7 @@
                         </view>
                     </view>
                     <view class="detail">
-                        <text class="btn">详细信息 >></text>
+                        <text class="btn" bindtap="navToAccountDetail">详细信息 >></text>
                     </view>
                 </view>
             </view>

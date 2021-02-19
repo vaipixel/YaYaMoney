@@ -1,15 +1,10 @@
 /* miniprogram/pages/index/index.wxss */
 
+@import '/assets/css/main.wxss';
 .container {
     display: flex;
     flex-direction: column;
     background: #F6F6F6;
-}
-
-text {
-    font-family: 'PingFang SC';
-    font-weight: 600;
-    font-style: normal;
 }
 
 .header {
