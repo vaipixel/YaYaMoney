@@ -19,7 +19,10 @@
     justify-content: center;
 }
 
-.dialog .item-container {}
+.dialog .item-container {
+    width: max-content;
+    height: max-content;
+}
 
 .dialog .item {
     background: white;

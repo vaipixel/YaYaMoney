@@ -279,7 +279,7 @@
     bottom: 58rpx;
 }
 
-.time-pick-dialog .time-container {
+.time-container {
     width: 300rpx;
     display: flex;
     flex-direction: column;
@@ -288,7 +288,7 @@
     padding: 42rpx;
 }
 
-.time-pick-dialog .time-container .item {
+.time-container .item {
     text-align: center;
     font-size: 40rpx;
     line-height: 100rpx;
@@ -297,7 +297,7 @@
     letter-spacing: 40rpx;
 }
 
-.time-pick-dialog .time-container .divider {
+.time-container .divider {
     border: 0.5rpx solid #F0EFEC;
     transform: rotate(0.4deg);
 }

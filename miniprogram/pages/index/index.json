@@ -4,6 +4,6 @@
     "navigationBarTitleText": "吖吖资产",
     "usingComponents": {
         "filter": "/components/account-filter/account-filter",
-        "dialog": "/components/list-dialog/list-dialog"
+        "dialog": "/components/dialog/dialog"
     }
 }

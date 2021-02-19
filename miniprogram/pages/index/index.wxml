@@ -1,102 +1,102 @@
 <!-- miniprogram/pages/index/index.wxml -->
 <view class="container">
-    <!-- 头部 -->
-    <view class="header">
-        <!-- 整体概览 -->
-        <view class="summary">
-            <!-- 总额部分 -->
-            <view class="top">
-                <!-- 总额 -->
-                <view class="top-left">
-                    <text class="total">总额</text>
-                    <text class="unit">CNY</text>
-                </view>
-                <!-- 金额 -->
-                <view class="top-right">
-                    <text class="amount">1000K</text>
-                </view>
-            </view>
-            <view class="bottom">
-                <text class="time-pick" bindtap="showTimePickerDialog">每月</text>
-                <text class="income">2020（21%）</text>
-            </view>
+  <!-- 头部 -->
+  <view class="header">
+    <!-- 整体概览 -->
+    <view class="summary">
+      <!-- 总额部分 -->
+      <view class="top">
+        <!-- 总额 -->
+        <view class="top-left">
+          <text class="total">总额</text>
+          <text class="unit">CNY</text>
         </view>
-        <!-- 用户概览 -->
+        <!-- 金额 -->
+        <view class="top-right">
+          <text class="amount">1000K</text>
+        </view>
+      </view>
+      <view class="bottom">
+        <text class="time-pick" bindtap="showTimePickerDialog">每月</text>
+        <text class="income">2020（21%）</text>
+      </view>
+    </view>
+    <!-- 用户概览 -->
+    <view class="users">
+      <view class="user">
+        <image src="/assets/images/avatar.png" />
+        <view class="info-group">
+          <view class="name-group">
+            <text class="name">我</text>
+            <text class="rate">10%</text>
+          </view>
+          <text class="amount">¥ 1000</text>
+        </view>
+      </view>
+      <view class="user">
+        <image src="/assets/images/avatar.png" />
+        <view class="info-group">
+          <view class="name-group">
+            <text class="name">我</text>
+            <text class="rate">10%</text>
+          </view>
+          <text class="amount">¥ 1000</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 内容 -->
+  <view class="body">
+    <!-- filter -->
+    <filter></filter>
+    <!-- 账户列表 -->
+    <view class="accounts">
+      <view class="account">
+        <view class="overview">
+          <view class="account-info">
+            <image class="avatar" src="/assets/images/avatar.png" />
+            <view class="info">
+              <text class="item name">基金</text>
+              <text class="item desc">在蛋卷基金上的投资</text>
+            </view>
+          </view>
+          <view class="account-amount">
+            <text class="item amount">¥ 10000</text>
+            <text class="item rate">▴ 4.5%</text>
+          </view>
+        </view>
         <view class="users">
-            <view class="user">
-                <image src="/assets/images/avatar.png" />
-                <view class="info-group">
-                    <view class="name-group">
-                        <text class="name">我</text>
-                        <text class="rate">10%</text>
-                    </view>
-                    <text class="amount">¥ 1000</text>
-                </view>
+          <view class="user">
+            <view class="user-info">
+              <image src="/assets/images/avatar.png" class="avatar" />
+              <view class="info">
+                <text class="name">Claire</text>
+                <text class="amount">1000K</text>
+              </view>
             </view>
-            <view class="user">
-                <image src="/assets/images/avatar.png" />
-                <view class="info-group">
-                    <view class="name-group">
-                        <text class="name">我</text>
-                        <text class="rate">10%</text>
-                    </view>
-                    <text class="amount">¥ 1000</text>
-                </view>
+            <view class="user-status">
+              <text class="status">¥ 1039 (4.3%)</text>
             </view>
+          </view>
+          <view class="detail">
+            <text class="btn" bindtap="navToAccountDetail">详细信息 >></text>
+          </view>
         </view>
+      </view>
     </view>
-    <!-- 内容 -->
-    <view class="body">
-        <!-- filter -->
-        <filter></filter>
-        <!-- 账户列表 -->
-        <view class="accounts">
-            <view class="account">
-                <view class="overview">
-                    <view class="account-info">
-                        <image class="avatar" src="/assets/images/avatar.png" />
-                        <view class="info">
-                            <text class="item name">基金</text>
-                            <text class="item desc">在蛋卷基金上的投资</text>
-                        </view>
-                    </view>
-                    <view class="account-amount">
-                        <text class="item amount">¥ 10000</text>
-                        <text class="item rate">▴ 4.5%</text>
-                    </view>
-                </view>
-                <view class="users">
-                    <view class="user">
-                        <view class="user-info">
-                            <image src="/assets/images/avatar.png" class="avatar" />
-                            <view class="info">
-                                <text class="name">Claire</text>
-                                <text class="amount">1000K</text>
-                            </view>
-                        </view>
-                        <view class="user-status">
-                            <text class="status">¥ 1039 (4.3%)</text>
-                        </view>
-                    </view>
-                    <view class="detail">
-                        <text class="btn" bindtap="navToAccountDetail">详细信息 >></text>
-                    </view>
-                </view>
-            </view>
-        </view>
+  </view>
+  <view class="add-record-btn" bindtap="addRecord">
+    <text class="text">新增记录</text>
+  </view>
+  <dialog class="time-pick-dialog" is-hidden="{{isTimePickDialogHidden}}">
+    <view class="time-container">
+      <text class="item">每日</text>
+      <view class="divider"></view>
+      <text class="item">每周</text>
+      <view class="divider"></view>
+      <text class="item">每月</text>
+      <view class="divider"></view>
+      <text class="item">每年</text>
     </view>
-    <view class="add-record-btn" bindtap="addRecord">
-        <text class="text">新增记录</text>
-    </view>
-    <dialog class="time-pick-dialog" is-hidden="{{isTimePickDialogHidden}}">
-        <view class="time-container">
-            <text class="item">每日</text>
-            <view class="divider"></view>
-            <text class="item">每周</text>
-            <view class="divider"></view>
-            <text class="item">每月</text>
-            <view class="divider"></view>
-            <text class="item">每年</text>
-        </view>
-    </dialog>
+  </dialog>
 </view>

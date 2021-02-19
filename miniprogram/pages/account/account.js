@@ -10,12 +10,14 @@ Page({
                     month: "2020-06",
                     name: "六月",
                     record: [{
+                            id: 1,
                             type: 1,
                             amount: 1001,
                             desc: "招行 > 基金 @我",
                             date: "06/23"
                         },
                         {
+                            id: 2,
                             type: 2,
                             amount: 1000,
                             desc: "招行 @老婆",
@@ -27,12 +29,14 @@ Page({
                     month: "2020-07",
                     name: "七月",
                     record: [{
+                            id: 3,
                             type: 1,
                             amount: 1000,
                             desc: "招行 > 基金 @我",
                             date: "07/23"
                         },
                         {
+                            id: 4,
                             type: 2,
                             amount: 1000,
                             desc: "招行 @老婆",
@@ -100,6 +104,10 @@ Page({
 
     },
     requestAccountDetail: function(accountId) {
-
+        console.log('requestAccountDetail ' + accountId);
+    },
+    editRecord: function(e) {
+        var recordId = e.target.dataset.recordId;
+        console.log('editRecord ' + recordId);
     }
 })

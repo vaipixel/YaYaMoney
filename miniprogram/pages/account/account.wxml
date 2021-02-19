@@ -18,7 +18,7 @@
       <view class="record-group">
         <!-- 记录条目，可以预定义一些 -->
         <view class="item-wrap" wx:for="{{month.record}}" wx:key="index" wx:for-item="record">
-          <view class="item">
+          <view class="item" bindtap="editRecord" data-record-id="{{record.id}}">
             <view class="info-group">
               <image class="icon" src="{{accountUtils.getRecordIcon(record.type)}}" />
               <view class="name-group">
@@ -37,4 +37,5 @@
       </view>
     </view>
   </view>
+  <dialog></dialog>
 </view>

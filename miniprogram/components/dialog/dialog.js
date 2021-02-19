@@ -1,5 +1,8 @@
 // components/list-dialog/list-dialog.js
 Component({
+    options: {
+        virtualHost: true
+    },
     /**
      * 组件的属性列表
      */
