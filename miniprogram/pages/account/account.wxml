@@ -18,7 +18,7 @@
       <view class="record-group">
         <!-- 记录条目，可以预定义一些 -->
         <view class="item-wrap" wx:for="{{month.record}}" wx:key="index" wx:for-item="record">
-          <view class="item" bindtap="editRecord" data-record-id="{{record.id}}">
+          <view class="item" bindtap="showEditRecordDialog" data-record-type="{{record.type}}">
             <view class="info-group">
               <image class="icon" src="{{accountUtils.getRecordIcon(record.type)}}" />
               <view class="name-group">
@@ -37,5 +37,63 @@
       </view>
     </view>
   </view>
-  <dialog></dialog>
 </view>
+<dialog is-hidden="{{pageInfo.isAdjustMoneyDialogHidden}}" dismiss-by-click-outside="{{false}}">
+  <view class="dialog adjust-money-dialog">
+    <view class="title-bar">
+      <text class="title">调整余额</text>
+      <image class="close" src="/assets/images/close.svg" bindtap="dismissAdjustMoneyDialog" />
+    </view>
+    <view class="form-container">
+      <view class="form-item line-1">
+        <input class="input half account" placeholder="账户" />
+        <input class="input half amount" placeholder="金额" type="digit" />
+      </view>
+      <view class="form-item line-2">
+        <input class="input fill comment" placeholder="备注" />
+      </view>
+      <view class="form-item line-3">
+        <input class="input fill date" value="121" />
+      </view>
+      <view class="form-item actions">
+        <view class="btn half delete">
+          <text>删除</text>
+        </view>
+        <view class="btn half modify">
+          <text>修改</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</dialog>
+<dialog is-hidden="{{pageInfo.isTransferDialogHidden}}" dismiss-by-click-outside="{{false}}">
+  <view class="dialog adjust-money-dialog">
+    <view class="title-bar">
+      <text class="title">转账</text>
+      <image class="close" src="/assets/images/close.svg" bindtap="dismissTransferDialog" />
+    </view>
+    <view class="form-container">
+      <view class="form-item line-1">
+        <input class="input fill amount" placeholder="金额" type="digit" />
+      </view>
+      <view class="form-item line-2">
+        <input class="input half account" placeholder="转出账户" />
+        <input class="input half account" placeholder="转入账户" />
+      </view>
+      <view class="form-item line-3">
+        <input class="input fill comment" placeholder="备注" />
+      </view>
+      <view class="form-item line-4">
+        <input class="input fill date" value="121" />
+      </view>
+      <view class="form-item actions">
+        <view class="btn half delete">
+          <text>删除</text>
+        </view>
+        <view class="btn half modify">
+          <text>修改</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</dialog>

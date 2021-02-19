@@ -45,6 +45,12 @@ Page({
                     ]
                 }
             ]
+        },
+        pageInfo: {
+            // 调整余额对话框是否隐藏
+            isAdjustMoneyDialogHidden: true,
+            // 转账对话框是否隐藏
+            isTransferDialogHidden: true
         }
     },
 
@@ -105,6 +111,40 @@ Page({
     },
     requestAccountDetail: function(accountId) {
         console.log('requestAccountDetail ' + accountId);
+    },
+    showEditRecordDialog: function(e) {
+        var recordType = e.target.dataset.recordType
+        console.log(recordType);
+        switch (recordType) {
+            case 1:
+                // 转账
+                this.showTransferDialog();
+                break
+            case 2:
+                // 调整余额
+                this.showAdjustMoneyDialog()
+                break
+        }
+    },
+    showAdjustMoneyDialog: function() {
+        this.setData({
+            'pageInfo.isAdjustMoneyDialogHidden': false
+        })
+    },
+    dismissAdjustMoneyDialog: function() {
+        this.setData({
+            'pageInfo.isAdjustMoneyDialogHidden': true
+        })
+    },
+    showTransferDialog: function() {
+        this.setData({
+            'pageInfo.isTransferDialogHidden': false
+        })
+    },
+    dismissTransferDialog: function() {
+        this.setData({
+            'pageInfo.isTransferDialogHidden': true
+        })
     },
     editRecord: function(e) {
         var recordId = e.target.dataset.recordId;

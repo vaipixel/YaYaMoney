@@ -10,6 +10,10 @@ Component({
         isHidden: {
             type: Boolean,
             value: true
+        },
+        dismissByClickOutside: {
+            type: Boolean,
+            value: true
         }
     },
 
@@ -22,6 +26,11 @@ Component({
      * 组件的方法列表
      */
     methods: {
+        clickOutside: function() {
+            if (this.data.dismissByClickOutside) {
+                this.dismiss()
+            }
+        },
         dismiss: function() {
             console.log("dismiss")
             this.setData({

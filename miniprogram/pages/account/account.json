@@ -1,5 +1,5 @@
 {
     "usingComponents": {
-        "dialog": "/components/bottom-dialog/bottom-dialog"
+        "dialog": "/components/dialog/dialog"
     }
 }

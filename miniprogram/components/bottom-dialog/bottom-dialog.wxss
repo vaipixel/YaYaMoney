@@ -1,7 +1,0 @@
-/* components/bottom-dialog/bottom-dialog.wxss */
-
-.container {
-    width: 100px;
-    height: 100px;
-    background: white;
-}

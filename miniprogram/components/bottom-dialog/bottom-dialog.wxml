@@ -1,4 +1,0 @@
-<!--components/bottom-dialog/bottom-dialog.wxml-->
-<dialog isHidden="false">
-  <view class="container"></view>
-</dialog>
