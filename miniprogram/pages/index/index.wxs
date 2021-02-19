@@ -1,0 +1,20 @@
+var getRateAbs = function(rate) {
+    if (rate.indexOf("-") === 0) {
+        return rate.replace("-", "")
+    } else {
+        return rate
+    }
+}
+
+var getRateStatus = function(rate) {
+    if (rate.indexOf("-") === 0) {
+        return "▼"
+    } else {
+        return "▲"
+    }
+}
+
+module.exports = {
+    getRateAbs: getRateAbs,
+    getRateStatus: getRateStatus
+}

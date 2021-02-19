@@ -5,8 +5,98 @@ Page({
      * 页面的初始数据
      */
     data: {
-        // 时间选择 dialog 是否隐藏
-        isTimePickDialogHidden: true
+        pageInfo: {
+            // 时间选择 dialog 是否隐藏
+            isIntervalPickDialogHidden: true,
+            currentInterval: "每月"
+        },
+        overview: {
+            total: '1001K',
+            income: "1002",
+            rate: "3.56%"
+        },
+        members: {
+            me: {
+                uid: "",
+                avatar: "/assets/images/avatar.png",
+                name: "我",
+                alias: "我",
+                amount: 1010,
+                rate: "11%"
+            },
+            partner: {
+                uid: "",
+                avatar: "/assets/images/avatar.png",
+                name: "老婆",
+                alias: "老婆",
+                amount: 2000,
+                rate: "12%"
+            }
+        },
+        accounts: [{
+                accountId: "1",
+                accountName: "基金",
+                accountDesc: "在蛋卷基金上的投资",
+                accountIcon: "/assets/images/avatar.png",
+                accountAmount: 10010,
+                accountRate: "4.5%",
+                members: [{
+                        uid: "",
+                        name: "我",
+                        alias: "我",
+                        avatar: "/assets/images/avatar.png",
+                        amount: 1000,
+                        incomeStatus: {
+                            income: 100,
+                            rate: "4.5%"
+                        }
+                    },
+                    {
+                        uid: "",
+                        name: "老婆",
+                        alias: "老婆",
+                        avatar: "/assets/images/avatar.png",
+                        amount: 1000,
+                        incomeStatus: {
+                            income: 100,
+                            rate: "4.5%"
+                        }
+                    }
+                ]
+            },
+            {
+                accountId: "2",
+                accountName: "股票",
+                accountDesc: "股票交易",
+                accountIcon: "/assets/images/avatar.png",
+                accountAmount: 10001,
+                accountRate: "-4.5%",
+                members: [{
+                        uid: "",
+                        name: "我",
+                        alias: "我",
+                        avatar: "/assets/images/avatar.png",
+                        amount: 1000,
+                        incomeStatus: {
+                            income: 100,
+                            rate: "4.5%"
+                        }
+                    },
+                    {
+                        uid: "",
+                        name: "老婆",
+                        alias: "老婆",
+                        avatar: "/assets/images/avatar.png",
+                        amount: 1000,
+                        incomeStatus: {
+                            income: 100,
+                            rate: "4.5%"
+                        }
+                    }
+                ]
+            }
+        ]
+
     },
 
     /**
@@ -64,15 +154,27 @@ Page({
     onShareAppMessage: function() {
 
     },
-    showTimePickerDialog: function() {
+    showIntervalPickerDialog: function() {
         this.setData({
-            isTimePickDialogHidden: false
+            'pageInfo.isIntervalPickDialogHidden': false
         })
     },
-    navToAccountDetail: function() {
-        console.log('navToAccountDetail');
-        wx.navigateTo({
-            url: '/pages/account/account?accountId=1'
+    dismissIntervalPickerDialog: function() {
+        this.setData({
+            'pageInfo.isIntervalPickDialogHidden': true
         })
+    },
+    navToAccountDetail: function(e) {
+        var accountId = e.target.dataset.accountId;
+        wx.navigateTo({
+            url: "/pages/account/account?accountId=" + accountId
+        });
+    },
+    changeInterval: function(e) {
+        var selectedInterval = e.target.dataset.interval;
+        this.dismissIntervalPickerDialog();
+        this.setData({
+            'pageInfo.currentInterval': selectedInterval
+        });
     }
 })

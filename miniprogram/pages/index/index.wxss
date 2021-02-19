@@ -137,6 +137,7 @@
 
 .accounts {
     width: 100%;
+    padding: 0 0 100rpx 0;
 }
 
 .account {
@@ -207,12 +208,13 @@
 }
 
 .account .users {
-    padding: 40rpx;
+    padding: 0 40rpx 0 40rpx;
 }
 
 .account .user {
     display: flex;
     justify-content: space-between;
+    margin: 40rpx 0 0 0;
 }
 
 .account .user-info {
@@ -250,7 +252,7 @@
 
 .account .users .detail {
     display: block;
-    margin-top: 30rpx;
+    margin-top: 8rpx;
     text-align: right;
 }
 
@@ -275,11 +277,12 @@
     border-radius: 52rpx;
     text-align: center;
     line-height: 104rpx;
-    position: absolute;
+    float: left;
+    position: fixed;
     bottom: 58rpx;
 }
 
-.time-container {
+.interval-container {
     width: 300rpx;
     display: flex;
     flex-direction: column;
@@ -288,7 +291,7 @@
     padding: 42rpx;
 }
 
-.time-container .item {
+.interval-container .item {
     text-align: center;
     font-size: 40rpx;
     line-height: 100rpx;
@@ -297,7 +300,7 @@
     letter-spacing: 40rpx;
 }
 
-.time-container .divider {
+.interval-container .divider {
     border: 0.5rpx solid #F0EFEC;
     transform: rotate(0.4deg);
 }

@@ -1,4 +1,5 @@
 <!-- miniprogram/pages/index/index.wxml -->
+<wxs module="utils" src="./index.wxs"></wxs>
 <view class="container">
   <!-- 头部 -->
   <view class="header">
@@ -13,34 +14,34 @@
         </view>
         <!-- 金额 -->
         <view class="top-right">
-          <text class="amount">1000K</text>
+          <text class="amount">{{overview.total}}</text>
         </view>
       </view>
       <view class="bottom">
-        <text class="time-pick" bindtap="showTimePickerDialog">每月</text>
-        <text class="income">2020（21%）</text>
+        <text class="time-pick" bindtap="showIntervalPickerDialog">{{pageInfo.currentInterval}}</text>
+        <text class="income">{{overview.income}}（{{overview.rate}}）</text>
       </view>
     </view>
     <!-- 用户概览 -->
     <view class="users">
       <view class="user">
-        <image src="/assets/images/avatar.png" />
+        <image src="{{members.me.avatar}}" />
         <view class="info-group">
           <view class="name-group">
-            <text class="name">我</text>
-            <text class="rate">10%</text>
+            <text class="name">{{members.me.alias}}</text>
+            <text class="rate">{{members.me.rate}}</text>
           </view>
-          <text class="amount">¥ 1000</text>
+          <text class="amount">¥ {{members.me.amount}}</text>
         </view>
       </view>
       <view class="user">
-        <image src="/assets/images/avatar.png" />
+        <image src="{{members.partner.avatar}}" />
         <view class="info-group">
           <view class="name-group">
-            <text class="name">我</text>
-            <text class="rate">10%</text>
+            <text class="name">{{members.partner.alias}}</text>
+            <text class="rate">{{members.partner.rate}}</text>
           </view>
-          <text class="amount">¥ 1000</text>
+          <text class="amount">¥ {{members.partner.amount}}</text>
         </view>
       </view>
     </view>
@@ -51,35 +52,41 @@
     <filter></filter>
     <!-- 账户列表 -->
     <view class="accounts">
-      <view class="account">
+      <view class="account" wx:for="{{accounts}}" wx:key="index" wx:for-item="account">
         <view class="overview">
           <view class="account-info">
-            <image class="avatar" src="/assets/images/avatar.png" />
+            <image class="avatar" src="{{account.accountIcon}}" />
             <view class="info">
-              <text class="item name">基金</text>
-              <text class="item desc">在蛋卷基金上的投资</text>
+              <text class="item name">{{account.accountName}}</text>
+              <text class="item desc">{{account.accountDesc}}</text>
             </view>
           </view>
           <view class="account-amount">
-            <text class="item amount">¥ 10000</text>
-            <text class="item rate">▴ 4.5%</text>
+            <text class="item amount">¥ {{account.accountAmount}}</text>
+            <text
+              class="item rate"
+            >{{utils.getRateStatus(account.accountRate)}} {{utils.getRateAbs(account.accountRate)}}</text>
           </view>
         </view>
         <view class="users">
-          <view class="user">
+          <view class="user" wx:for="{{account.members}}" wx:key="index" wx:for-item="member">
             <view class="user-info">
-              <image src="/assets/images/avatar.png" class="avatar" />
+              <image src="{{member.avatar}}" class="avatar" />
               <view class="info">
-                <text class="name">Claire</text>
-                <text class="amount">1000K</text>
+                <text class="name">{{member.alias}}</text>
+                <text class="amount">¥ {{member.amount}}</text>
               </view>
             </view>
             <view class="user-status">
-              <text class="status">¥ 1039 (4.3%)</text>
+              <text class="status">¥ {{member.incomeStatus.income}} ({{member.incomeStatus.rate}})</text>
             </view>
           </view>
           <view class="detail">
-            <text class="btn" bindtap="navToAccountDetail">详细信息 >></text>
+            <text
+              class="btn"
+              bindtap="navToAccountDetail"
+              data-account-id="{{account.accountId}}"
+            >详细信息 >></text>
           </view>
         </view>
       </view>
@@ -88,15 +95,15 @@
   <view class="add-record-btn" bindtap="addRecord">
     <text class="text">新增记录</text>
   </view>
-  <dialog class="time-pick-dialog" is-hidden="{{isTimePickDialogHidden}}">
-    <view class="time-container">
-      <text class="item">每日</text>
+  <dialog is-hidden="{{pageInfo.isIntervalPickDialogHidden}}">
+    <view class="interval-container">
+      <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
       <view class="divider"></view>
-      <text class="item">每周</text>
+      <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
       <view class="divider"></view>
-      <text class="item">每月</text>
+      <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
       <view class="divider"></view>
-      <text class="item">每年</text>
+      <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
     </view>
   </dialog>
 </view>
