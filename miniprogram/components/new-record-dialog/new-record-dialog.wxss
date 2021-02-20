@@ -3,3 +3,6 @@
 @import '/assets/css/main.wxss';
 @import '/assets/css/form.wxss';
 @import '/assets/css/dialog.wxss';
+.new-record-dialog .date {
+    text-align: center;
+}

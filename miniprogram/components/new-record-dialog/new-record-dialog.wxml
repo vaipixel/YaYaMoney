@@ -18,7 +18,15 @@
             <input class="input fill" placeholder="备注" />
           </view>
           <view class="form-item">
-            <input class="input fill" placeholder="日期" />
+            <picker
+              class="fill"
+              mode="date"
+              value="{{recordData.date}}"
+              start="2015-09-01"
+              bindchange="onDateChanged"
+            >
+              <view class="input date" placeholder="日期" value="" />
+            </picker>
           </view>
           <view class="form-item actions">
             <view class="btn half cancel">
