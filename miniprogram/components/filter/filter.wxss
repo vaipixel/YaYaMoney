@@ -1,17 +1,16 @@
-/* components/account-filter/account-filter.wxss */
+/* components/filter/filter.wxss */
+
 .filter {
     width: fit-content;
     height: 70rpx;
     border-radius: 35rpx;
     background: #658089;
     box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
-
     display: grid;
     grid-template-columns: fit-content(150rpx) fit-content(150rpx) fit-content(150rpx);
 }
 
 .filter .mask {
-    width: 130rpx;
     height: 70rpx;
     grid-area: 1/1/1/1;
     position: absolute;
@@ -19,6 +18,10 @@
     border-radius: 35rpx;
     box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
     background: #FEFEFE;
+}
+
+.filter .mask-transition {
+    transition: all 0.25s;
 }
 
 .filter .filter-item {

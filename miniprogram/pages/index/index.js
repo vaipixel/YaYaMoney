@@ -8,7 +8,10 @@ Page({
         pageInfo: {
             // 时间选择 dialog 是否隐藏
             isIntervalPickDialogHidden: true,
-            currentInterval: "每月"
+            currentInterval: "每月",
+            filterData: [
+                "全部", "我", "老婆"
+            ]
         },
         overview: {
             total: '1001K',
@@ -176,5 +179,9 @@ Page({
         this.setData({
             'pageInfo.currentInterval': selectedInterval
         });
+    },
+    onFilterChanged: function(e) {
+        let filter = e.detail.filter;
+        console.log(filter);
     }
 })

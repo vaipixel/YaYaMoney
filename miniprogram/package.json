@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "is-number": "^7.0.0"
+    "is-number": "^7.0.0",
+    "miniprogram-computed": "^4.0.1"
   }
 }

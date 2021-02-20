@@ -3,7 +3,7 @@
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "吖吖资产",
     "usingComponents": {
-        "filter": "/components/account-filter/account-filter",
+        "filter": "/components/filter/filter",
         "dialog": "/components/dialog/dialog"
     }
 }

@@ -1,0 +1,15 @@
+<!-- components/account-filter/account-filter.wxml -->
+<view class="filter" accounts>
+  <text
+    wx:for="{{filterData}}"
+    wx:for-item="filter"
+    wx:key="index"
+    class="filter-item {{currentSelected === filter ? 'selected' : ''}}"
+    bindtap="changeSelected"
+    data-selected-index="{{index}}"
+  >{{filter}}</text>
+  <view
+    class="mask mask-transition"
+    style="width: {{mask.width}}; margin-left: {{mask.marginLeft}}"
+  ></view>
+</view>

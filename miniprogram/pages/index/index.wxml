@@ -49,7 +49,7 @@
   <!-- 内容 -->
   <view class="body">
     <!-- filter -->
-    <filter></filter>
+    <filter filter-data="{{pageInfo.filterData}}" bind:filter-changed="onFilterChanged"></filter>
     <!-- 账户列表 -->
     <view class="accounts">
       <view class="account" wx:for="{{accounts}}" wx:key="index" wx:for-item="account">

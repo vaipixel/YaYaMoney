@@ -42,6 +42,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+miniprogram_npm/
 jspm_packages/
 
 # TypeScript cache
