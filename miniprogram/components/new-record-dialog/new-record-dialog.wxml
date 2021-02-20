@@ -25,7 +25,7 @@
               start="2015-09-01"
               bindchange="onDateChanged"
             >
-              <view class="input date" placeholder="日期" value="" />
+              <view class="input date" placeholder="日期" value>{{formatDate}}</view>
             </picker>
           </view>
           <view class="form-item actions">
