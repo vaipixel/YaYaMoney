@@ -20,7 +20,7 @@ Component({
      * 组件的初始数据
      */
     data: {
-        filterData: [
+        tabData: [
             '调整余额',
             '转账'
         ],
@@ -51,6 +51,10 @@ Component({
         },
         _getCurrentDate: function() {
             return dateUtils.dateFormat('YYYY-mm-dd', new Date())
+        },
+        onRecordTypeChange: function(e) {
+            let recordType = e.detail.tab;
+            console.log(recordType);
         }
     },
     lifetimes: {

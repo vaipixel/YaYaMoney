@@ -1,6 +1,6 @@
 /* components/filter/filter.wxss */
 
-.filter {
+.tab-bar {
     width: fit-content;
     height: 70rpx;
     border-radius: 35rpx;
@@ -10,7 +10,7 @@
     grid-template-columns: fit-content(250rpx) fit-content(250rpx) fit-content(250rpx);
 }
 
-.filter .mask {
+.tab-bar .mask {
     height: 70rpx;
     grid-area: 1/1/1/1;
     position: absolute;
@@ -20,11 +20,11 @@
     background: #FEFEFE;
 }
 
-.filter .mask-transition {
+.tab-bar .mask-transition {
     transition: all 0.25s;
 }
 
-.filter .filter-item {
+.tab-bar .tab {
     width: max-content;
     text-align: center;
     font-size: 32rpx;
@@ -34,6 +34,6 @@
     margin: 0 35rpx 0 35rpx;
 }
 
-.filter .selected {
+.tab-bar .selected {
     color: #38485A;
 }

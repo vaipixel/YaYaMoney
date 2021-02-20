@@ -7,10 +7,10 @@ Page({
     data: {
         // 统计区间选择 dialog 是否隐藏
         isIntervalPickDialogShow: false,
-        isAddRecordDialogShow: false,
+        isAddRecordDialogShow: true,
         pageInfo: {
             currentInterval: "每月",
-            filterData: [
+            tabData: [
                 "全部", "我", "老婆"
             ]
         },
@@ -191,8 +191,8 @@ Page({
             'pageInfo.currentInterval': selectedInterval
         });
     },
-    onFilterChanged: function(e) {
-        let filter = e.detail.filter;
-        console.log(filter);
+    onTabChanged: function(e) {
+        let tab = e.detail.tab;
+        console.log(tab);
     }
 })
