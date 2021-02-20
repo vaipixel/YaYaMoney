@@ -34,7 +34,7 @@ Component({
         dismiss: function() {
             console.log("dismiss")
             this.setData({
-                'isShow': false
+                isShow: false
             })
         },
         doNothing: function() {

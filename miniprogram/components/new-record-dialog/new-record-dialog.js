@@ -22,9 +22,7 @@ Component({
             '转账'
         ]
     },
-    observers: {
-        isShow: function() {}
-    },
+    observers: {},
     /**
      * 组件的方法列表
      */

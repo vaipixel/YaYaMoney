@@ -5,10 +5,10 @@ Page({
      * 页面的初始数据
      */
     data: {
+        // 统计区间选择 dialog 是否隐藏
+        isIntervalPickDialogShow: false,
+        isAddRecordDialogShow: false,
         pageInfo: {
-            // 时间选择 dialog 是否隐藏
-            isIntervalPickDialogShow: false,
-            isAddRecordDialogShow: false,
             currentInterval: "每月",
             filterData: [
                 "全部", "我", "老婆"
@@ -160,22 +160,22 @@ Page({
     },
     showIntervalPickerDialog: function() {
         this.setData({
-            'pageInfo.isIntervalPickDialogShow': true
+            isIntervalPickDialogShow: true
         })
     },
     dismissIntervalPickerDialog: function() {
         this.setData({
-            'pageInfo.isIntervalPickDialogShow': false
+            isIntervalPickDialogShow: false
         })
     },
     showAddRecordDialog: function() {
         this.setData({
-            'pageInfo.isAddRecordDialogShow': true
+            isAddRecordDialogShow: true
         })
     },
     dismissAddRecordDialog: function() {
         this.setData({
-            'pageInfo.isAddRecordDialogShow': false
+            isAddRecordDialogShow: false
         })
     },
     navToAccountDetail: function(e) {
