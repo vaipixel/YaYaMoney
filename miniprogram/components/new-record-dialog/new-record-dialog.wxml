@@ -1,19 +1,34 @@
 <!--components/new-record-dialog/new-record-dialog.wxml-->
-<dialog is-hidden="{{false}}">
-  <view class="dialog">
-    <view class="title-bar">
-      <image class="close" src="/assets/images/close.svg" />
+<dialog is-hidden="{{isHidden}}">
+  <view class="dialog bottom new-record-dialog">
+    <view class="title-bar right">
+      <image class="close" src="/assets/images/close.svg" catch:tap="dismiss" />
     </view>
     <view class="content">
       <view class="filter">
         <filter filter-data="{{filterData}}"></filter>
       </view>
-      <view class="form">
-        <view class="form-item"></view>
-        <view class="form-item"></view>
-        <view class="form-item"></view>
-        <view class="form-item"></view>
-        <view class="actions"></view>
+      <view class="forms">
+        <view class="form">
+          <view class="form-item">
+            <input class="input half" placeholder="账户" />
+            <input class="input half" placeholder="金额" />
+          </view>
+          <view class="form-item">
+            <input class="input fill" placeholder="备注" />
+          </view>
+          <view class="form-item">
+            <input class="input fill" placeholder="日期" />
+          </view>
+          <view class="form-item actions">
+            <view class="btn half cancel">
+              <text>取消</text>
+            </view>
+            <view class="btn half add">
+              <text>添加</text>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>

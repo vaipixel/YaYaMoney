@@ -2,6 +2,7 @@
 
 @import '/assets/css/main.wxss';
 @import '/assets/css/form.wxss';
+@import '/assets/css/dialog.wxss';
 .record-list {
     width: 100%;
     display: flex;
@@ -108,7 +109,7 @@
     border: 1rpx solid #F0EFEC;
 }
 
-.dialog {
+.adjust-money-dialog {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -119,21 +120,4 @@
     display: flex;
     flex-direction: column;
     padding: 26rpx 30rpx 50rpx 30rpx;
-}
-
-.dialog .title-bar {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 20rpx 0;
-}
-
-.dialog .title-bar .title {
-    font-size: 36rpx;
-    line-height: 40rpx;
-    color: #38485A;
-}
-
-.dialog .title-bar .close {
-    width: 40rpx;
-    height: 40rpx;
 }

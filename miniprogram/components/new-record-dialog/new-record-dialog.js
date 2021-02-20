@@ -7,7 +7,10 @@ Component({
      * 组件的属性列表
      */
     properties: {
-
+        isHidden: {
+            type: Boolean,
+            value: true
+        }
     },
 
     /**
@@ -19,11 +22,17 @@ Component({
             '转账'
         ]
     },
-
+    observers: {
+        isHidden: function() {}
+    },
     /**
      * 组件的方法列表
      */
     methods: {
-
+        dismiss: function() {
+            this.setData({
+                isHidden: true
+            })
+        }
     }
 })

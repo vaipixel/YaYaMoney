@@ -68,6 +68,7 @@ Component({
                 }, function(res) {
                     for (let index = 0; index < res.length; index++) {
                         const item = res[index];
+                        console.log(item);
                         let margin = numbersUtils.getNumberFromStr(item.marginLeft);
                         filters[index].width = item.width + margin * 2;
                     }
@@ -97,6 +98,10 @@ Component({
                 return
             }
             this.initUI();
+
+        },
+        ready: function() {
+            console.log('ready');
         }
     }
 })

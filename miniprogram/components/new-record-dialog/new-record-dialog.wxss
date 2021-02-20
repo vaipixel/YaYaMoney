@@ -1,1 +1,5 @@
 /* components/new-record-dialog/new-record-dialog.wxss */
+
+@import '/assets/css/main.wxss';
+@import '/assets/css/form.wxss';
+@import '/assets/css/dialog.wxss';

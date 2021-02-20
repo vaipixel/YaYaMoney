@@ -8,6 +8,7 @@ Page({
         pageInfo: {
             // 时间选择 dialog 是否隐藏
             isIntervalPickDialogHidden: true,
+            isAddRecordDialogHidden: true,
             currentInterval: "每月",
             filterData: [
                 "全部", "我", "老婆"
@@ -165,6 +166,16 @@ Page({
     dismissIntervalPickerDialog: function() {
         this.setData({
             'pageInfo.isIntervalPickDialogHidden': true
+        })
+    },
+    showAddRecordDialog: function() {
+        this.setData({
+            'pageInfo.isAddRecordDialogHidden': false
+        })
+    },
+    dismissAddRecordDialog: function() {
+        this.setData({
+            'pageInfo.isAddRecordDialogHidden': true
         })
     },
     navToAccountDetail: function(e) {

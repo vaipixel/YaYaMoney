@@ -47,6 +47,14 @@
     background: #E64E64;
 }
 
-.actions .modify {
+.form .actions .modify {
+    background: #187A99;
+}
+
+.form .actions .cancel {
+    background: #90B0B7;
+}
+
+.form .actions .add {
     background: #187A99;
 }

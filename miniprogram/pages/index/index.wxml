@@ -92,19 +92,19 @@
       </view>
     </view>
   </view>
-  <view class="add-record-btn" bindtap="addRecord">
+  <view class="add-record-btn" catch:tap="showAddRecordDialog">
     <text class="text">新增记录</text>
   </view>
-  <dialog is-hidden="{{pageInfo.isIntervalPickDialogHidden}}">
-    <view class="interval-container">
-      <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
-    </view>
-  </dialog>
 </view>
-<new-record-dialog></new-record-dialog>
+<dialog is-hidden="{{pageInfo.isIntervalPickDialogHidden}}">
+  <view class="interval-container">
+    <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
+    <view class="divider"></view>
+    <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
+    <view class="divider"></view>
+    <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
+    <view class="divider"></view>
+    <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
+  </view>
+</dialog>
+<new-record-dialog is-hidden="{{pageInfo.isAddRecordDialogHidden}}"></new-record-dialog>
