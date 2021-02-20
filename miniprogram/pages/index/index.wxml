@@ -107,4 +107,7 @@
     <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
   </view>
 </dialog>
-<new-record-dialog is-show="{{pageInfo.isAddRecordDialogShow}}"></new-record-dialog>
+<new-record-dialog
+  wx:if="{{pageInfo.isAddRecordDialogShow}}"
+  is-show="{{pageInfo.isAddRecordDialogShow}}"
+></new-record-dialog>

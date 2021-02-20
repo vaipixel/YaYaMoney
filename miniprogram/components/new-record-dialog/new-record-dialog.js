@@ -34,5 +34,16 @@ Component({
                 isShow: false
             })
         }
+    },
+    lifetimes: {
+        attached: function() {
+            console.log('dialog attached');
+        },
+        moved: function() {
+            console.log('dialog moved');
+        },
+        detached: function() {
+            console.log('dialog detached');
+        }
     }
 })

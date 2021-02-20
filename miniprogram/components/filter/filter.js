@@ -1,5 +1,4 @@
 // components/account-filter/account-filter.js
-const uiUtils = require('../../utils/uiUtils.js');
 const numbersUtils = require('../../utils/numberUtils.js');
 
 Component({
@@ -68,7 +67,6 @@ Component({
                 }, function(res) {
                     for (let index = 0; index < res.length; index++) {
                         const item = res[index];
-                        console.log(item);
                         let margin = numbersUtils.getNumberFromStr(item.marginLeft);
                         filters[index].width = item.width + margin * 2;
                     }
@@ -87,6 +85,7 @@ Component({
     },
     lifetimes: {
         attached: function() {
+            console.log('attached');
             let filters = this.data.filters
             this.data.filterData.forEach(item => {
                 filters.push({
@@ -100,8 +99,22 @@ Component({
             this.initUI();
 
         },
+        detached: function() {
+            console.log('detached');
+        },
         ready: function() {
             console.log('ready');
+        },
+        moved: function() {
+            console.log('moved');
+        }
+    },
+    pageLifetimes: {
+        show: function() {
+            console.log('show');
+        },
+        resize: function() {
+            console.log('resize');
         }
     }
 })

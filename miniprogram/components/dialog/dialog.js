@@ -44,7 +44,5 @@ Component({
             console.log('_propertyChange');
         }
     },
-    attached: function() {
-        console.log("attached " + this.data.data);
-    }
+    attached: function() {}
 })
