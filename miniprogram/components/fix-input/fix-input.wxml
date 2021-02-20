@@ -1,0 +1,9 @@
+<!--components/fix-input/fix-input.wxml-->
+<input
+  always-embed="{{alwaysEmbed}}"
+  placeholder="{{placeholder}}"
+  type="{{type}}"
+  cursor-spacing="{{cursorSpacing}}"
+  disabled="{{disabled}}"
+  style="width:100%;height: 100%"
+/>

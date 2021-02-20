@@ -46,14 +46,14 @@
     </view>
     <view class="form">
       <view class="form-item line-1">
-        <input class="input half account" placeholder="账户" />
-        <input class="input half amount" placeholder="金额" type="digit" />
+        <fix-input class="input half account" placeholder="账户" />
+        <fix-input class="input half amount" placeholder="金额" type="digit" />
       </view>
       <view class="form-item line-2">
-        <input class="input fill comment" placeholder="备注" />
+        <fix-input class="input fill comment" placeholder="备注" />
       </view>
       <view class="form-item line-3">
-        <input class="input fill date" value="121" />
+        <fix-input class="input fill date" value="121" />
       </view>
       <view class="form-item actions">
         <view class="btn half delete">
@@ -74,17 +74,17 @@
     </view>
     <view class="form">
       <view class="form-item line-1">
-        <input class="input fill amount" placeholder="金额" type="digit" />
+        <fix-input class="input fill amount" placeholder="金额" type="digit" />
       </view>
       <view class="form-item line-2">
-        <input class="input half account" placeholder="转出账户" />
-        <input class="input half account" placeholder="转入账户" />
+        <fix-input class="input half account" placeholder="转出账户" />
+        <fix-input class="input half account" placeholder="转入账户" />
       </view>
       <view class="form-item line-3">
-        <input class="input fill comment" placeholder="备注" />
+        <fix-input class="input fill comment" placeholder="备注" />
       </view>
       <view class="form-item line-4">
-        <input class="input fill date" value="121" />
+        <fix-input class="input fill date" value="121" />
       </view>
       <view class="form-item actions">
         <view class="btn half delete">

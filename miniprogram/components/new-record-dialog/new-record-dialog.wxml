@@ -11,11 +11,11 @@
       <view class="forms">
         <view class="form">
           <view class="form-item">
-            <input class="input half" placeholder="账户" />
-            <input class="input half" placeholder="金额" />
+            <fix-input class="input half" placeholder="账户"></fix-input>
+            <fix-input class="input half" type="digit" placeholder="金额"></fix-input>
           </view>
           <view class="form-item">
-            <input class="input fill" placeholder="备注" />
+            <fix-input class="input fill" placeholder="备注"></fix-input>
           </view>
           <view class="form-item">
             <picker
