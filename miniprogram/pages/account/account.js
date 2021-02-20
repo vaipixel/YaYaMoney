@@ -48,9 +48,9 @@ Page({
         },
         pageInfo: {
             // 调整余额对话框是否隐藏
-            isAdjustMoneyDialogHidden: true,
+            isAdjustMoneyDialogShow: false,
             // 转账对话框是否隐藏
-            isTransferDialogHidden: true
+            isTransferDialogShow: false
         }
     },
 
@@ -128,22 +128,22 @@ Page({
     },
     showAdjustMoneyDialog: function() {
         this.setData({
-            'pageInfo.isAdjustMoneyDialogHidden': false
+            'pageInfo.isAdjustMoneyDialogShow': true
         })
     },
     dismissAdjustMoneyDialog: function() {
         this.setData({
-            'pageInfo.isAdjustMoneyDialogHidden': true
+            'pageInfo.isAdjustMoneyDialogShow': false
         })
     },
     showTransferDialog: function() {
         this.setData({
-            'pageInfo.isTransferDialogHidden': false
+            'pageInfo.isTransferDialogShow': true
         })
     },
     dismissTransferDialog: function() {
         this.setData({
-            'pageInfo.isTransferDialogHidden': true
+            'pageInfo.isTransferDialogShow': false
         })
     },
     editRecord: function(e) {

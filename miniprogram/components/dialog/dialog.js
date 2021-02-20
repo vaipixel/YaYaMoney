@@ -7,9 +7,9 @@ Component({
      * 组件的属性列表
      */
     properties: {
-        isHidden: {
+        isShow: {
             type: Boolean,
-            value: true
+            value: false
         },
         dismissByClickOutside: {
             type: Boolean,
@@ -34,7 +34,7 @@ Component({
         dismiss: function() {
             console.log("dismiss")
             this.setData({
-                'isHidden': true
+                'isShow': false
             })
         },
         doNothing: function() {

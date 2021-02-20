@@ -1,5 +1,5 @@
 <!--components/list-dialog/list-dialog.wxml-->
-<view class="dialog" hidden="{{isHidden}}">
+<view class="dialog" wx:if="{{isShow}}">
   <view class="mask" catch:tap="clickOutside" catch:touchmove="doNothing">
     <view class="item-container" catchtap="doNothing" hover-stop-propagation="true">
       <slot></slot>

@@ -7,9 +7,9 @@ Component({
      * 组件的属性列表
      */
     properties: {
-        isHidden: {
+        isShow: {
             type: Boolean,
-            value: true
+            value: false
         }
     },
 
@@ -23,7 +23,7 @@ Component({
         ]
     },
     observers: {
-        isHidden: function() {}
+        isShow: function() {}
     },
     /**
      * 组件的方法列表
@@ -31,7 +31,7 @@ Component({
     methods: {
         dismiss: function() {
             this.setData({
-                isHidden: true
+                isShow: false
             })
         }
     }

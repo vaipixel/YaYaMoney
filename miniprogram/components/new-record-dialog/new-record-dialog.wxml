@@ -1,5 +1,5 @@
 <!--components/new-record-dialog/new-record-dialog.wxml-->
-<dialog is-hidden="{{isHidden}}">
+<dialog is-show="{{isShow}}">
   <view class="dialog bottom new-record-dialog">
     <view class="title-bar right">
       <image class="close" src="/assets/images/close.svg" catch:tap="dismiss" />

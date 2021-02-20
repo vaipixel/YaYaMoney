@@ -7,8 +7,8 @@ Page({
     data: {
         pageInfo: {
             // 时间选择 dialog 是否隐藏
-            isIntervalPickDialogHidden: true,
-            isAddRecordDialogHidden: true,
+            isIntervalPickDialogShow: false,
+            isAddRecordDialogShow: false,
             currentInterval: "每月",
             filterData: [
                 "全部", "我", "老婆"
@@ -160,22 +160,22 @@ Page({
     },
     showIntervalPickerDialog: function() {
         this.setData({
-            'pageInfo.isIntervalPickDialogHidden': false
+            'pageInfo.isIntervalPickDialogShow': true
         })
     },
     dismissIntervalPickerDialog: function() {
         this.setData({
-            'pageInfo.isIntervalPickDialogHidden': true
+            'pageInfo.isIntervalPickDialogShow': false
         })
     },
     showAddRecordDialog: function() {
         this.setData({
-            'pageInfo.isAddRecordDialogHidden': false
+            'pageInfo.isAddRecordDialogShow': true
         })
     },
     dismissAddRecordDialog: function() {
         this.setData({
-            'pageInfo.isAddRecordDialogHidden': true
+            'pageInfo.isAddRecordDialogShow': false
         })
     },
     navToAccountDetail: function(e) {
