@@ -7,7 +7,7 @@
     background: #658089;
     box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
     display: grid;
-    grid-template-columns: fit-content(150rpx) fit-content(150rpx) fit-content(150rpx);
+    grid-template-columns: fit-content(250rpx) fit-content(250rpx) fit-content(250rpx);
 }
 
 .filter .mask {

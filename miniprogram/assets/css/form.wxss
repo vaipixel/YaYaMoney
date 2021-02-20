@@ -1,0 +1,52 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form .form-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 40rpx 0 0 0;
+}
+
+.form .input {
+    height: 90rpx;
+    border: 1rpx solid #38485A;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    text-align: right;
+    padding: 16rpx;
+    font-size: 40rpx;
+    color: #38485A;
+}
+
+.form .date {
+    text-align: center;
+}
+
+.form .half {
+    width: 48%;
+}
+
+.form .fill {
+    width: 100%;
+}
+
+.form .btn {
+    height: 104rpx;
+    border-radius: 52rpx;
+    box-shadow: 0 8rpx 8rpx rgba(116, 200, 207, 0.46);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F8FFFF;
+    font-size: 34rpx;
+}
+
+.form .actions .delete {
+    background: #E64E64;
+}
+
+.actions .modify {
+    background: #187A99;
+}

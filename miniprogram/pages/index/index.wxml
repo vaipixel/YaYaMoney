@@ -107,3 +107,4 @@
     </view>
   </dialog>
 </view>
+<new-record-dialog></new-record-dialog>

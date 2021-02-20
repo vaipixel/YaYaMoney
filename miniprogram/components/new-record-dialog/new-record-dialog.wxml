@@ -1,2 +1,20 @@
 <!--components/new-record-dialog/new-record-dialog.wxml-->
-<text>components/new-record-dialog/new-record-dialog.wxml</text>
+<dialog is-hidden="{{false}}">
+  <view class="dialog">
+    <view class="title-bar">
+      <image class="close" src="/assets/images/close.svg" />
+    </view>
+    <view class="content">
+      <view class="filter">
+        <filter filter-data="{{filterData}}"></filter>
+      </view>
+      <view class="form">
+        <view class="form-item"></view>
+        <view class="form-item"></view>
+        <view class="form-item"></view>
+        <view class="form-item"></view>
+        <view class="actions"></view>
+      </view>
+    </view>
+  </view>
+</dialog>

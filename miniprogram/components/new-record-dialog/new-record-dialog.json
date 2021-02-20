@@ -1,4 +1,7 @@
 {
-  "component": true,
-  "usingComponents": {}
+    "component": true,
+    "usingComponents": {
+        "filter": "/components/filter/filter",
+        "dialog": "/components/dialog/dialog"
+    }
 }

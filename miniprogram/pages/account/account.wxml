@@ -44,7 +44,7 @@
       <text class="title">调整余额</text>
       <image class="close" src="/assets/images/close.svg" bindtap="dismissAdjustMoneyDialog" />
     </view>
-    <view class="form-container">
+    <view class="form">
       <view class="form-item line-1">
         <input class="input half account" placeholder="账户" />
         <input class="input half amount" placeholder="金额" type="digit" />
@@ -72,7 +72,7 @@
       <text class="title">转账</text>
       <image class="close" src="/assets/images/close.svg" bindtap="dismissTransferDialog" />
     </view>
-    <view class="form-container">
+    <view class="form">
       <view class="form-item line-1">
         <input class="input fill amount" placeholder="金额" type="digit" />
       </view>
