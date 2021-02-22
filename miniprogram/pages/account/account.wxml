@@ -38,7 +38,11 @@
     </view>
   </view>
 </view>
-<dialog is-show="{{pageInfo.isAdjustMoneyDialogShow}}" dismiss-by-click-outside="{{false}}">
+<dialog
+  wx:if="{{pageInfo.isAdjustMoneyDialogShow}}"
+  is-show="{{pageInfo.isAdjustMoneyDialogShow}}"
+  dismiss-by-click-outside="{{false}}"
+>
   <view class="dialog adjust-money-dialog">
     <view class="title-bar between">
       <text class="title">调整余额</text>
@@ -66,7 +70,11 @@
     </view>
   </view>
 </dialog>
-<dialog is-show="{{pageInfo.isTransferDialogShow}}" dismiss-by-click-outside="{{false}}">
+<dialog
+  wx:if="{{pageInfo.isTransferDialogShow}}"
+  is-show="{{pageInfo.isTransferDialogShow}}"
+  dismiss-by-click-outside="{{false}}"
+>
   <view class="dialog adjust-money-dialog">
     <view class="title-bar between">
       <text class="title">转账</text>

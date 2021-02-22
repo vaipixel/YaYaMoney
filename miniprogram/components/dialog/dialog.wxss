@@ -29,7 +29,3 @@
 .dialog .item {
     background: white;
 }
-
-.dialog .show {}
-
-.dialog .dismiss {}
