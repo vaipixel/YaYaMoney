@@ -7,7 +7,7 @@ Page({
     data: {
         // 统计区间选择 dialog 是否隐藏
         isIntervalPickDialogShow: false,
-        isAddRecordDialogShow: true,
+        isAddRecordDialogShow: false,
         pageInfo: {
             currentInterval: "每月",
             tabData: [
