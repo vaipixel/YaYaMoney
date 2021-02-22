@@ -81,13 +81,8 @@ Component({
             this.setData({
                 'recordData.date': this._getCurrentDate()
             });
-            console.log("saasdc");
-            console.log(await tabCalculate.getAdjustMoneyTabHeight());
-
         },
-        ready: function() {
-            console.log(this.calculateTabHeight);
-        },
+        ready: function() {},
         moved: function() {
             console.log('dialog moved');
         },

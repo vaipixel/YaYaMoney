@@ -13,13 +13,11 @@ function promisifyForWxSdk(fn) {
 
 function promisifyForUI() {
     return async function(context, selector, fields) {
-        console.log('promisifyForUI');
         return new Promise((resolve, reject) => {
             context.createSelectorQuery()
                 .select(selector)
                 .fields(fields)
                 .exec(function(res) {
-                    console.log(res.top);
                     resolve(res[0])
                 });
         });

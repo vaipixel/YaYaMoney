@@ -17,6 +17,5 @@ App({
 
         this.globalData = {};
         wx.async = toAsync(['login', 'request']);
-        console.log(wx.async);
     }
 })

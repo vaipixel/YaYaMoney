@@ -4,6 +4,7 @@ Page({
     /**
      * 页面的初始数据
      */
+
     data: {
         // 统计区间选择 dialog 是否隐藏
         isIntervalPickDialogShow: false,
@@ -102,7 +103,6 @@ Page({
         ]
 
     },
-
     /**
      * 生命周期函数--监听页面加载
      */

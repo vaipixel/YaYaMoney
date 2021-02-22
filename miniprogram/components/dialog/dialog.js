@@ -21,7 +21,7 @@ Component({
      * 组件的初始数据
      */
     data: {},
-
+    observers: {},
     /**
      * 组件的方法列表
      */
@@ -44,5 +44,16 @@ Component({
             console.log('_propertyChange');
         }
     },
-    attached: function() {}
+    lifetimes: {
+        attached: function() {
+            this.animate('.mask', [{
+                    opacity: 0
+                },
+                {
+                    opacity: 0.3
+                }
+            ], 250)
+        },
+
+    }
 })
