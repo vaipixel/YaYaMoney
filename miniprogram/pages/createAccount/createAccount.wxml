@@ -1,2 +1,86 @@
 <!--miniprogram/pages/createAccount/createAccount.wxml-->
-<text>miniprogram/pages/createAccount/createAccount.wxml</text>
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <view class="label-group">
+        <text class="label">成员列表</text>
+        <text class="sub-label">/ Member</text>
+      </view>
+      <view class="members">
+        <view
+          class="member {{members.me.checked ? 'checked' : ''}}"
+          bind:tap="onMemberTaped"
+          data-user-name="{{members.me.alias}}"
+        >
+          <text>{{members.me.alias}}</text>
+          <image
+            class="tag {{members.me.checked ? 'checked' : ''}}"
+            src="/assets/images/checked.svg"
+          />
+        </view>
+        <view
+          class="member {{members.partner.checked ? 'checked' : ''}}"
+          bind:tap="onMemberTaped"
+          data-user-name="{{members.partner.alias}}"
+        >
+          <text>{{members.partner.alias}}</text>
+          <image
+            class="tag {{members.partner.checked ? 'checked' : ''}}"
+            src="/assets/images/checked.svg"
+          />
+        </view>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="label-group">
+        <text class="label">账户名称</text>
+        <text class="sub-label">/ Name</text>
+      </view>
+      <fix-input class="input fill" placeholder="账户名称" model:value="{{acocuntName}}"></fix-input>
+    </view>
+    <view class="form-item">
+      <view class="label-group">
+        <text class="label">账户类型</text>
+        <text class="sub-label">/ Type</text>
+      </view>
+      <fix-input class="input fill" placeholder="账户类型" model:value="{{accountType}}"></fix-input>
+    </view>
+    <view class="money-me" wx:if="{{members.me.checked}}">
+      <view class="form-item member-money">
+        <view class="label-group">
+          <text class="label">初始金额 - 我</text>
+          <text class="sub-label">/ Money</text>
+        </view>
+        <fix-input class="input fill" placeholder="初始金额 - 我" model:value="{{accountInitMoneyOfMe}}"></fix-input>
+      </view>
+    </view>
+    <view class="money-partner" wx:if="{{members.partner.checked}}">
+      <view class="form-item">
+        <view class="label-group">
+          <text class="label">初始金额 - 老婆</text>
+          <text class="sub-label">/ Money</text>
+        </view>
+        <fix-input
+          class="input fill"
+          placeholder="初始金额 - 老婆"
+          model:value="{{accountInitMoneyOfPartner}}"
+        ></fix-input>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="label-group">
+        <text class="label">备注</text>
+        <text class="sub-label">/ Remark</text>
+      </view>
+      <fix-input class="input fill" placeholder="备注" model:value="{{comment}}"></fix-input>
+    </view>
+    <view class="form-item actions">
+      <view class="btn half cancel">
+        <text>取消</text>
+      </view>
+      <view class="btn half add">
+        <text>添加</text>
+      </view>
+    </view>
+  </view>
+</view>

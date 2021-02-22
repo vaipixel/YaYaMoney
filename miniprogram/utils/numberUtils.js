@@ -1,5 +1,5 @@
 function getNumberFromStr(str) {
-    return str.replace(/[^0-9]/ig, "");
+    return parseInt(str.replace(/[^0-9]/ig, ""));
 }
 
 module.exports = {

@@ -23,6 +23,10 @@ Component({
         alwaysEmbed: {
             type: Boolean,
             value: true
+        },
+        value: {
+            type: String,
+            value: ""
         }
     },
 

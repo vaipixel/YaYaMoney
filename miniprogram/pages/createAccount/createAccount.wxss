@@ -1,1 +1,111 @@
 /* miniprogram/pages/createAccount/createAccount.wxss */
+
+@import '/assets/css/main.wxss';
+@import '/assets/css/form.wxss';
+.container {
+    width: 100%;
+    padding: 0 40rpx 0 40rpx;
+}
+
+.form {
+    width: 100%;
+    margin: 50rpx 0 0 0;
+    padding-bottom: 100rpx;
+}
+
+.form .form-item {
+    flex-direction: column;
+    transition: all 1s;
+    overflow: hidden;
+    padding: 40rpx 0 0 0;
+    margin: 0;
+}
+
+.form-item.actions {
+    flex-direction: row;
+}
+
+.label {
+    font-size: 34rpx;
+    font-weight: normal;
+    line-height: 50rpx;
+    color: #38485A;
+}
+
+.sub-label {
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 20rpx;
+    line-height: 28rpx;
+    color: #90B0B7;
+    margin: 0 0 0 10rpx;
+}
+
+.label-group {
+    margin: 0 0 14rpx 0;
+}
+
+.form .input {
+    height: 80rpx;
+    font-size: 34rpx;
+    border-radius: 10rpx;
+    line-height: 80rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.members {
+    display: flex;
+    justify-content: space-between;
+}
+
+.member {
+    width: 48%;
+    height: 80rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #90B0B7;
+    border-radius: 10rpx;
+    font-size: 30rpx;
+    font-weight: normal;
+    color: #F8FFFF;
+}
+
+.member {
+    position: relative;
+}
+
+.tag {
+    width: 24rpx;
+    height: 24rpx;
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 8rpx 8rpx 0 0;
+    visibility: hidden;
+}
+
+.form .actions {
+    width: 90%;
+    position: fixed;
+    bottom: 58rpx;
+    overflow: visible;
+}
+
+.checked {
+    background: #187A99;
+    visibility: visible;
+}
+
+.money-me {
+    overflow: hidden;
+    height: 0;
+}
+
+.money-partner {
+    overflow: hidden;
+    height: 0;
+}

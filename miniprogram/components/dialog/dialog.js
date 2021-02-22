@@ -32,17 +32,12 @@ Component({
             }
         },
         dismiss: function() {
-            console.log("dismiss")
             this.setData({
                 isShow: false
             })
         },
-        doNothing: function() {
-            console.log('doNothing');
-        },
-        _propertyChange: function(newVal, oldVal) {
-            console.log('_propertyChange');
-        }
+        doNothing: function() {},
+        _propertyChange: function(newVal, oldVal) {}
     },
     lifetimes: {
         attached: function() {

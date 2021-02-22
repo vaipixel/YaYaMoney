@@ -40,7 +40,9 @@ Component({
             return dateUtils.formatDate(data.recordData.date);
         }
     },
-    observers: {},
+    observers: {
+
+    },
     /**
      * 组件的方法列表
      */
