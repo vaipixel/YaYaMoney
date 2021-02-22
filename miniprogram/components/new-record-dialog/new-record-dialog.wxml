@@ -8,8 +8,9 @@
       <view class="filter">
         <tab-bar tab-data="{{tabData}}" bind:tab-changed="onRecordTypeChange"></tab-bar>
       </view>
-      <view class="forms">
-        <view class="form" hidden="{{true}}">
+      <view class="forms" style="height: {{pageInfo.formHeight}}px">
+        <view class="form" wx:if="{{recordData.recordType === '调整余额'}}">
+          <view id="anchor-adjust-money-top" class="anchor"></view>
           <view class="form-item">
             <fix-input class="input half" placeholder="账户"></fix-input>
             <fix-input class="input half" type="digit" placeholder="金额"></fix-input>
@@ -36,8 +37,10 @@
               <text>添加</text>
             </view>
           </view>
+          <view id="anchor-adjust-money-bottom" class="anchor"></view>
         </view>
-        <view class="form">
+        <view class="form" wx:else style="height: {{pageInfo.transferTabHeight}}px">
+          <view id="anchor-transfer-top" class="anchor"></view>
           <view class="form-item">
             <fix-input class="input fill" placeholder="金额"></fix-input>
           </view>
@@ -67,6 +70,7 @@
               <text>添加</text>
             </view>
           </view>
+          <view id="anchor-transfer-bottom" class="anchor"></view>
         </view>
       </view>
     </view>

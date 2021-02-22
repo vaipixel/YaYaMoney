@@ -3,6 +3,19 @@
 @import '/assets/css/main.wxss';
 @import '/assets/css/form.wxss';
 @import '/assets/css/dialog.wxss';
+.forms {
+    transition: all 0.25s;
+}
+
 .new-record-dialog .date {
     text-align: center;
+}
+
+.new-record-dialog .anchor {
+    width: 0;
+    height: 0;
+}
+
+.actions {
+    /* position: fixed; */
 }

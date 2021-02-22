@@ -1,6 +1,9 @@
 // components/new-record-dialog/new-record-dialog.js
 const dateUtils = require("../../utils/dateUtils.js");
 const computedBehavior = require('miniprogram-computed')
+import { TabCalculate } from 'tab-calculate.js';
+
+let tabCalculate;
 Component({
     options: {
         virtualHost: true
@@ -25,7 +28,11 @@ Component({
             '转账'
         ],
         recordData: {
+            recordType: "调整余额",
             date: dateUtils.dateFormat('YYYY-mm-dd', new Date())
+        },
+        pageInfo: {
+            formHeight: 1
         }
     },
     computed: {
@@ -52,16 +59,34 @@ Component({
         _getCurrentDate: function() {
             return dateUtils.dateFormat('YYYY-mm-dd', new Date())
         },
-        onRecordTypeChange: function(e) {
+        onRecordTypeChange: async function(e) {
             let recordType = e.detail.tab;
-            console.log(recordType);
+            this.setData({
+                'recordData.recordType': recordType
+            })
+            if (recordType === '调整余额') {
+                this.setData({
+                    'pageInfo.formHeight': await tabCalculate.getAdjustMoneyTabHeight()
+                })
+            } else {
+                this.setData({
+                    'pageInfo.formHeight': await tabCalculate.getTransferTabHeight()
+                })
+            }
         }
     },
     lifetimes: {
-        attached: function() {
+        attached: async function() {
+            tabCalculate = new TabCalculate(this);
             this.setData({
                 'recordData.date': this._getCurrentDate()
-            })
+            });
+            console.log("saasdc");
+            console.log(await tabCalculate.getAdjustMoneyTabHeight());
+
+        },
+        ready: function() {
+            console.log(this.calculateTabHeight);
         },
         moved: function() {
             console.log('dialog moved');
