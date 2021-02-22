@@ -1,6 +1,7 @@
 /* miniprogram/pages/index/index.wxss */
 
 @import '/assets/css/main.wxss';
+@import '/assets/css/dialog.wxss';
 .container {
     display: flex;
     flex-direction: column;
@@ -303,4 +304,9 @@
 .interval-container .divider {
     border: 0.5rpx solid #F0EFEC;
     transform: rotate(0.4deg);
+}
+
+.menu {
+    width: 36rpx;
+    height: 36rpx;
 }

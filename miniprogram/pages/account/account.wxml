@@ -43,7 +43,7 @@
   is-show="{{pageInfo.isAdjustMoneyDialogShow}}"
   dismiss-by-click-outside="{{false}}"
 >
-  <view class="dialog adjust-money-dialog">
+  <view class="dialog bottom">
     <view class="title-bar between">
       <text class="title">调整余额</text>
       <image class="close" src="/assets/images/close.svg" bindtap="dismissAdjustMoneyDialog" />
@@ -75,7 +75,7 @@
   is-show="{{pageInfo.isTransferDialogShow}}"
   dismiss-by-click-outside="{{false}}"
 >
-  <view class="dialog adjust-money-dialog">
+  <view class="dialog bottom">
     <view class="title-bar between">
       <text class="title">转账</text>
       <image class="close" src="/assets/images/close.svg" bindtap="dismissTransferDialog" />

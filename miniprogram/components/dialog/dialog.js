@@ -27,6 +27,7 @@ Component({
      */
     methods: {
         clickOutside: function() {
+            console.log('clickOutside');
             if (this.data.dismissByClickOutside) {
                 this.dismiss()
             }

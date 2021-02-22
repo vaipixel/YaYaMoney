@@ -7,8 +7,9 @@ Page({
 
     data: {
         // 统计区间选择 dialog 是否隐藏
-        isIntervalPickDialogShow: false,
+        isIntervalPickDialogShow: true,
         isAddRecordDialogShow: false,
+        isMenuDialogShow: false,
         pageInfo: {
             currentInterval: "每月",
             tabData: [
@@ -194,5 +195,11 @@ Page({
     onTabChanged: function(e) {
         let tab = e.detail.tab;
         console.log(tab);
+    },
+    onMenuTaped: function() {
+        console.log('onMenuTaped');
+        this.setData({
+            isMenuDialogShow: true
+        })
     }
 })

@@ -1,5 +1,8 @@
 <!-- miniprogram/pages/index/index.wxml -->
 <wxs module="utils" src="./index.wxs"></wxs>
+<mp-navigation-bar title="吖吖资产" background="#187A99" color="#FEFEFE" back="{{false}}">
+  <image slot="left" class="menu" bind:tap="onMenuTaped" src="/assets/images/menu.svg" />
+</mp-navigation-bar>
 <view class="container">
   <!-- 头部 -->
   <view class="header">
@@ -96,8 +99,8 @@
     <text class="text">新增记录</text>
   </view>
 </view>
-<dialog is-show="{{isIntervalPickDialogShow}}">
-  <view class="interval-container">
+<dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
+  <view class="interval-container dialog center">
     <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
     <view class="divider"></view>
     <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
@@ -108,3 +111,6 @@
   </view>
 </dialog>
 <new-record-dialog wx:if="{{isAddRecordDialogShow}}" model:is-show="{{isAddRecordDialogShow}}"></new-record-dialog>
+<dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
+  <view class="menu-dialog"></view>
+</dialog>

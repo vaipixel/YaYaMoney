@@ -108,16 +108,3 @@
     align-self: center;
     border: 1rpx solid #F0EFEC;
 }
-
-.adjust-money-dialog {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 92%;
-    align-self: left;
-    background: #FEFEFE;
-    border-radius: 20rpx 20rpx 0 0;
-    display: flex;
-    flex-direction: column;
-    padding: 26rpx 30rpx 50rpx 30rpx;
-}

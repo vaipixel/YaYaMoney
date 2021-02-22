@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/createAccount/createAccount",
         "pages/index/index",
+        "pages/createAccount/createAccount",
         "pages/account/account",
         "pages/welcome/welcome"
     ],
@@ -13,5 +13,6 @@
         "navigationBarTitleText": "吖吖资产"
     },
     "sitemapLocation": "sitemap.json",
-    "style": "v2"
+    "style": "v2",
+    "navigationStyle": "custom"
 }

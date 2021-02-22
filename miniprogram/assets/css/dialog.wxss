@@ -5,6 +5,7 @@
     flex-direction: column;
     align-self: left;
     padding: 26rpx 30rpx 50rpx 30rpx;
+    z-index: 999;
 }
 
 .dialog.bottom {
@@ -12,6 +13,10 @@
     left: 0;
     bottom: 0;
     width: 92%;
+}
+
+.dialog.center {
+    align-self: center;
 }
 
 .dialog .title-bar {
