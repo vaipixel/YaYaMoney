@@ -1,4 +1,5 @@
 {
+    "navigationBarTitleText": "添加账户",
     "usingComponents": {
         "fix-input": "/components/fix-input/fix-input"
     }

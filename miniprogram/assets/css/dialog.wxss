@@ -19,6 +19,13 @@
     align-self: center;
 }
 
+.dialog.top-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 24rpx 0 0 24rpx;
+}
+
 .dialog .title-bar {
     display: flex;
     margin: 0 0 20rpx 0;

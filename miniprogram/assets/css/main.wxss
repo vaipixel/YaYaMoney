@@ -3,3 +3,9 @@ text {
     font-weight: 600;
     font-style: normal;
 }
+
+.divider {
+    width: 92%;
+    align-self: center;
+    border: 1rpx solid #F0EFEC;
+}

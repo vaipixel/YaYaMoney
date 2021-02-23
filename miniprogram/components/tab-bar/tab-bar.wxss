@@ -26,6 +26,7 @@
 
 .tab-bar .tab {
     width: max-content;
+    min-width: 64rpx;
     text-align: center;
     font-size: 32rpx;
     color: #FEFEFE;

@@ -7,7 +7,7 @@ Page({
 
     data: {
         // 统计区间选择 dialog 是否隐藏
-        isIntervalPickDialogShow: true,
+        isIntervalPickDialogShow: false,
         isAddRecordDialogShow: false,
         isMenuDialogShow: false,
         pageInfo: {
@@ -197,9 +197,16 @@ Page({
         console.log(tab);
     },
     onMenuTaped: function() {
-        console.log('onMenuTaped');
         this.setData({
             isMenuDialogShow: true
         })
+    },
+    onAddAccount: function() {
+        wx.navigateTo({
+            url: "/pages/createAccount/createAccount"
+        });
+        this.setData({
+            isMenuDialogShow: false
+        });
     }
 })

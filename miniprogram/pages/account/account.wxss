@@ -102,9 +102,3 @@
     color: #90B0B7;
     margin: 16rpx 0 0 0;
 }
-
-.divider {
-    width: 92%;
-    align-self: center;
-    border: 1rpx solid #F0EFEC;
-}

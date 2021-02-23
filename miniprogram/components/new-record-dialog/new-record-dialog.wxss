@@ -7,6 +7,10 @@
     transition: all 0.25s;
 }
 
+.new-record-dialog {
+    position: fixed;
+}
+
 .new-record-dialog .date {
     text-align: center;
 }

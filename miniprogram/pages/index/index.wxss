@@ -138,7 +138,7 @@
 
 .accounts {
     width: 100%;
-    padding: 0 0 100rpx 0;
+    padding: 0 0 150rpx 0;
 }
 
 .account {
@@ -307,6 +307,33 @@
 }
 
 .menu {
-    width: 36rpx;
-    height: 36rpx;
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.menu-dialog {
+    border-radius: 20rpx;
+    padding: 26rpx 30rpx 26rpx 30rpx;
+}
+
+.menu-dialog .divider {
+    width: 98%;
+    margin: 20rpx 0 20rpx 0;
+}
+
+.menu-dialog .menu-item {
+    display: flex;
+}
+
+.menu-dialog .menu-item .menu-icon {
+    width: 50rpx;
+    height: 50rpx;
+}
+
+.menu-dialog .menu-item .menu-label {
+    margin: 0 0 0 20rpx;
+    font-weight: normal;
+    font-size: 36rpx;
+    line-height: 50rpx;
+    color: #38485A;
 }

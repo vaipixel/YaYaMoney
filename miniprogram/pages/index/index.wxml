@@ -98,19 +98,29 @@
   <view class="add-record-btn" catch:tap="showAddRecordDialog">
     <text class="text">新增记录</text>
   </view>
+  <dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
+    <view class="interval-container dialog center">
+      <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
+      <view class="divider"></view>
+      <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
+      <view class="divider"></view>
+      <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
+      <view class="divider"></view>
+      <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
+    </view>
+  </dialog>
+  <dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
+    <view class="menu-dialog dialog top-left">
+      <view class="menu-item" bind:tap="onAddAccount">
+        <image class="menu-icon" src="/assets/images/add.svg" />
+        <text class="menu-label">添加账户</text>
+      </view>
+      <view class="divider"></view>
+      <view class="menu-item">
+        <image class="menu-icon" src="/assets/images/setting.svg" />
+        <text class="menu-label">设置</text>
+      </view>
+    </view>
+  </dialog>
 </view>
-<dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
-  <view class="interval-container dialog center">
-    <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
-    <view class="divider"></view>
-    <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
-    <view class="divider"></view>
-    <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
-    <view class="divider"></view>
-    <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
-  </view>
-</dialog>
 <new-record-dialog wx:if="{{isAddRecordDialogShow}}" model:is-show="{{isAddRecordDialogShow}}"></new-record-dialog>
-<dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
-  <view class="menu-dialog"></view>
-</dialog>

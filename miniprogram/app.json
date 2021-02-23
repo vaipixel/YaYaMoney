@@ -1,18 +1,19 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/createAccount/createAccount",
-        "pages/account/account",
-        "pages/welcome/welcome"
-    ],
-    "window": {
-        "backgroundColor": "#F6F6F6",
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#187A99",
-        "navigationBarTextStyle": "white",
-        "navigationBarTitleText": "吖吖资产"
-    },
-    "sitemapLocation": "sitemap.json",
-    "style": "v2",
-    "navigationStyle": "custom"
+  "pages": [
+    "pages/index/index",
+    "pages/createAccount/createAccount",
+    "pages/account/account",
+    "pages/welcome/welcome",
+    "pages/setting/setting"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#187A99",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "吖吖资产"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "navigationStyle": "custom"
 }
