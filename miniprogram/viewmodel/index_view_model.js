@@ -17,19 +17,35 @@ class IndexViewModel extends ViewModel {
             this.userInfo = await loginService.onUserLogin(wxLoginData);
         } catch (e) {
             console.log(e)
-            console.log('NotLoginError');
+            console.warn('NotLoginError');
             throw new NotLoginError();
         }
         let groupService = wx.services.groupService;
         let isUserHasGroup = await groupService.isUserHasGroup(this.userInfo._id);
         if (!isUserHasGroup) {
-            console.log('UserHasNoGroupError');
+            console.warn('UserHasNoGroupError');
             throw new UserHasNoGroupError();
         }
     }
 
+    requestAll() {
+        console.log('requestAll')
+        this.requestGroupInfo();
+    }
+
+    // 请求群组总览
+    async requestGroupInfo() {
+        console.log('requestGroupInfo')
+        let groupInfo = await wx.services.groupService.getGroupInfoByUser(this.userInfo._id);
+        console.log(groupInfo);
+    }
+
+    // 请求群组中所有账户的信息
+    requestAccountInfo() {
+
+    }
+
     observerUserInfo(context, fn) {
-        console.log('observerUserInfo')
         this._observer(context, 'userInfo', fn);
     }
 

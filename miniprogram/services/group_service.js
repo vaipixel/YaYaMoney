@@ -22,6 +22,18 @@ class GroupService {
             }
         })
     }
+
+    async getGroupInfoByUser(userId) {
+        console.log('getGroupInfoByUser: ' + userId);
+        let result = await wx.cloud.callFunction({
+            name: CLOUD_FUNCTION_NAME,
+            data: {
+                action: 'getGroupInfoByUser',
+                data: userId
+            }
+        });
+        return result.result;
+    }
 }
 
 export {GroupService}

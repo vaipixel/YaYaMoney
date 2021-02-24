@@ -3,6 +3,8 @@ import {NotLoginError, UserHasNoGroupError} from "../../errors/errors";
 
 var indexViewModel;
 
+const context = 'index';
+
 Page({
 
     /**
@@ -113,8 +115,9 @@ Page({
      */
     onLoad: async function (options) {
         this.showLoading();
-        this.initViewModel();
-        indexViewModel.observerUserInfo('index', userInfo => {
+        await this.initViewModel();
+        indexViewModel.requestAll();
+        indexViewModel.observerUserInfo(context, userInfo => {
             console.log('Index');
             console.log(userInfo);
         })
@@ -145,7 +148,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        indexViewModel.release('index');
+        indexViewModel.release(context);
     },
 
     /**
@@ -227,6 +230,7 @@ Page({
             await indexViewModel.init();
         } catch (e) {
             if (e instanceof NotLoginError) {
+                console.log(e)
                 console.log('unauthed');
                 wx.redirectTo({
                     url: "/pages/welcome/welcome?pageType=login"

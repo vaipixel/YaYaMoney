@@ -7,10 +7,9 @@ class ViewModel {
     }
 
     _defineReactive() {
-        console.log(Object.keys(this));
         let obj = this;
         Object.keys(obj).forEach((key) => {
-            var val = obj[key];
+            let val = obj[key];
             Object.defineProperty(obj, key, {
                 get: () => val,
                 set: (value) => {
@@ -22,11 +21,10 @@ class ViewModel {
                 }
             });
         })
-        // Object.defineProperty(this, );
     }
 
     _trigger(dataName, value) {
-        Object.keys(this.observers[dataName])
+        Object.keys(this.observers[dataName] ? this.observers[dataName] : {})
             .map(item => this.observers[dataName][item])
             .flatMap(item => item)
             .forEach(fn => fn(value));
@@ -39,9 +37,11 @@ class ViewModel {
     }
 
     _unObserver(context) {
-        this.observers.forEach(dataName => {
-            dataName.removeChild(context);
-        })
+        Object.keys(this.observers)
+            .map(item => this.observers[item])
+            .forEach(item => {
+                delete item[context]
+            });
     }
 
 }
