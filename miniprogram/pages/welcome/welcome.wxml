@@ -1,15 +1,19 @@
 <!--miniprogram/pages/welcome/welcome.wxml-->
 <view class="container">
-  <text class="desc">
-    看来你是第一次用吖吖资产呢，
-    你需要先创建或者加入一个“组”
-  </text>
-  <view class="actions">
+  <text class="desc" wx:if="{{pageType === 'welcome'}}">{{welcomeDesc}}</text>
+  <text class="desc" wx:elif="{{pageType === 'login'}}">{{loginDesc}}</text>
+
+  <view class="actions welcome" wx:if="{{pageType === 'welcome'}}">
     <view class="btn half cancel" bind:tap="create">
       <text>创建</text>
     </view>
     <view class="btn half add" bind:tap="join">
       <text>加入</text>
     </view>
+  </view>
+  <view class="actions login" wx:elif="{{pageType === 'login'}}">
+    <button open-type="getUserInfo" class="btn auth cancel" bindgetuserinfo="onGetUserInfo">
+      <text>授权登录</text>
+    </button>
   </view>
 </view>

@@ -5,14 +5,21 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        welcomeDesc: "看来你是第一次用吖吖资产呢，\n你需要先创建或者加入一个“组”。",
+        loginDesc: "先来授权登录咯。",
+        pageType: "welcome",
+        _userId: ""
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        let pageType = options.pageType;
+        this.setData({
+            pageType: pageType || 'login'
+        })
+        this.data._userId = options.userId;
     },
 
     /**
@@ -63,10 +70,25 @@ Page({
     onShareAppMessage: function() {
 
     },
-    create: function() {
-
+    create: async function() {
+        let groupService = wx.services.groupService;
+        await groupService.createGroup(this.data._userId);
+        wx.redirectTo({
+            url: "/pages/index/index"
+        })
     },
     join: function() {
 
+    },
+    onGetUserInfo: function(e) {
+        let userData = e.detail;
+        if (!userData.userInfo) {
+            console.warn('The user deny login request.');
+            return
+        }
+        // show loading
+        wx.redirectTo({
+            url: "/pages/index/index"
+        })
     }
 })

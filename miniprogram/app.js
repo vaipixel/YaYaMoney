@@ -1,5 +1,5 @@
 //app.js
-import { toAsync } from '/utils/promiseUtils.js';
+import { inject } from 'inject.js';
 App({
     onLaunch: function() {
         if (!wx.cloud) {
@@ -14,8 +14,6 @@ App({
                 traceUser: true,
             })
         }
-
-        this.globalData = {};
-        wx.async = toAsync(['login', 'request']);
+        inject();
     }
 })

@@ -2,8 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/createAccount/createAccount",
-        "pages/welcome/welcome",
         "pages/account/account",
+        "pages/welcome/welcome",
         "pages/setting/setting"
     ],
     "window": {

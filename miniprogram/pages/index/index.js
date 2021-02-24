@@ -1,4 +1,8 @@
 // miniprogram/pages/index/index.js
+import {NotLoginError, UserHasNoGroupError} from "../../errors/errors";
+
+var indexViewModel;
+
 Page({
 
     /**
@@ -40,36 +44,36 @@ Page({
             }
         },
         accounts: [{
-                accountId: "1",
-                accountName: "基金",
-                accountDesc: "在蛋卷基金上的投资",
-                accountIcon: "/assets/images/avatar.png",
-                accountAmount: 10010,
-                accountRate: "4.5%",
-                members: [{
-                        uid: "",
-                        name: "我",
-                        alias: "我",
-                        avatar: "/assets/images/avatar.png",
-                        amount: 1000,
-                        incomeStatus: {
-                            income: 100,
-                            rate: "4.5%"
-                        }
-                    },
-                    {
-                        uid: "",
-                        name: "老婆",
-                        alias: "老婆",
-                        avatar: "/assets/images/avatar.png",
-                        amount: 1000,
-                        incomeStatus: {
-                            income: 100,
-                            rate: "4.5%"
-                        }
-                    }
-                ]
+            accountId: "1",
+            accountName: "基金",
+            accountDesc: "在蛋卷基金上的投资",
+            accountIcon: "/assets/images/avatar.png",
+            accountAmount: 10010,
+            accountRate: "4.5%",
+            members: [{
+                uid: "",
+                name: "我",
+                alias: "我",
+                avatar: "/assets/images/avatar.png",
+                amount: 1000,
+                incomeStatus: {
+                    income: 100,
+                    rate: "4.5%"
+                }
             },
+                {
+                    uid: "",
+                    name: "老婆",
+                    alias: "老婆",
+                    avatar: "/assets/images/avatar.png",
+                    amount: 1000,
+                    incomeStatus: {
+                        income: 100,
+                        rate: "4.5%"
+                    }
+                }
+            ]
+        },
             {
                 accountId: "2",
                 accountName: "股票",
@@ -78,16 +82,16 @@ Page({
                 accountAmount: 10001,
                 accountRate: "-4.5%",
                 members: [{
-                        uid: "",
-                        name: "我",
-                        alias: "我",
-                        avatar: "/assets/images/avatar.png",
-                        amount: 1000,
-                        incomeStatus: {
-                            income: 100,
-                            rate: "4.5%"
-                        }
-                    },
+                    uid: "",
+                    name: "我",
+                    alias: "我",
+                    avatar: "/assets/images/avatar.png",
+                    amount: 1000,
+                    incomeStatus: {
+                        income: 100,
+                        rate: "4.5%"
+                    }
+                },
                     {
                         uid: "",
                         name: "老婆",
@@ -107,106 +111,132 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
-
+    onLoad: async function (options) {
+        this.showLoading();
+        this.initViewModel();
+        indexViewModel.observerUserInfo('index', userInfo => {
+            console.log('Index');
+            console.log(userInfo);
+        })
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
-
+    onUnload: function () {
+        indexViewModel.release('index');
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     },
-    showIntervalPickerDialog: function() {
+    showIntervalPickerDialog: function () {
         this.setData({
             isIntervalPickDialogShow: true
         })
     },
-    dismissIntervalPickerDialog: function() {
+    dismissIntervalPickerDialog: function () {
         this.setData({
             isIntervalPickDialogShow: false
         })
     },
-    showAddRecordDialog: function() {
+    showAddRecordDialog: function () {
         this.setData({
             isAddRecordDialogShow: true
         })
     },
-    dismissAddRecordDialog: function() {
+    dismissAddRecordDialog: function () {
         this.setData({
             isAddRecordDialogShow: false
         })
     },
-    navToAccountDetail: function(e) {
+    navToAccountDetail: function (e) {
         var accountId = e.target.dataset.accountId;
         wx.navigateTo({
             url: "/pages/account/account?accountId=" + accountId
         });
     },
-    changeInterval: function(e) {
+    changeInterval: function (e) {
         var selectedInterval = e.target.dataset.interval;
         this.dismissIntervalPickerDialog();
         this.setData({
             'pageInfo.currentInterval': selectedInterval
         });
     },
-    onTabChanged: function(e) {
+    onTabChanged: function (e) {
         let tab = e.detail.tab;
         console.log(tab);
     },
-    onMenuTaped: function() {
+    onMenuTaped: function () {
         this.setData({
             isMenuDialogShow: true
         })
     },
-    onAddAccount: function() {
+    onAddAccount: function () {
         wx.navigateTo({
             url: "/pages/createAccount/createAccount"
         });
         this.setData({
             isMenuDialogShow: false
         });
+    },
+    showLoading: function () {
+
+    },
+    initViewModel: async function () {
+        indexViewModel = wx.viewModels.index;
+        try {
+            await indexViewModel.init();
+        } catch (e) {
+            if (e instanceof NotLoginError) {
+                console.log('unauthed');
+                wx.redirectTo({
+                    url: "/pages/welcome/welcome?pageType=login"
+                })
+            } else if (e instanceof UserHasNoGroupError) {
+                console.log('no group found');
+                wx.redirectTo({
+                    url: "/pages/welcome/welcome?pageType=welcome&userId=" + indexViewModel.userInfo._id
+                })
+            }
+        }
     }
 })

@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 50% 80rpx 50% 80rpx;
+    padding: 60% 80rpx 60% 80rpx;
     background: #187A99;
 }
 
@@ -22,6 +22,14 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.actions.login {
+    justify-content: center;
+}
+
+.auth {
+    width: 80%;
 }
 
 .half {
