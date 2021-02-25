@@ -22,6 +22,19 @@ exports.main = async (event, context) => {
     }
 }
 
+async function getGroupInfoByUser(userId) {
+    console.log('getGroupInfoByUser');
+    let groupId = await dao.getGroupIdByUserId(userId);
+    let members = await getGroupMembers(groupId);
+    let accounts = await getGroupAccounts(groupId);
+    console.log(accounts);
+    return {
+        groupId,
+        members,
+        accounts
+    };
+}
+
 async function createGroup(userId) {
     if ((await dao.getGroupByUserId(userId)).length > 0) {
         throw new Error('This user: {' + userId + '} already had group.');
@@ -37,18 +50,6 @@ async function createGroup(userId) {
 
 async function joinGroup(userId) {
 
-}
-
-async function getGroupInfoByUser(userId) {
-    console.log('getGroupInfoByUser');
-    let groupId = await dao.getGroupIdByUserId(userId);
-    let members = await getGroupMembers(groupId);
-    console.log(members);
-    let groupInfo = {
-        groupId,
-        members
-    }
-    return groupId;
 }
 
 async function isUserHasGroup(userId) {
@@ -76,4 +77,15 @@ async function getGroupMembers(groupId) {
         }
     });
     return groupMembers;
+}
+
+async function getGroupAccounts(groupId) {
+    let result = await cloud.callFunction({
+        name: 'account_service',
+        data: {
+            action: 'getGroupAccounts',
+            data: groupId
+        }
+    });
+    return result.result;
 }

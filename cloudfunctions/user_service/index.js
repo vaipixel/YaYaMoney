@@ -26,7 +26,10 @@ async function login(loginData) {
     if (await dao.isUserExist(OPENID)) {
         await dao.updateUser(loginData.userInfo);
     } else {
-        await dao.addUser(loginData.userInfo);
+        await dao.addUser({
+            ...loginData.userInfo,
+            openid: OPENID
+        });
     }
     return await dao.getUserInfoByOpenid(OPENID);
 }
