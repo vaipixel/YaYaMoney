@@ -1,4 +1,4 @@
-const CLOUD_FUNCTION_NAME = 'group_service';
+const CLOUD_FUNCTION_NAME = 'group_controller';
 
 class GroupService {
     async isUserHasGroup(userId) {

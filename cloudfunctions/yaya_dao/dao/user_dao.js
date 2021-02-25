@@ -1,12 +1,12 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
+const {Dao, initWxSdk} = require('./base');
 
-cloud.init();
+const cloud = initWxSdk();
 
 const user_collection_name = 'users';
 
-class UserDao {
+class UserDao extends Dao {
     constructor() {
+        super()
     }
 
     async addUser(userInfo) {

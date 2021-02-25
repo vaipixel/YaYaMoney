@@ -1,13 +1,13 @@
-// 云函数入口文件
-const cloud = require('wx-server-sdk')
+const {Dao, initWxSdk} = require('./base');
 
-cloud.init();
+const cloud = initWxSdk();
 
 const group_collection_name = 'groups';
 const relation_user_group_collection_name = 'relation_user_group';
 
-class GroupDao {
+class GroupDao extends Dao {
     constructor() {
+        super();
     }
 
     async addGroup(groupPo) {

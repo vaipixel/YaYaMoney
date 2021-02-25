@@ -15,7 +15,7 @@ class LoginService {
      */
     async onUserLogin(loginData) {
         let result = await wx.cloud.callFunction({
-            name: 'user_service',
+            name: 'user_controller',
             data: {
                 action: 'login',
                 data: loginData
