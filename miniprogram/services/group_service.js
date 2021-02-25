@@ -32,7 +32,22 @@ class GroupService {
                 data: userId
             }
         });
-        return result.result;
+        let groupInfo = result.result;
+        // let members = await this.getGroupMembers(groupInfo._id);
+        // groupInfo = {...groupInfo, members}
+        return groupInfo;
+    }
+
+    async getGroupMembers(groupId) {
+        // let result = await wx.cloud.callFunction({
+        //     name: CLOUD_FUNCTION_NAME,
+        //     data: {
+        //         action: 'getGroupMembers',
+        //         data: groupId
+        //     }
+        // });
+        // return result.result;
+
     }
 }
 

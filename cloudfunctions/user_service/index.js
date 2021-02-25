@@ -1,63 +1,44 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk');
+const UserDao = require('dao');
 
 cloud.init();
 
-const user_collection_name = 'users';
+const dao = new UserDao();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
     switch (event.action) {
         case 'login':
             return await login(event.data);
+        case 'getUserInfoByUserId':
+            // 获取单个用户的信息
+            return await dao.getUserInfoByUserId(event.data);
+        case 'getUserInfosByUserIds':
+            // 获取多个用户的信息
+            return await getUserInfosByUserIds(event.data);
     }
 }
 
 async function login(loginData) {
     const {OPENID} = cloud.getWXContext();
     loginData.userInfo.openid = OPENID;
-    if (await _isUserExist(OPENID)) {
-        await _updateUser(loginData.userInfo);
+    if (await dao.isUserExist(OPENID)) {
+        await dao.updateUser(loginData.userInfo);
     } else {
-        await _addUser(loginData.userInfo);
+        await dao.addUser(loginData.userInfo);
     }
-    return await getUserInfo(OPENID);
+    return await dao.getUserInfoByOpenid(OPENID);
 }
 
-async function getUserInfo(openid) {
-    const db = cloud.database();
-    const _ = db.command
-    let result = await db.collection(user_collection_name).where({
-        openid: _.eq(openid)
-    })
-        .get();
-    return result.data[0];
-}
+async function getUserInfosByUserIds(userIds) {
+    console.log('getUserInfosByUserIds: ');
+    console.log(userIds);
 
-async function _isUserExist(openid) {
-    const db = cloud.database();
-    const _ = db.command
-    let result = await db.collection(user_collection_name).where({
-        openid: _.eq(openid)
-    })
-        .get();
-    return result.data && result.data.length > 0
+    let userInfos = [];
+    for (const userId of userIds) {
+        let userInfo = await dao.getUserInfoByUserId(userId);
+        userInfos.push(userInfo);
+    }
+    return userInfos;
 }
-
-async function _addUser(userInfo) {
-    const db = cloud.database();
-    await db.collection(user_collection_name).add({
-        data: userInfo
-    });
-}
-
-async function _updateUser(userInfo) {
-    const db = cloud.database();
-    const _ = db.command
-    await db.collection(user_collection_name).where({
-        openid: _.eq(userInfo.openid)
-    }).update({
-        data: userInfo
-    });
-}
-

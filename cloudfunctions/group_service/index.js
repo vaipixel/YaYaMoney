@@ -1,10 +1,10 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init()
+const GroupDao = require('./dao.js');
+const dao = new GroupDao();
 
-const group_collection_name = 'groups';
-const relation_user_group_collection_name = 'relation_user_group';
+cloud.init();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -17,29 +17,21 @@ exports.main = async (event, context) => {
             return await createGroup(event.data);
         case 'joinGroup':
             return await joinGroup(event.data);
+        case 'getGroupMembers':
+            return await getGroupMembers(event.data);
     }
 }
 
 async function createGroup(userId) {
-    if (await isUserHasGroup(userId)) {
+    if ((await dao.getGroupByUserId(userId)).length > 0) {
         throw new Error('This user: {' + userId + '} already had group.');
     } else {
-        const db = cloud.database();
-        let result = await db.collection(group_collection_name).add({
-            data: {
-                createBy: userId,
-                createTime: new Date()
-            }
-        });
-        let groupId = result._id;
-        await db.collection(relation_user_group_collection_name).add({
-            data: {
-                groupId: groupId,
-                userId: userId,
+        return await dao.addGroup({
+            creator: {
+                userId,
                 character: '老公'
             }
-        })
-        return groupId;
+        });
     }
 }
 
@@ -48,20 +40,40 @@ async function joinGroup(userId) {
 }
 
 async function getGroupInfoByUser(userId) {
-    console.log('getGroupInfoByUser')
-    const db = cloud.database();
-    const _ = db.command;
-    let result = await db.collection(relation_user_group_collection_name).where({
-        userId: _.eq(userId)
-    }).get()
-    return {...result.data[0]};
+    console.log('getGroupInfoByUser');
+    let groupId = await dao.getGroupIdByUserId(userId);
+    let members = await getGroupMembers(groupId);
+    console.log(members);
+    let groupInfo = {
+        groupId,
+        members
+    }
+    return groupId;
 }
 
 async function isUserHasGroup(userId) {
-    console.log('isUserHasGroup')
-    const db = cloud.database();
-    let result = await db.collection(relation_user_group_collection_name).where({
-        userId: userId
-    }).get();
-    return result.data && result.data.length > 0;
+    return (await dao.getGroupByUserId(userId)).length > 0;
+}
+
+async function getGroupMembers(groupId) {
+    console.log('getGroupMembers ' + groupId);
+    let groupMembers = {}
+    let wxContext = cloud.getWXContext();
+    let {OPENID} = wxContext;
+    let groupMembersId = await dao.getGroupMembersId(groupId);
+    let userInfos = (await cloud.callFunction({
+        name: 'user_service',
+        data: {
+            action: 'getUserInfosByUserIds',
+            data: groupMembersId
+        }
+    })).result;
+    userInfos.forEach(userInfo => {
+        if (OPENID === userInfo.openid) {
+            groupMembers.me = userInfo;
+        } else {
+            groupMembers.partner = userInfo;
+        }
+    });
+    return groupMembers;
 }
