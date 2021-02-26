@@ -87,6 +87,17 @@ class AccountDao {
         })
             .remove();
     }
+
+    /**
+     * 获取账户所属的群组 id
+     * @param accountId 账户 id
+     * @returns {Promise<void>}
+     */
+    async getGroupId(accountId) {
+        let db = cloud.database();
+        let result = await db.collection(account_collection_name).doc(accountId).get();
+        return result.data.groupId;
+    }
 }
 
 module.exports = AccountDao;

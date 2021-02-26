@@ -1,4 +1,10 @@
 {
+    "": {
+        "getGroupId": {
+            "action": "getGroupId",
+            "data": "057f92a66036618a000a06735d354425"
+        }
+    },
     "group_service": {
         "getUserInfosByUserIds": {
             "action": "getUserInfosByUserIds",
@@ -32,6 +38,10 @@
                 "accountId": "1551b005603770c30025dbc90123f044",
                 "userId": "28ee4e3e603747ec0784c707377d6277"
             }
+        },
+        "getGroupId": {
+            "action": "getGroupId",
+            "data": "1551b005603770c30025dbc90123f044"
         }
     }
 }

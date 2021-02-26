@@ -17,6 +17,9 @@ exports.main = async (event, context) => {
         case 'getUserInfosByUserIds':
             // 获取多个用户的信息
             return await getUserInfosByUserIds(event.data);
+        case 'getGroupId':
+            // 获取用户所属的群组 id
+            return await dao.getGroupId(event.data);
     }
 }
 

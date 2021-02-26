@@ -19,6 +19,9 @@ exports.main = async (event, context) => {
     case 'removeUserFromAccount':
       await dao.removeUserFromAccount(event.data.accountId, event.data.userId);
       return 'success';
+    case 'getGroupId':
+      // 获取账户所属的群组 id
+      return await dao.getGroupId(event.data);
   }
 }
 
