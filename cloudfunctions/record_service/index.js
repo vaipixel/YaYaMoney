@@ -1,11 +1,14 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk');
-const RecordDao = require('dao');
+const {RecordDao, UserDao, AccountDao} = require('dao');
 const TYPE_ADJUST_MONEY = '调整余额';
 const TYPE_TRANSFER = '转账';
 
 cloud.init();
-const dao = new RecordDao();
+
+const recordDao = new RecordDao();
+const userDao = new UserDao();
+const accountDao = new AccountDao();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -40,19 +43,22 @@ async function updateRecord(data) {
         await _checkPermission(creator, fromAccountId);
         await _checkPermission(creator, targetAccountId);
     }
-    await dao.updateRecord(data);
+    await recordDao.updateRecord(data);
     return 'success';
 }
 
 async function getAccountRecords(query) {
     const {accountId, offset, pageSize} = query;
-    let records = await dao.getAccountRecords(accountId, offset, pageSize);
-    records.map(record => {
+    let records = await recordDao.getAccountRecords(accountId, offset, pageSize);
+    records.map(async record => {
+        record.creator = await _getUserInfo(record.creator);
         let {type} = record;
         if (type === TYPE_ADJUST_MONEY) {
             return record;
         } else if (type === TYPE_TRANSFER) {
-
+            record.fromAccount = await accountDao.getAccountInfo(record.fromAccount);
+            record.targetAccount = await accountDao.getAccountInfo(record.targetAccount);
+            return record;
         }
     })
     return records;
@@ -61,14 +67,14 @@ async function getAccountRecords(query) {
 async function _addAdjustMoneyRecord(record) {
     let {accountId, creator} = record;
     await _checkPermission(creator, accountId);
-    await dao.addRecord(record);
+    await recordDao.addRecord(record);
 }
 
 async function _addTransferRecord(record) {
     let {fromAccount, targetAccount, creator} = record;
     await _checkPermission(creator, fromAccount);
     await _checkPermission(creator, targetAccount);
-    await dao.addRecord(record);
+    await recordDao.addRecord(record);
 }
 
 async function _getAccountInfo(accountId) {
@@ -79,6 +85,15 @@ async function _getAccountInfo(accountId) {
         }
     })
 
+}
+
+async function _getUserInfo(userId) {
+    let userInfo = await userDao.getUserInfo(userId);
+    let {OPENID} = cloud.getWXContext();
+    if (OPENID === userInfo.openid) {
+        userInfo.character = '我';
+    }
+    return userInfo;
 }
 
 async function _checkPermission(userId, accountId) {

@@ -86,7 +86,7 @@
         "getAccountRecords": {
             "action": "getAccountRecords",
             "data": {
-                "accountId": "1551b005603770c30025dbc90123f044",
+                "accountId": "b00064a76038d01e0747120716faece2",
                 "offset": 0,
                 "pageSize": 10
             }

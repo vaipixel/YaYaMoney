@@ -4,6 +4,8 @@ const cloud = require('wx-server-sdk')
 cloud.init();
 
 const record_collection_name = 'records';
+const user_collection_name = 'users';
+const account_collection_name = 'accounts';
 
 class RecordDao {
     async addRecord(record) {
@@ -52,9 +54,26 @@ class RecordDao {
             .skip(offset)
             .limit(pageSize)
             .get();
-        console.log(result);
         return result.data;
     }
 }
 
-module.exports = RecordDao;
+class UserDao {
+    async getUserInfo(userId) {
+        let db = cloud.database();
+        return (await db.collection(user_collection_name)
+            .doc(userId)
+            .get()).data;
+    }
+}
+
+class AccountDao {
+    async getAccountInfo(accountId) {
+        let db = cloud.database();
+        return (await db.collection(account_collection_name)
+            .doc(accountId)
+            .get()).data;
+    }
+}
+
+module.exports = {RecordDao, UserDao, AccountDao};
