@@ -6,6 +6,7 @@ cloud.init();
 const account_collection_name = 'accounts';
 const relation_user_account_collection_name = 'relation_user_account';
 const user_collection_name = 'users';
+const record_collection_name = 'records';
 
 class AccountDao {
     constructor() {
@@ -123,4 +124,86 @@ class UserDao {
     }
 }
 
-module.exports = {AccountDao, UserDao};
+class RecordDao {
+    async getIncomeRecordAmount(accountId, condition) {
+        let db = cloud.database();
+        let $ = db.command.aggregate;
+        let match = this._createMatchByCond($, this._getIncomeBaseCond($, accountId), condition);
+        let result = await db.collection(record_collection_name).aggregate()
+            .match(match)
+            .group({
+                _id: '1',
+                amount: $.sum('$amount')
+            })
+            .end();
+        let list = result.list;
+        if (list.length === 0) {
+            return 0;
+        } else {
+            return list[0].amount;
+        }
+    }
+
+    async getOutcomeRecordAmount(accountId, condition) {
+        let db = cloud.database();
+        let $ = db.command.aggregate;
+        let match = this._createMatchByCond($, this._getOutcomeBaseCond($, accountId), condition);
+        let result = await db.collection(record_collection_name).aggregate()
+            .match(match)
+            .group({
+                _id: '1',
+                amount: $.sum('$amount')
+            })
+            .end();
+        let list = result.list;
+        if (list.length === 0) {
+            return 0;
+        } else {
+            return list[0].amount;
+        }
+    }
+
+    _createMatchByCond(aggregate, baseCond, condition) {
+        let match;
+        let $ = aggregate;
+        if (condition) {
+            let cond = [];
+            if (condition.userId) {
+                cond.push({
+                    creator: condition.userId
+                });
+            }
+            if (condition.cutOffDate) {
+                cond.push({
+                    date: $.lte(condition.cutOffDate)
+                });
+            }
+            match = $.and([
+                baseCond,
+                $.and(cond)
+            ]);
+        } else {
+            match = baseCond;
+        }
+        return match;
+    }
+
+    _getIncomeBaseCond(aggregate, accountId) {
+        return aggregate.or([
+            {
+                accountId: aggregate.eq(accountId)
+            },
+            {
+                targetAccount: aggregate.eq(accountId)
+            }
+        ])
+    }
+
+    _getOutcomeBaseCond(aggregate, accountId) {
+        return {
+            fromAccount: aggregate.eq(accountId)
+        }
+    }
+}
+
+module.exports = {AccountDao, UserDao, RecordDao};

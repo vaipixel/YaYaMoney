@@ -75,11 +75,11 @@
             "action": "addRecord",
             "data": {
                 "type": "转账",
-                "amount": 3000,
-                "comment": "股票到基金",
+                "amount": 8000,
+                "comment": "基金到股票",
                 "date": "",
-                "fromAccount": "28ee4e3e6038d04707b9c86b43779be6",
-                "targetAccount": "b00064a76038d01e0747120716faece2",
+                "fromAccount": "b00064a76038d01e0747120716faece2",
+                "targetAccount": "28ee4e3e6038d04707b9c86b43779be6",
                 "creator": "b00064a76038c8810745c4b515c4e4ae"
             }
         },
@@ -89,6 +89,15 @@
                 "accountId": "b00064a76038d01e0747120716faece2",
                 "offset": 0,
                 "pageSize": 10
+            }
+        },
+        "getAccountAmount": {
+            "action": "getAccountAmount",
+            "data": {
+                "accountId": "b00064a76038d01e0747120716faece2",
+                "cond": {
+
+                }
             }
         }
     }

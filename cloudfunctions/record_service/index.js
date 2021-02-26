@@ -77,16 +77,6 @@ async function _addTransferRecord(record) {
     await recordDao.addRecord(record);
 }
 
-async function _getAccountInfo(accountId) {
-    cloud.callFunction({
-        name: 'account_service',
-        data: {
-            action: ''
-        }
-    })
-
-}
-
 async function _getUserInfo(userId) {
     let userInfo = await userDao.getUserInfo(userId);
     let {OPENID} = cloud.getWXContext();
