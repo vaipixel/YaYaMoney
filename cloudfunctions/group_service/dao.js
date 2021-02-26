@@ -58,6 +58,19 @@ class GroupDao {
             return [];
         }
     }
+
+    async getMemberCharacter(groupId, userId) {
+        const db = cloud.database();
+        let result = await db.collection(relation_user_group_collection_name).where({
+            groupId: groupId,
+            userId: userId
+        }).get();
+        if (result.data) {
+            return result.data.map(member => member.character)[0];
+        } else {
+            return [];
+        }
+    }
 }
 
 module.exports = GroupDao;

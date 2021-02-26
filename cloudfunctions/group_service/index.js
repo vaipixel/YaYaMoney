@@ -27,7 +27,6 @@ async function getGroupInfoByUser(userId) {
     let groupId = await dao.getGroupIdByUserId(userId);
     let members = await getGroupMembers(groupId);
     let accounts = await getGroupAccounts(groupId);
-    console.log(accounts);
     return {
         groupId,
         members,
@@ -69,13 +68,15 @@ async function getGroupMembers(groupId) {
             data: groupMembersId
         }
     })).result;
-    userInfos.forEach(userInfo => {
+    for (const userInfo of userInfos) {
+        userInfo.character = await dao.getMemberCharacter(groupId, userInfo._id);
+        console.log(userInfo);
         if (OPENID === userInfo.openid) {
             groupMembers.me = userInfo;
         } else {
             groupMembers.partner = userInfo;
         }
-    });
+    }
     return groupMembers;
 }
 

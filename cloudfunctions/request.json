@@ -3,13 +3,13 @@
         "getUserInfosByUserIds": {
             "action": "getUserInfosByUserIds",
             "data": [
-                "057f92a6603663b5000a272a42158ea4",
+                "057f92a66036618a000a06735d354425",
                 "28ee4e3e603747ec0784c707377d6277"
             ]
         },
         "getGroupInfoByUser": {
             "action": "getGroupInfoByUser",
-            "data": "057f92a6603663b5000a272a42158ea4"
+            "data": "057f92a66036618a000a06735d354425"
         }
     },
     "account_service": {

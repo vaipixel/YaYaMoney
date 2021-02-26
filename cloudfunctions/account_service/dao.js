@@ -48,13 +48,13 @@ class AccountDao {
                 from: relation_user_account_collection_name,
                 localField: '_id',
                 foreignField: 'accountId',
-                as: 'users'
+                as: 'members'
             })
             .lookup({
                 from: 'users',
-                localField: 'users.userId',
+                localField: 'members.userId',
                 foreignField: '_id',
-                as: 'users'
+                as: 'members'
             })
             .end();
         return result.list;
