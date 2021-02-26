@@ -5,6 +5,7 @@ cloud.init();
 
 const account_collection_name = 'accounts';
 const relation_user_account_collection_name = 'relation_user_account';
+const user_collection_name = 'users';
 
 class AccountDao {
     constructor() {
@@ -12,12 +13,13 @@ class AccountDao {
 
     async addAccount(account) {
         let db = cloud.database();
-        await db.collection(account_collection_name).add({
+        let result = await db.collection(account_collection_name).add({
             data: {
                 ...account,
                 createTime: new Date()
             }
         });
+        return result._id;
     }
 
     async updateAccount(account) {
@@ -34,6 +36,14 @@ class AccountDao {
                 delete: true
             }
         });
+    }
+
+    async getAccountInfo(accountId) {
+        let db = cloud.database();
+        let result = await db.collection(account_collection_name)
+            .doc(accountId)
+            .get();
+        return result.data;
     }
 
     async getGroupAccounts(groupId) {
@@ -100,4 +110,17 @@ class AccountDao {
     }
 }
 
-module.exports = AccountDao;
+class UserDao {
+    async getUserIdByOpenid(openid) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(user_collection_name)
+            .where({
+                openid: _.eq(openid)
+            })
+            .get();
+        return result.data[0]._id;
+    }
+}
+
+module.exports = {AccountDao, UserDao};

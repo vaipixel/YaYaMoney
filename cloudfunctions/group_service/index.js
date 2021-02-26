@@ -1,8 +1,9 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-const GroupDao = require('./dao.js');
-const dao = new GroupDao();
+const {GroupDao, UserDao} = require('./dao.js');
+const groupDao = new GroupDao();
+const userDao = new UserDao();
 
 cloud.init();
 
@@ -23,8 +24,7 @@ exports.main = async (event, context) => {
 }
 
 async function getGroupInfoByUser(userId) {
-    console.log('getGroupInfoByUser');
-    let groupId = await dao.getGroupIdByUserId(userId);
+    let groupId = await userDao.getGroupIdByUserId(userId);
     let members = await getGroupMembers(groupId);
     let accounts = await getGroupAccounts(groupId);
     return {
@@ -34,47 +34,50 @@ async function getGroupInfoByUser(userId) {
     };
 }
 
-async function createGroup(userId) {
-    if ((await dao.getGroupByUserId(userId)).length > 0) {
-        throw new Error('This user: {' + userId + '} already had group.');
+async function createGroup(data) {
+    let {creator, character} = data;
+    if (await isUserHasGroup(creator)) {
+        throw new Error('This user: {' + creator + '} already had group.');
     } else {
-        return await dao.addGroup({
-            creator: {
-                userId,
-                character: '老公'
-            }
+        let groupId = await groupDao.addGroup({creator});
+        await joinGroup({
+            userId: creator,
+            groupId,
+            character
         });
+        return 'success';
     }
 }
 
-async function joinGroup(userId) {
-
+async function joinGroup(data) {
+    let {userId, groupId, character} = data;
+    _checkGroup(groupId);
+    let userInfo = await userDao.getUserInfo(userId);
+    userInfo = {
+        ...userInfo,
+        groupId,
+        character
+    }
+    await userDao.updateUser(userInfo);
+    return 'success';
 }
 
 async function isUserHasGroup(userId) {
-    return (await dao.getGroupByUserId(userId)).length > 0;
+    let groupId = (await userDao.getUserInfo(userId)).groupId;
+    return !(groupId === undefined || groupId == null || groupId === "");
 }
 
 async function getGroupMembers(groupId) {
-    console.log('getGroupMembers ' + groupId);
     let groupMembers = {}
     let wxContext = cloud.getWXContext();
     let {OPENID} = wxContext;
-    let groupMembersId = await dao.getGroupMembersId(groupId);
-    let userInfos = (await cloud.callFunction({
-        name: 'user_service',
-        data: {
-            action: 'getUserInfosByUserIds',
-            data: groupMembersId
-        }
-    })).result;
-    for (const userInfo of userInfos) {
-        userInfo.character = await dao.getMemberCharacter(groupId, userInfo._id);
-        console.log(userInfo);
-        if (OPENID === userInfo.openid) {
-            groupMembers.me = userInfo;
+    let members = await userDao.getUsersByGroupId(groupId);
+    for (const member of members) {
+        if (OPENID === member.openid) {
+            member.character = '我';
+            groupMembers.me = member;
         } else {
-            groupMembers.partner = userInfo;
+            groupMembers.partner = member;
         }
     }
     return groupMembers;
@@ -88,5 +91,22 @@ async function getGroupAccounts(groupId) {
             data: groupId
         }
     });
-    return result.result;
+    let groupAccounts = result.result;
+    let {OPENID} = cloud.getWXContext();
+    // 将角色换成 '我'
+    groupAccounts.forEach(account => [
+        account.members = account.members.map(member => {
+            if (OPENID === member.openid) {
+                member.character = '我';
+            }
+            return member;
+        })
+    ]);
+    return groupAccounts;
+}
+
+async function _checkGroup(groupId) {
+    if ((await userDao.getUsersByGroupId(groupId)).length > 2) {
+        throw new Error('This group has full');
+    }
 }

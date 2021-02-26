@@ -15,15 +15,45 @@ class RecordDao {
     }
 
     async updateRecord(record) {
-
+        let db = cloud.database();
+        db.collection(record_collection_name)
+            .doc(record._id)
+            .update({
+                data: record
+            });
     }
 
     async deleteRecord(recordId) {
-
+        let db = cloud.database();
+        db.collection(record_collection_name)
+            .doc(recordId)
+            .update({
+                data: {
+                    deleted: true
+                }
+            });
     }
 
-    async getAccountRecords(accountId) {
-
+    async getAccountRecords(accountId, offset, pageSize) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(record_collection_name)
+            .where(_.or([
+                {
+                    accountId: _.eq(accountId)
+                },
+                {
+                    fromAccount: _.eq(accountId)
+                },
+                {
+                    targetAccount: _.eq(accountId)
+                }
+            ]))
+            .skip(offset)
+            .limit(pageSize)
+            .get();
+        console.log(result);
+        return result.data;
     }
 }
 

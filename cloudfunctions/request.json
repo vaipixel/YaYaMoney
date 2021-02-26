@@ -1,11 +1,26 @@
 {
-    "": {
+    "user_service": {
         "getGroupId": {
             "action": "getGroupId",
             "data": "057f92a66036618a000a06735d354425"
         }
     },
     "group_service": {
+        "createGroup": {
+            "action": "createGroup",
+            "data": {
+                "creator": "b00064a76038c8810745c4b515c4e4ae",
+                "character": "老公"
+            }
+        },
+        "joinGroup": {
+            "action": "joinGroup",
+            "data": {
+                "userId": "b00064a76038c88f0745c6a04067bc3b",
+                "groupId": "79550af26038cc300734e26e2b590f05",
+                "character": "老婆"
+            }
+        },
         "getUserInfosByUserIds": {
             "action": "getUserInfosByUserIds",
             "data": [
@@ -15,7 +30,7 @@
         },
         "getGroupInfoByUser": {
             "action": "getGroupInfoByUser",
-            "data": "057f92a66036618a000a06735d354425"
+            "data": "b00064a76038c8810745c4b515c4e4ae"
         }
     },
     "account_service": {
@@ -26,22 +41,55 @@
         "addAccount": {
             "action": "addAccount",
             "data": {
-                "accountName": "股票",
-                "accountDesc": "股票投资账户",
+                "accountName": "基金",
+                "accountDesc": "蛋卷基金投资账户",
                 "accountIcon": "/assets/images/avatar.png",
-                "groupId": "057f92a6603663b5000a272a42158ea4"
+                "groupId": "79550af26038cc300734e26e2b590f05"
             }
         },
         "addUserToAccount": {
             "action": "addUserToAccount",
             "data": {
-                "accountId": "1551b005603770c30025dbc90123f044",
-                "userId": "28ee4e3e603747ec0784c707377d6277"
+                "accountId": "b00064a76038d01e0747120716faece2",
+                "userId": "b00064a76038c88f0745c6a04067bc3b"
             }
         },
         "getGroupId": {
             "action": "getGroupId",
             "data": "1551b005603770c30025dbc90123f044"
+        }
+    },
+    "record_service": {
+        "addRecord_adjust": {
+            "action": "addRecord",
+            "data": {
+                "type": "调整余额",
+                "amount": 1000,
+                "comment": "发工资了",
+                "date": "",
+                "accountId": "b00064a76038d01e0747120716faece2",
+                "creator": "b00064a76038c8810745c4b515c4e4ae"
+            }
+        },
+        "addRecord_transfer": {
+            "action": "addRecord",
+            "data": {
+                "type": "转账",
+                "amount": 3000,
+                "comment": "股票到基金",
+                "date": "",
+                "fromAccount": "1551b005603770c30025dbc90123f044",
+                "targetAccount": "057f92a660377b9000216a69684b43d9",
+                "creator": "057f92a66036618a000a06735d354425"
+            }
+        },
+        "getAccountRecords": {
+            "action": "getAccountRecords",
+            "data": {
+                "accountId": "1551b005603770c30025dbc90123f044",
+                "offset": 0,
+                "pageSize": 10
+            }
         }
     }
 }

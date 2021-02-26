@@ -4,7 +4,7 @@ const cloud = require('wx-server-sdk')
 cloud.init();
 
 const group_collection_name = 'groups';
-const relation_user_group_collection_name = 'relation_user_group';
+const user_collection_name = 'users';
 
 class GroupDao {
     constructor() {
@@ -15,27 +15,11 @@ class GroupDao {
         let creator = groupPo.creator;
         let result = await db.collection(group_collection_name).add({
             data: {
-                createBy: creator.userId,
+                createBy: creator,
                 createTime: new Date()
             }
         });
-        let groupId = result._id;
-        await db.collection(relation_user_group_collection_name).add({
-            data: {
-                groupId: groupId,
-                userId: creator.userId,
-                character: creator.character
-            }
-        })
-        return groupId;
-    }
-
-    async getGroupByUserId(userId) {
-        const db = cloud.database();
-        let result = await db.collection(relation_user_group_collection_name).where({
-            userId: userId
-        }).get();
-        return result.data ? result.data : [];
+        return result._id;
     }
 
     async getGroupIdByUserId(userId) {
@@ -45,18 +29,6 @@ class GroupDao {
         }).get();
         let {groupId} = result.data[0];
         return groupId;
-    }
-
-    async getGroupMembersId(groupId) {
-        const db = cloud.database();
-        let result = await db.collection(relation_user_group_collection_name).where({
-            groupId: groupId
-        }).get();
-        if (result.data) {
-            return result.data.map(member => member.userId);
-        } else {
-            return [];
-        }
     }
 
     async getMemberCharacter(groupId, userId) {
@@ -73,4 +45,45 @@ class GroupDao {
     }
 }
 
-module.exports = GroupDao;
+class UserDao {
+    async getUserInfo(userId) {
+        console.log(userId)
+        let db = cloud.database();
+        return (await db.collection(user_collection_name)
+            .doc(userId)
+            .get())
+            .data;
+    }
+
+    async updateUser(userInfo) {
+        let db = cloud.database();
+        let id = userInfo._id;
+        delete userInfo._id;
+        await db.collection(user_collection_name)
+            .doc(id)
+            .update({
+                data: userInfo
+            });
+    }
+
+    async getUsersByGroupId(groupId) {
+        let db = cloud.database();
+        let _ = db.command;
+        return (await db.collection(user_collection_name)
+            .where({
+                groupId: _.eq(groupId)
+            })
+            .get()).data;
+    }
+
+    async getGroupIdByUserId(userId) {
+        const db = cloud.database();
+        let result = await db.collection(user_collection_name)
+            .doc(userId)
+            .get();
+        let {groupId} = result.data;
+        return groupId;
+    }
+}
+
+module.exports = {GroupDao, UserDao};
