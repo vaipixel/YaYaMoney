@@ -38,9 +38,6 @@ async function login(loginData) {
 }
 
 async function getUserInfosByUserIds(userIds) {
-    console.log('getUserInfosByUserIds: ');
-    console.log(userIds);
-
     let userInfos = [];
     for (const userId of userIds) {
         let userInfo = await dao.getUserInfoByUserId(userId);

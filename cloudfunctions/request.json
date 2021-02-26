@@ -36,7 +36,7 @@
     "account_service": {
         "getGroupAccounts": {
             "action": "getGroupAccounts",
-            "data": "057f92a6603663b5000a272a42158ea4"
+            "data": "79550af26038cc300734e26e2b590f05"
         },
         "addAccount": {
             "action": "addAccount",

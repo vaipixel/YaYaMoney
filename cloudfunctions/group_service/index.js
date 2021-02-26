@@ -27,6 +27,7 @@ async function getGroupInfoByUser(userId) {
     let groupId = await userDao.getGroupIdByUserId(userId);
     let members = await getGroupMembers(groupId);
     let accounts = await getGroupAccounts(groupId);
+    let overview = await _getGroupOverview(groupId);
     return {
         groupId,
         members,
@@ -103,6 +104,10 @@ async function getGroupAccounts(groupId) {
         })
     ]);
     return groupAccounts;
+}
+
+async function _getGroupOverview(groupId) {
+
 }
 
 async function _checkGroup(groupId) {

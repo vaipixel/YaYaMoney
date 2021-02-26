@@ -47,7 +47,6 @@ class GroupDao {
 
 class UserDao {
     async getUserInfo(userId) {
-        console.log(userId)
         let db = cloud.database();
         return (await db.collection(user_collection_name)
             .doc(userId)
