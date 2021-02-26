@@ -61,10 +61,10 @@ class UserDao {
     async getGroupId(userId) {
         let db = cloud.database();
         let _ = db.command;
-        let result = await db.collection(relation_user_group_collection_name).where({
-            userId: _.eq(userId)
-        }).get();
-        return result.data[0].groupId;
+        let result = await db.collection(user_collection_name)
+            .doc(userId)
+            .get();
+        return result.data.groupId;
     }
 }
 

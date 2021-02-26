@@ -20,6 +20,7 @@ exports.main = async (event, context) => {
 }
 
 async function addRecord(data) {
+    console.log('addRecord');
     let {type} = data;
     if (type === TYPE_ADJUST_MONEY) {
         await _addAdjustMoneyRecord(data);
@@ -64,9 +65,9 @@ async function _addAdjustMoneyRecord(record) {
 }
 
 async function _addTransferRecord(record) {
-    let {fromAccountId, targetAccountId, creator} = record;
-    await _checkPermission(creator, fromAccountId);
-    await _checkPermission(creator, targetAccountId);
+    let {fromAccount, targetAccount, creator} = record;
+    await _checkPermission(creator, fromAccount);
+    await _checkPermission(creator, targetAccount);
     await dao.addRecord(record);
 }
 
@@ -88,12 +89,15 @@ async function _checkPermission(userId, accountId) {
             data: accountId
         }
     })).result;
+    console.log(accountGroupId);
     let userGroupId = (await cloud.callFunction({
-        name: 'group_service',
+        name: 'user_service',
         data: {
-            action: 'getGroupId'
+            action: 'getGroupId',
+            data: userId
         }
     })).result;
+    console.log(userGroupId);
     if (accountGroupId !== userGroupId) {
         throw new Error(`Can not modify other group's account's record! user: {${userId} accountId: {${accountId}`);
     }

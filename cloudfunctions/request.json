@@ -64,8 +64,8 @@
             "action": "addRecord",
             "data": {
                 "type": "调整余额",
-                "amount": 1000,
-                "comment": "发工资了",
+                "amount": 4000,
+                "comment": "又发工资了",
                 "date": "",
                 "accountId": "b00064a76038d01e0747120716faece2",
                 "creator": "b00064a76038c8810745c4b515c4e4ae"
@@ -78,9 +78,9 @@
                 "amount": 3000,
                 "comment": "股票到基金",
                 "date": "",
-                "fromAccount": "1551b005603770c30025dbc90123f044",
-                "targetAccount": "057f92a660377b9000216a69684b43d9",
-                "creator": "057f92a66036618a000a06735d354425"
+                "fromAccount": "28ee4e3e6038d04707b9c86b43779be6",
+                "targetAccount": "b00064a76038d01e0747120716faece2",
+                "creator": "b00064a76038c8810745c4b515c4e4ae"
             }
         },
         "getAccountRecords": {
