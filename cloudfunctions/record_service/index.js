@@ -49,7 +49,7 @@ async function updateRecord(data) {
 async function getAccountRecords(query) {
     const {accountId, offset, pageSize} = query;
     let records = await recordDao.getAccountRecords(accountId, offset, pageSize);
-    records.map(async record => {
+    for (const record of records) {
         record.creator = await _getUserInfo(record.creator);
         let {type} = record;
         if (type === TYPE_ADJUST_MONEY) {
@@ -59,7 +59,7 @@ async function getAccountRecords(query) {
             record.targetAccount = await accountDao.getAccountInfo(record.targetAccount);
             return record;
         }
-    })
+    }
     return records;
 }
 

@@ -125,10 +125,10 @@ class UserDao {
 }
 
 class RecordDao {
-    async getIncomeRecordAmount(accountId, condition) {
+    async getIncomeRecordAmount(condition) {
         let db = cloud.database();
         let $ = db.command.aggregate;
-        let match = this._createMatchByCond($, this._getIncomeBaseCond($, accountId), condition);
+        let match = this._createMatchByCond($, condition, this._createIncomeAccountCond);
         let result = await db.collection(record_collection_name).aggregate()
             .match(match)
             .group({
@@ -144,10 +144,10 @@ class RecordDao {
         }
     }
 
-    async getOutcomeRecordAmount(accountId, condition) {
+    async getOutcomeRecordAmount(condition) {
         let db = cloud.database();
         let $ = db.command.aggregate;
-        let match = this._createMatchByCond($, this._getOutcomeBaseCond($, accountId), condition);
+        let match = this._createMatchByCond($, condition, this._createOutcomeAccountCond);
         let result = await db.collection(record_collection_name).aggregate()
             .match(match)
             .group({
@@ -163,7 +163,7 @@ class RecordDao {
         }
     }
 
-    _createMatchByCond(aggregate, baseCond, condition) {
+    _createMatchByCond(aggregate, condition, accountCondFn) {
         let match;
         let $ = aggregate;
         if (condition) {
@@ -175,20 +175,18 @@ class RecordDao {
             }
             if (condition.cutOffDate) {
                 cond.push({
-                    date: $.lte(condition.cutOffDate)
+                    date: $.gte(condition.cutOffDate)
                 });
             }
-            match = $.and([
-                baseCond,
-                $.and(cond)
-            ]);
-        } else {
-            match = baseCond;
+            if (condition.accountId) {
+                cond.push(accountCondFn($, condition.accountId));
+            }
+            return $.and(cond);
         }
-        return match;
+        return {};
     }
 
-    _getIncomeBaseCond(aggregate, accountId) {
+    _createIncomeAccountCond(aggregate, accountId) {
         return aggregate.or([
             {
                 accountId: aggregate.eq(accountId)
@@ -199,7 +197,7 @@ class RecordDao {
         ])
     }
 
-    _getOutcomeBaseCond(aggregate, accountId) {
+    _createOutcomeAccountCond(aggregate, accountId) {
         return {
             fromAccount: aggregate.eq(accountId)
         }

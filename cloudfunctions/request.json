@@ -31,12 +31,21 @@
         "getGroupInfoByUser": {
             "action": "getGroupInfoByUser",
             "data": "b00064a76038c8810745c4b515c4e4ae"
+        },
+        "getGroupInfoWithIncomeRate": {
+            "action": "getGroupInfoWithIncomeRate",
+            "data": {
+                "userId": "b00064a76038c8810745c4b515c4e4ae",
+                "interval": "每月"
+            }
         }
     },
     "account_service": {
         "getGroupAccounts": {
             "action": "getGroupAccounts",
-            "data": "79550af26038cc300734e26e2b590f05"
+            "data": {
+                "groupId": "79550af26038cc300734e26e2b590f05"
+            }
         },
         "addAccount": {
             "action": "addAccount",
@@ -95,9 +104,12 @@
             "action": "getAccountAmount",
             "data": {
                 "accountId": "b00064a76038d01e0747120716faece2",
-                "cond": {
+            }
+        },
+        "getMemberAmount": {
+            "action": "getMemberAmount",
+            "data": {
 
-                }
             }
         }
     }
