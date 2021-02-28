@@ -1,6 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 const {AccountDao, UserDao, RecordDao} = require('./dao');
+const {getChineseMonth} = require('./utils');
 
 cloud.init();
 
@@ -133,7 +134,7 @@ async function updateRecord(data) {
 
 async function getAccountRecords(query) {
     const {accountId, userId, offset, pageSize} = query;
-    let records = await recordDao.getAccountRecords(accountId, offset, pageSize);
+    let records = await recordDao.getAccountRecords_new(accountId, userId, offset, pageSize);
     for (const record of records) {
         record.creator = await _getUserInfo(record.creator);
         let {type} = record;
@@ -142,7 +143,21 @@ async function getAccountRecords(query) {
             record.targetAccount = await accountDao.getAccountInfo(record.targetAccount);
         }
     }
-    return records;
+    let resultObj =  records.reduce((result, record) => {
+        (result[record.monthIndex] = result[record.monthIndex] || []).push(record);
+        delete record.monthIndex;
+        return result;
+    }, {});
+
+    let result = [];
+    Object.keys(resultObj).forEach(key => {
+        result.push({
+            month: key,
+            name: getChineseMonth(key),
+            record: resultObj[key]
+        });
+    });
+    return result;
 }
 
 async function _addAdjustMoneyRecord(record) {

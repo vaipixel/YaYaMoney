@@ -1,5 +1,7 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk')
+const cloud = require('wx-server-sdk');
+
+const {getYearAndMonth} = require('./utils');
 
 cloud.init();
 
@@ -185,22 +187,41 @@ class RecordDao {
     async getAccountRecords_new(accountId, userId, offset, pageSize) {
         let db = cloud.database();
         let _ = db.command;
-        let result = await db.collection(record_collection_name)
-            .where(_.or([
+        let $ = db.command.aggregate;
+        let result = await db.collection(record_collection_name).aggregate()
+            .match($.or([
                 {
-                    accountId: _.eq(accountId)
+                    accountId: $.eq(accountId)
                 },
                 {
-                    fromAccount: _.eq(accountId)
+                    fromAccount: $.eq(accountId)
                 },
                 {
-                    targetAccount: _.eq(accountId)
+                    targetAccount: $.eq(accountId)
                 }
             ]))
+            .sort({
+                date: 1
+            })
             .skip(offset)
             .limit(pageSize)
-            .get();
-        return result.data;
+            .project({
+                _id: 1,
+                accountId: 1,
+                amount: 1,
+                comment: 1,
+                creator: 1,
+                date: 1,
+                type: 1,
+                fromAccount: 1,
+                targetAccount: 1,
+                monthIndex: $.dateToString({
+                    date: '$date',
+                    format: '%Y-%m'
+                })
+            })
+            .end();
+        return result.list;
     }
 
     async getIncomeRecordAmount(condition) {
