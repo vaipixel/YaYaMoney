@@ -52,7 +52,7 @@
             "data": {
                 "accountName": "基金",
                 "accountDesc": "蛋卷基金投资账户",
-                "accountIcon": "/assets/images/avatar.png",
+                "accountIcon": "/assets/images/avatar.svg",
                 "groupId": "79550af26038cc300734e26e2b590f05"
             }
         },

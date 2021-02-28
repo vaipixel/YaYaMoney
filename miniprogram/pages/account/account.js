@@ -129,11 +129,11 @@ Page({
         let recordType = e.target.dataset.recordType;
         console.log(recordType);
         switch (recordType) {
-            case 1:
+            case '转账':
                 // 转账
                 this.showTransferDialog();
                 break
-            case 2:
+            case '调整余额':
                 // 调整余额
                 this.showAdjustMoneyDialog()
                 break

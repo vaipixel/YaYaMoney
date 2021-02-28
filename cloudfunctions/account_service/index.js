@@ -135,15 +135,27 @@ async function updateRecord(data) {
 async function getAccountRecords(query) {
     const {accountId, userId, offset, pageSize} = query;
     let records = await recordDao.getAccountRecords_new(accountId, userId, offset, pageSize);
+    let accountInfo = await accountDao.getAccountInfo(accountId);
     for (const record of records) {
         record.creator = await _getUserInfo(record.creator);
         let {type} = record;
         if (type === TYPE_TRANSFER) {
-            record.fromAccount = await accountDao.getAccountInfo(record.fromAccount);
-            record.targetAccount = await accountDao.getAccountInfo(record.targetAccount);
+            if (record.fromAccount === accountId) {
+                record.fromAccount = accountInfo;
+            } else {
+                record.fromAccount = await accountDao.getAccountInfo(record.fromAccount);
+            }
+            if (record.targetAccount === accountId) {
+                record.targetAccount = accountInfo;
+            } else {
+                record.targetAccount = await accountDao.getAccountInfo(record.targetAccount);
+            }
+        } else if (type === TYPE_ADJUST_MONEY) {
+            record.account = accountInfo;
+            delete record.accountId;
         }
     }
-    let resultObj =  records.reduce((result, record) => {
+    let resultObj = records.reduce((result, record) => {
         (result[record.monthIndex] = result[record.monthIndex] || []).push(record);
         delete record.monthIndex;
         return result;
@@ -154,7 +166,7 @@ async function getAccountRecords(query) {
         result.push({
             month: key,
             name: getChineseMonth(key),
-            record: resultObj[key]
+            records: resultObj[key]
         });
     });
     return result;

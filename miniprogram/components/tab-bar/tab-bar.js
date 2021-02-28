@@ -43,7 +43,7 @@ Component({
             let tabs = this.data.tabs;
             let tab = tabs[selectedIndex];
             let selectedTabName = tab.name;
-            if (selectedTabName == this.data.currentSelected) {
+            if (selectedTabName === this.data.currentSelected) {
                 console.log('Same as current, skip.');
                 return
             }
@@ -87,7 +87,6 @@ Component({
     },
     lifetimes: {
         attached: function() {
-            console.log('attached');
             let tabs = this.data.tabs
             this.data.tabData.forEach(item => {
                 tabs.push({
@@ -95,7 +94,7 @@ Component({
                     width: 10
                 })
             });
-            if (tabs.length == 0) {
+            if (tabs.length === 0) {
                 return
             }
             this.initUI();

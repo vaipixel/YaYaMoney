@@ -30,7 +30,7 @@ Page({
         members: {
             me: {
                 uid: "",
-                avatar: "/assets/images/avatar.png",
+                avatar: "/assets/images/avatar.svg",
                 name: "我",
                 alias: "我",
                 amount: 1010,
@@ -38,7 +38,7 @@ Page({
             },
             partner: {
                 uid: "",
-                avatar: "/assets/images/avatar.png",
+                avatar: "/assets/images/avatar.svg",
                 name: "老婆",
                 alias: "老婆",
                 amount: 2000,
@@ -49,14 +49,14 @@ Page({
             accountId: "1",
             accountName: "基金",
             accountDesc: "在蛋卷基金上的投资",
-            accountIcon: "/assets/images/avatar.png",
+            accountIcon: "/assets/images/avatar.svg",
             accountAmount: 10010,
             accountRate: "4.5%",
             members: [{
                 uid: "",
                 name: "我",
                 alias: "我",
-                avatar: "/assets/images/avatar.png",
+                avatar: "/assets/images/avatar.svg",
                 amount: 1000,
                 incomeStatus: {
                     income: 100,
@@ -67,7 +67,7 @@ Page({
                     uid: "",
                     name: "老婆",
                     alias: "老婆",
-                    avatar: "/assets/images/avatar.png",
+                    avatar: "/assets/images/avatar.svg",
                     amount: 1000,
                     incomeStatus: {
                         income: 100,
@@ -80,14 +80,14 @@ Page({
                 accountId: "2",
                 accountName: "股票",
                 accountDesc: "股票交易",
-                accountIcon: "/assets/images/avatar.png",
+                accountIcon: "/assets/images/avatar.svg",
                 accountAmount: 10001,
                 accountRate: "-4.5%",
                 members: [{
                     uid: "",
                     name: "我",
                     alias: "我",
-                    avatar: "/assets/images/avatar.png",
+                    avatar: "/assets/images/avatar.svg",
                     amount: 1000,
                     incomeStatus: {
                         income: 100,
@@ -98,7 +98,7 @@ Page({
                         uid: "",
                         name: "老婆",
                         alias: "老婆",
-                        avatar: "/assets/images/avatar.png",
+                        avatar: "/assets/images/avatar.svg",
                         amount: 1000,
                         incomeStatus: {
                             income: 100,
@@ -121,16 +121,17 @@ Page({
             this.setData({
                 'pageInfo.currentInterval': interval
             });
+            console.log('showLoading')
+            this.showLoading();
             indexViewModel.requestGroupInfo();
         });
         indexViewModel.observerUserInfo(observer, userInfo => {
-            console.log('Index');
-            console.log(userInfo);
         });
         indexViewModel.observerGroupInfo(observer, groupInfo => {
             this.setData({
                 groupInfo: groupInfo
-            })
+            });
+            wx.hideLoading();
         });
         indexViewModel.setCurrentInterval('每月');
 
@@ -218,7 +219,6 @@ Page({
     },
     onTabChanged: function (e) {
         let tab = e.detail.tab;
-        console.log(tab);
     },
     onMenuTaped: function () {
         this.setData({
@@ -234,7 +234,10 @@ Page({
         });
     },
     showLoading: function () {
-
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
     },
     initViewModel: async function () {
         indexViewModel = wx.viewModels.index;

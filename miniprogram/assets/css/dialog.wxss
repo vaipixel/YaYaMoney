@@ -9,7 +9,7 @@
 }
 
 .dialog.bottom {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 92%;
@@ -20,10 +20,10 @@
 }
 
 .dialog.top-left {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    margin: 24rpx 0 0 24rpx;
+    margin: 200rpx 0 0 24rpx;
 }
 
 .dialog .title-bar {
