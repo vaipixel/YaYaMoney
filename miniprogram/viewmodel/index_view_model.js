@@ -17,7 +17,6 @@ class IndexViewModel extends ViewModel {
             let wxLoginData = await loginService.loginWx();
             this.userInfo = await loginService.onUserLogin(wxLoginData);
         } catch (e) {
-            console.log(e)
             console.warn('NotLoginError');
             throw new NotLoginError();
         }
@@ -31,13 +30,11 @@ class IndexViewModel extends ViewModel {
 
 
     setCurrentInterval(interval) {
-        console.log(`setCurrentInterval: ${interval}`)
         this.currentInterval = interval;
     }
 
     // 请求群组总览
     async requestGroupInfo() {
-        console.log('requestGroupInfo')
         this.groupInfo = await wx.services.groupService.getGroupInfoByUser(this.userInfo._id, this.currentInterval);
     }
 
