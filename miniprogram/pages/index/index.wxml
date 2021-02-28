@@ -1,126 +1,127 @@
 <!-- miniprogram/pages/index/index.wxml -->
 <wxs module="utils" src="./index.wxs"></wxs>
 <mp-navigation-bar title="吖吖资产" background="#187A99" color="#FEFEFE" back="{{false}}">
-  <image slot="left" class="menu" bind:tap="onMenuTaped" src="/assets/images/menu.svg" />
+    <image slot="left" class="menu" bind:tap="onMenuTaped" src="/assets/images/menu.svg"/>
 </mp-navigation-bar>
 <view class="container">
-  <!-- 头部 -->
-  <view class="header">
-    <!-- 整体概览 -->
-    <view class="summary">
-      <!-- 总额部分 -->
-      <view class="top">
-        <!-- 总额 -->
-        <view class="top-left">
-          <text class="total">总额</text>
-          <text class="unit">CNY</text>
-        </view>
-        <!-- 金额 -->
-        <view class="top-right">
-          <text class="amount">{{overview.total}}</text>
-        </view>
-      </view>
-      <view class="bottom">
-        <text class="time-pick" bindtap="showIntervalPickerDialog">{{pageInfo.currentInterval}}</text>
-        <text class="income">{{overview.income}}（{{overview.rate}}）</text>
-      </view>
-    </view>
-    <!-- 用户概览 -->
-    <view class="users">
-      <view class="user">
-        <image src="{{members.me.avatar}}" />
-        <view class="info-group">
-          <view class="name-group">
-            <text class="name">{{members.me.alias}}</text>
-            <text class="rate">{{members.me.rate}}</text>
-          </view>
-          <text class="amount">¥ {{members.me.amount}}</text>
-        </view>
-      </view>
-      <view class="user">
-        <image src="{{members.partner.avatar}}" />
-        <view class="info-group">
-          <view class="name-group">
-            <text class="name">{{members.partner.alias}}</text>
-            <text class="rate">{{members.partner.rate}}</text>
-          </view>
-          <text class="amount">¥ {{members.partner.amount}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- 内容 -->
-  <view class="body">
-    <!-- filter -->
-    <tab-bar tab-data="{{pageInfo.tabData}}" bind:tab-changed="onTabChanged"></tab-bar>
-    <!-- 账户列表 -->
-    <view class="accounts">
-      <view class="account" wx:for="{{accounts}}" wx:key="index" wx:for-item="account">
-        <view class="overview">
-          <view class="account-info">
-            <image class="avatar" src="{{account.accountIcon}}" />
-            <view class="info">
-              <text class="item name">{{account.accountName}}</text>
-              <text class="item desc">{{account.accountDesc}}</text>
+    <!-- 头部 -->
+    <view class="header">
+        <!-- 整体概览 -->
+        <view class="summary">
+            <!-- 总额部分 -->
+            <view class="top">
+                <!-- 总额 -->
+                <view class="top-left">
+                    <text class="total">总额</text>
+                    <text class="unit">CNY</text>
+                </view>
+                <!-- 金额 -->
+                <view class="top-right">
+                    <text class="amount">{{groupInfo.overview.amount ? groupInfo.overview.amount : '****'}}</text>
+                </view>
             </view>
-          </view>
-          <view class="account-amount">
-            <text class="item amount">¥ {{account.accountAmount}}</text>
-            <text
-              class="item rate"
-            >{{utils.getRateStatus(account.accountRate)}} {{utils.getRateAbs(account.accountRate)}}</text>
-          </view>
+            <view class="bottom">
+                <text class="time-pick" bindtap="showIntervalPickerDialog">{{pageInfo.currentInterval}}</text>
+                <text class="income"
+                      wx:if="{{groupInfo.overview.income}}">{{groupInfo.overview.income.amount}}（{{groupInfo.overview.income.rate}}）</text>
+            </view>
         </view>
+        <!-- 用户概览 -->
         <view class="users">
-          <view class="user" wx:for="{{account.members}}" wx:key="index" wx:for-item="member">
-            <view class="user-info">
-              <image src="{{member.avatar}}" class="avatar" />
-              <view class="info">
-                <text class="name">{{member.alias}}</text>
-                <text class="amount">¥ {{member.amount}}</text>
-              </view>
+            <view class="user">
+                <image class="avatar" src="{{groupInfo.members.me.avatarUrl}}"/>
+                <view class="info-group">
+                    <view class="name-group">
+                        <text class="name">{{groupInfo.members.me.character}}</text>
+                        <text class="rate">{{groupInfo.members.me.income.rate}}</text>
+                    </view>
+                    <text class="amount">¥ {{groupInfo.members.me.amount}}</text>
+                </view>
             </view>
-            <view class="user-status">
-              <text class="status">¥ {{member.incomeStatus.income}} ({{member.incomeStatus.rate}})</text>
+            <view class="user" >
+                <image class="avatar" src="{{groupInfo.members.partner.avatarUrl}}"/>
+                <view class="info-group">
+                    <view class="name-group">
+                        <text class="name">{{groupInfo.members.partner.character}}</text>
+                        <text class="rate">{{groupInfo.members.partner.income.rate}}</text>
+                    </view>
+                    <text class="amount">¥ {{groupInfo.members.partner.amount}}</text>
+                </view>
             </view>
-          </view>
-          <view class="detail">
-            <text
-              class="btn"
-              bindtap="navToAccountDetail"
-              data-account-id="{{account.accountId}}"
-            >详细信息 >></text>
-          </view>
         </view>
-      </view>
     </view>
-  </view>
-  <view class="add-record-btn" catch:tap="showAddRecordDialog">
-    <text class="text">新增记录</text>
-  </view>
-  <dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
-    <view class="interval-container dialog center">
-      <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
-      <view class="divider"></view>
-      <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
+    <!-- 内容 -->
+    <view class="body">
+        <!-- filter -->
+        <tab-bar tab-data="{{pageInfo.tabData}}" bind:tab-changed="onTabChanged"></tab-bar>
+        <!-- 账户列表 -->
+        <view class="accounts">
+            <view class="account" wx:for="{{groupInfo.accounts}}" wx:key="index" wx:for-item="account">
+                <view class="overview">
+                    <view class="account-info">
+                        <image class="avatar" src="{{account.accountIcon}}"/>
+                        <view class="info">
+                            <text class="item name">{{account.accountName}}</text>
+                            <text class="item desc">{{account.accountDesc}}</text>
+                        </view>
+                    </view>
+                    <view class="account-amount">
+                        <text class="item amount">¥ {{account.amount}}</text>
+                        <text
+                                class="item rate"
+                        >{{utils.getRateStatus(account.income.rate)}} {{utils.getRateAbs(account.income.rate)}}</text>
+                    </view>
+                </view>
+                <view class="users">
+                    <view class="user" wx:for="{{account.members}}" wx:key="index" wx:for-item="member">
+                        <view class="user-info">
+                            <image src="{{member.avatarUrl}}" class="avatar"/>
+                            <view class="info">
+                                <text class="name">{{member.character}}</text>
+                                <text class="amount">¥ {{member.amount}}</text>
+                            </view>
+                        </view>
+                        <view class="user-status">
+                            <text class="status">¥ {{member.income.amount}} ({{member.income.rate}})</text>
+                        </view>
+                    </view>
+                    <view class="detail">
+                        <text
+                                class="btn"
+                                bindtap="navToAccountDetail"
+                                data-account-id="{{account.accountId}}"
+                        >详细信息 >></text>
+                    </view>
+                </view>
+            </view>
+        </view>
     </view>
-  </dialog>
-  <dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
-    <view class="menu-dialog dialog top-left">
-      <view class="menu-item" bind:tap="onAddAccount">
-        <image class="menu-icon" src="/assets/images/add.svg" />
-        <text class="menu-label">添加账户</text>
-      </view>
-      <view class="divider"></view>
-      <view class="menu-item">
-        <image class="menu-icon" src="/assets/images/setting.svg" />
-        <text class="menu-label">设置</text>
-      </view>
+    <view class="add-record-btn" catch:tap="showAddRecordDialog">
+        <text class="text">新增记录</text>
     </view>
-  </dialog>
+    <dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
+        <view class="interval-container dialog center">
+            <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
+            <view class="divider"></view>
+            <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
+            <view class="divider"></view>
+            <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
+            <view class="divider"></view>
+            <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
+        </view>
+    </dialog>
+    <dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
+        <view class="menu-dialog dialog top-left">
+            <view class="menu-item" bind:tap="onAddAccount">
+                <image class="menu-icon" src="/assets/images/add.svg"/>
+                <text class="menu-label">添加账户</text>
+            </view>
+            <view class="divider"></view>
+            <view class="menu-item">
+                <image class="menu-icon" src="/assets/images/setting.svg"/>
+                <text class="menu-label">设置</text>
+            </view>
+        </view>
+    </dialog>
 </view>
 <new-record-dialog wx:if="{{isAddRecordDialogShow}}" model:is-show="{{isAddRecordDialogShow}}"></new-record-dialog>

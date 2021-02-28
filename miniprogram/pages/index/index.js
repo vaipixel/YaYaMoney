@@ -116,11 +116,25 @@ Page({
     onLoad: async function (options) {
         this.showLoading();
         await this.initViewModel();
-        indexViewModel.requestAll();
+        indexViewModel.observerIntervalChanged(context, interval => {
+            console.log(`observerIntervalChanged: ${interval}`)
+            this.setData({
+                'pageInfo.currentInterval': interval
+            });
+            indexViewModel.requestGroupInfo();
+        });
         indexViewModel.observerUserInfo(context, userInfo => {
             console.log('Index');
             console.log(userInfo);
-        })
+        });
+        indexViewModel.observerGroupInfo(context, groupInfo => {
+            this.setData({
+                groupInfo: groupInfo
+            })
+        });
+        indexViewModel.setCurrentInterval('每月');
+
+
     },
 
     /**
@@ -198,11 +212,9 @@ Page({
         });
     },
     changeInterval: function (e) {
-        var selectedInterval = e.target.dataset.interval;
+        let selectedInterval = e.target.dataset.interval;
         this.dismissIntervalPickerDialog();
-        this.setData({
-            'pageInfo.currentInterval': selectedInterval
-        });
+        indexViewModel.setCurrentInterval(selectedInterval);
     },
     onTabChanged: function (e) {
         let tab = e.detail.tab;

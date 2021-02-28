@@ -9,3 +9,7 @@ text {
     align-self: center;
     border: 1rpx solid #F0EFEC;
 }
+
+.avatar {
+    border-radius: 50rpx;
+}

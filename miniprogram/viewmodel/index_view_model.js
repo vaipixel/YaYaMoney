@@ -4,6 +4,7 @@ import {NotLoginError, UserHasNoGroupError} from "../errors/errors";
 class IndexViewModel extends ViewModel {
     constructor() {
         super();
+        this.currentInterval = '';
         this.userInfo = {};
         this.groupInfo = {};
         this.accountInfo = {};
@@ -28,16 +29,16 @@ class IndexViewModel extends ViewModel {
         }
     }
 
-    requestAll() {
-        console.log('requestAll')
-        this.requestGroupInfo();
+
+    setCurrentInterval(interval) {
+        console.log(`setCurrentInterval: ${interval}`)
+        this.currentInterval = interval;
     }
 
     // 请求群组总览
     async requestGroupInfo() {
         console.log('requestGroupInfo')
-        let groupInfo = await wx.services.groupService.getGroupInfoByUser(this.userInfo._id);
-        console.log(groupInfo);
+        this.groupInfo = await wx.services.groupService.getGroupInfoByUser(this.userInfo._id, this.currentInterval);
     }
 
     // 请求群组中所有账户的信息
@@ -47,6 +48,14 @@ class IndexViewModel extends ViewModel {
 
     observerUserInfo(context, fn) {
         this._observer(context, 'userInfo', fn);
+    }
+
+    observerIntervalChanged(context, fn) {
+        this._observer(context, 'currentInterval', fn);
+    }
+
+    observerGroupInfo(context, fn) {
+        this._observer(context, 'groupInfo', fn);
     }
 
     release(context) {

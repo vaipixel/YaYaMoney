@@ -30,8 +30,8 @@ exports.main = async (event, context) => {
 
 async function getGroupInfoByUser(userId) {
     let groupId = await userDao.getGroupIdByUserId(userId);
-    let members = await getGroupMembers(groupId);
     let accounts = await getGroupAccounts({groupId});
+    let members = await getGroupMembers(groupId, accounts);
     let overview = await _getGroupOverview(groupId, accounts);
     return {
         groupId,
@@ -80,13 +80,13 @@ async function isUserHasGroup(userId) {
     return !(groupId === undefined || groupId == null || groupId === "");
 }
 
-async function getGroupMembers(groupId) {
+async function getGroupMembers(groupId, accounts) {
     let groupMembers = {}
     let wxContext = cloud.getWXContext();
     let {OPENID} = wxContext;
     let members = await userDao.getUsersByGroupId(groupId);
     for (const member of members) {
-        member.amount = await getMemberAmount({userId: member._id})
+        member.amount = await getMemberAmount(member._id, accounts)
     }
     for (const member of members) {
         if (OPENID === member.openid) {
@@ -121,14 +121,23 @@ async function getGroupAccounts(query) {
     return groupAccounts;
 }
 
-async function getMemberAmount(query) {
-    return (await cloud.callFunction({
-        name: 'account_service',
-        data: {
-            action: 'getMemberAmount',
-            data: query
-        }
-    })).result;
+async function getMemberAmount(userId, accounts) {
+    // return (await cloud.callFunction({
+    //     name: 'account_service',
+    //     data: {
+    //         action: 'getMemberAmount',
+    //         data: query
+    //     }
+    // })).result;
+    return accounts.reduce((amount, account) => {
+        return amount + account.members.reduce((memberAmount, member) => {
+            if (member._id === userId) {
+                return memberAmount + member.amount;
+            } else {
+                return 0;
+            }
+        }, 0);
+    }, 0);
 }
 
 async function _calculateIncomeRate(groupInfo, interval) {
@@ -158,7 +167,7 @@ async function _calculateIncomeRate(groupInfo, interval) {
     // members
     for (let key of Object.keys(members)) {
         let nowMember = members[key];
-        let amount = await getMemberAmount({userId: nowMember._id, cutOffDate});
+        let amount = await getMemberAmount(nowMember._id, lastIntervalAccounts);
         nowMember.income = {
             amount: nowMember.amount - amount,
             rate: calculateIncomeRate(nowMember.amount, amount)
@@ -167,8 +176,6 @@ async function _calculateIncomeRate(groupInfo, interval) {
 
     // overview
     let overviewLastAmount = accounts.reduce((amount, account) => amount + account.income.amount, 0);
-    console.log(`overview.income: ${overview.amount}`);
-    console.log(`overviewLastAmount: ${overviewLastAmount}`);
     overview.income = {
         amount: overview.amount - overviewLastAmount,
         rate: calculateIncomeRate(overview.amount, overviewLastAmount)
