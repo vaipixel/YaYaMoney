@@ -107,6 +107,7 @@ class AccountDao {
      * @returns {Promise<void>}
      */
     async getGroupId(accountId) {
+        console.log(`getGroupId: ${accountId}`)
         let db = cloud.database();
         let result = await db.collection(account_collection_name).doc(accountId).get();
         return result.data.groupId;

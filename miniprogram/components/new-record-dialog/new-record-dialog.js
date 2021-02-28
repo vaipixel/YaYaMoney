@@ -44,7 +44,7 @@ Component({
         }
     },
     watch: {
-        'date': function(date) {
+        'date': function (date) {
             this.setData({
                 formatDate: dateUtils.formatDate(date)
             })
@@ -98,7 +98,7 @@ Component({
                 'account': this.data.accounts[tapIndex]
             });
         },
-        onChoseFromAccount: async function() {
+        onChoseFromAccount: async function () {
             let accountList = this.data.accounts.map(account => account.accountName)
             let tapIndex = (await wx.showActionSheet({
                 alertText: '请选择转出账户',
@@ -108,7 +108,7 @@ Component({
                 fromAccount: this.data.accounts[tapIndex]
             });
         },
-        onChoseTargetAccount: async function() {
+        onChoseTargetAccount: async function () {
             let accountList = this.data.accounts.map(account => account.accountName)
             let tapIndex = (await wx.showActionSheet({
                 alertText: '请选择转入账户',
@@ -127,31 +127,26 @@ Component({
                 comment: data.comment,
                 date: data.date
             };
-            wx.showLoading({
-                mask: true
-            })
             await this._addRecord(record);
-            wx.hideLoading();
-            this.dismiss();
         },
         onAddTransferRecord: async function () {
             let data = this.data;
             let record = {
                 amount: parseFloat(data.amount),
-                type: '调整余额',
+                type: '转账',
                 fromAccount: data.fromAccount._id,
                 targetAccount: data.targetAccount._id,
                 comment: data.comment,
                 date: data.date
             };
+            await this._addRecord(record);
+        },
+        _addRecord: async function (record) {
+            console.log(record);
             wx.showLoading({
+                title: '添加中',
                 mask: true
             })
-            await this._addRecord(record);
-            wx.hideLoading();
-            this.dismiss();
-        },
-        _addRecord: async function(record) {
             await wx.cloud.callFunction({
                 name: 'account_service',
                 data: {
@@ -159,6 +154,8 @@ Component({
                     data: record
                 }
             })
+            wx.hideLoading();
+            this.dismiss();
         }
     },
     lifetimes: {

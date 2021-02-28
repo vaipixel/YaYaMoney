@@ -67,7 +67,7 @@
             <view class="btn half cancel" catch:tap="dismiss">
               <text>取消</text>
             </view>
-            <view class="btn half add" catch:tap="onAddTransferRrcoed">
+            <view class="btn half add" catch:tap="onAddTransferRecord">
               <text>添加</text>
             </view>
           </view>
