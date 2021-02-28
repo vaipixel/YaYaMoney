@@ -111,9 +111,7 @@ async function getAccountMemberAmount(cond) {
 async function addRecord(record) {
     let {OPENID} = cloud.getWXContext();
     record.creator = await userDao.getUserIdByOpenid(OPENID);
-
     record.date = new Date(record.date);
-
     let {type} = record;
     if (type === TYPE_ADJUST_MONEY) {
         await _addAdjustMoneyRecord(record);
@@ -185,7 +183,6 @@ async function _addAdjustMoneyRecord(record) {
 
 async function _addTransferRecord(record) {
     let {fromAccount, targetAccount, creator} = record;
-    console.log(`_addTransferRecord: ${creator}`);
     await _checkPermission(creator, fromAccount);
     await _checkPermission(creator, targetAccount);
     await recordDao.addRecord(record);
