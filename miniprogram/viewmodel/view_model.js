@@ -36,11 +36,11 @@ class ViewModel {
         this.observers[dataName][observer].push(fn)
     }
 
-    _unObserver(context) {
+    _unObserver(observer) {
         Object.keys(this.observers)
             .map(item => this.observers[item])
             .forEach(item => {
-                delete item[context]
+                delete item[observer]
             });
     }
 

@@ -1,9 +1,9 @@
 // miniprogram/pages/index/index.js
 import {NotLoginError, UserHasNoGroupError} from "../../errors/errors";
 
-var indexViewModel;
+let indexViewModel;
 
-const context = 'index';
+const observer = 'index';
 
 Page({
 
@@ -116,18 +116,18 @@ Page({
     onLoad: async function (options) {
         this.showLoading();
         await this.initViewModel();
-        indexViewModel.observerIntervalChanged(context, interval => {
+        indexViewModel.observerIntervalChanged(observer, interval => {
             console.log(`observerIntervalChanged: ${interval}`)
             this.setData({
                 'pageInfo.currentInterval': interval
             });
             indexViewModel.requestGroupInfo();
         });
-        indexViewModel.observerUserInfo(context, userInfo => {
+        indexViewModel.observerUserInfo(observer, userInfo => {
             console.log('Index');
             console.log(userInfo);
         });
-        indexViewModel.observerGroupInfo(context, groupInfo => {
+        indexViewModel.observerGroupInfo(observer, groupInfo => {
             this.setData({
                 groupInfo: groupInfo
             })
@@ -162,7 +162,7 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-        indexViewModel.release(context);
+        indexViewModel.release(observer);
     },
 
     /**

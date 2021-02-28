@@ -89,7 +89,7 @@
                         <text
                                 class="btn"
                                 bindtap="navToAccountDetail"
-                                data-account-id="{{account.accountId}}"
+                                data-account-id="{{account._id}}"
                         >详细信息 >></text>
                     </view>
                 </view>

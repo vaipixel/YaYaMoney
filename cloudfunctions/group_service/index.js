@@ -122,13 +122,6 @@ async function getGroupAccounts(query) {
 }
 
 async function getMemberAmount(userId, accounts) {
-    // return (await cloud.callFunction({
-    //     name: 'account_service',
-    //     data: {
-    //         action: 'getMemberAmount',
-    //         data: query
-    //     }
-    // })).result;
     return accounts.reduce((amount, account) => {
         return amount + account.members.reduce((memberAmount, member) => {
             if (member._id === userId) {

@@ -122,9 +122,87 @@ class UserDao {
             .get();
         return result.data[0]._id;
     }
+
+    async getUserInfo(userId) {
+        let db = cloud.database();
+        return (await db.collection(user_collection_name)
+            .doc(userId)
+            .get()).data;
+    }
 }
 
 class RecordDao {
+    async addRecord(record) {
+        let db = cloud.database();
+        db.collection(record_collection_name)
+            .add({
+                data: record
+            });
+    }
+
+    async updateRecord(record) {
+        let db = cloud.database();
+        db.collection(record_collection_name)
+            .doc(record._id)
+            .update({
+                data: record
+            });
+    }
+
+    async deleteRecord(recordId) {
+        let db = cloud.database();
+        db.collection(record_collection_name)
+            .doc(recordId)
+            .update({
+                data: {
+                    deleted: true
+                }
+            });
+    }
+
+    async getAccountRecords(accountId, offset, pageSize) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(record_collection_name)
+            .where(_.or([
+                {
+                    accountId: _.eq(accountId)
+                },
+                {
+                    fromAccount: _.eq(accountId)
+                },
+                {
+                    targetAccount: _.eq(accountId)
+                }
+            ]))
+            .skip(offset)
+            .limit(pageSize)
+            .get();
+        return result.data;
+    }
+
+
+    async getAccountRecords_new(accountId, userId, offset, pageSize) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(record_collection_name)
+            .where(_.or([
+                {
+                    accountId: _.eq(accountId)
+                },
+                {
+                    fromAccount: _.eq(accountId)
+                },
+                {
+                    targetAccount: _.eq(accountId)
+                }
+            ]))
+            .skip(offset)
+            .limit(pageSize)
+            .get();
+        return result.data;
+    }
+
     async getIncomeRecordAmount(condition) {
         let db = cloud.database();
         let $ = db.command.aggregate;

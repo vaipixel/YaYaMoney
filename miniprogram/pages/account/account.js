@@ -1,4 +1,8 @@
 // miniprogram/pages/account/account.js
+
+let accountViewModel;
+const observer = 'account'
+
 Page({
 
     /**
@@ -7,34 +11,34 @@ Page({
     data: {
         accountInfo: {
             recordList: [{
-                    month: "2020-06",
-                    name: "六月",
-                    record: [{
-                            id: 1,
-                            type: 1,
-                            amount: 1001,
-                            desc: "招行 > 基金 @我",
-                            date: "06/23"
-                        },
-                        {
-                            id: 2,
-                            type: 2,
-                            amount: 1000,
-                            desc: "招行 @老婆",
-                            date: "06/23"
-                        }
-                    ]
+                month: "2020-06",
+                name: "六月",
+                record: [{
+                    id: 1,
+                    type: 1,
+                    amount: 1001,
+                    desc: "招行 > 基金 @我",
+                    date: "06/23"
                 },
+                    {
+                        id: 2,
+                        type: 2,
+                        amount: 1000,
+                        desc: "招行 @老婆",
+                        date: "06/23"
+                    }
+                ]
+            },
                 {
                     month: "2020-07",
                     name: "七月",
                     record: [{
-                            id: 3,
-                            type: 1,
-                            amount: 1000,
-                            desc: "招行 > 基金 @我",
-                            date: "07/23"
-                        },
+                        id: 3,
+                        type: 1,
+                        amount: 1000,
+                        desc: "招行 > 基金 @我",
+                        date: "07/23"
+                    },
                         {
                             id: 4,
                             type: 2,
@@ -57,63 +61,72 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
-        this.requestAccountDetail(options.accountId)
+    onLoad: function (options) {
+        this.initViewModel(options.accountId);
+        accountViewModel.observerRecords(observer, records => {
+            this.setData({
+                records: records
+            })
+        })
+        accountViewModel.requestRecords();
     },
-
+    initViewModel: function (accountId) {
+        accountViewModel = wx.viewModels.account;
+        accountViewModel.init(accountId);
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
+    onUnload: function () {
 
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     },
-    requestAccountDetail: function(accountId) {
+    requestAccountDetail: function (accountId) {
         console.log('requestAccountDetail ' + accountId);
     },
-    showEditRecordDialog: function(e) {
-        var recordType = e.target.dataset.recordType
+    showEditRecordDialog: function (e) {
+        let recordType = e.target.dataset.recordType;
         console.log(recordType);
         switch (recordType) {
             case 1:
@@ -126,27 +139,27 @@ Page({
                 break
         }
     },
-    showAdjustMoneyDialog: function() {
+    showAdjustMoneyDialog: function () {
         this.setData({
             'pageInfo.isAdjustMoneyDialogShow': true
         })
     },
-    dismissAdjustMoneyDialog: function() {
+    dismissAdjustMoneyDialog: function () {
         this.setData({
             'pageInfo.isAdjustMoneyDialogShow': false
         })
     },
-    showTransferDialog: function() {
+    showTransferDialog: function () {
         this.setData({
             'pageInfo.isTransferDialogShow': true
         })
     },
-    dismissTransferDialog: function() {
+    dismissTransferDialog: function () {
         this.setData({
             'pageInfo.isTransferDialogShow': false
         })
     },
-    editRecord: function(e) {
+    editRecord: function (e) {
         var recordId = e.target.dataset.recordId;
         console.log('editRecord ' + recordId);
     }

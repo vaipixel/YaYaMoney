@@ -46,20 +46,20 @@ class IndexViewModel extends ViewModel {
 
     }
 
-    observerUserInfo(context, fn) {
-        this._observer(context, 'userInfo', fn);
+    observerUserInfo(observer, fn) {
+        this._observer(observer, 'userInfo', fn);
     }
 
-    observerIntervalChanged(context, fn) {
-        this._observer(context, 'currentInterval', fn);
+    observerIntervalChanged(observer, fn) {
+        this._observer(observer, 'currentInterval', fn);
     }
 
-    observerGroupInfo(context, fn) {
-        this._observer(context, 'groupInfo', fn);
+    observerGroupInfo(observer, fn) {
+        this._observer(observer, 'groupInfo', fn);
     }
 
-    release(context) {
-        this._unObserver(context);
+    release(observer) {
+        this._unObserver(observer);
     }
 }
 

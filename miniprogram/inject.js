@@ -1,8 +1,9 @@
-import { LoginService } from 'services/login_service.js';
+import {LoginService} from 'services/login_service.js';
 import {GroupService} from "./services/group_service";
 import {IndexViewModel} from "./viewmodel/index_view_model";
-import { toAsync } from 'utils/promiseUtils.js';
-import { promisifyAll } from 'miniprogram-api-promise';
+import {AccountViewModel} from "./viewmodel/account_view_model";
+import {toAsync} from 'utils/promiseUtils.js';
+import {promisifyAll} from 'miniprogram-api-promise';
 
 function inject() {
     injectPromisify();
@@ -11,18 +12,17 @@ function inject() {
 }
 
 function injectServices() {
-    let services = {
+    wx.services = {
         loginService: new LoginService(),
         groupService: new GroupService()
     };
-    wx.services = services;
 }
 
 function injectViewModels() {
-    let viewModels = {
-        index: new IndexViewModel()
+    wx.viewModels = {
+        index: new IndexViewModel(),
+        account: new AccountViewModel()
     };
-    wx.viewModels = viewModels;
 }
 
 function injectPromisify() {
