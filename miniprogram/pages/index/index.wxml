@@ -127,4 +127,5 @@
 <new-record-dialog
         wx:if="{{isAddRecordDialogShow}}"
         model:is-show="{{isAddRecordDialogShow}}"
-        accounts="{{groupInfo.accounts}}"></new-record-dialog>
+        accounts="{{groupInfo.accounts}}"
+        bind:add-record-success="onAddRecordSuccess"></new-record-dialog>

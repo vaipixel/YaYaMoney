@@ -30,13 +30,10 @@ Page({
         this.showLoading();
         await this.initViewModel();
         indexViewModel.observerIntervalChanged(observer, interval => {
-            console.log(`observerIntervalChanged: ${interval}`)
             this.setData({
                 'pageInfo.currentInterval': interval
             });
-            console.log('showLoading')
-            this.showLoading();
-            indexViewModel.requestGroupInfo();
+            this.requestGroupInfo();
         });
         indexViewModel.observerUserInfo(observer, userInfo => {
         });
@@ -146,6 +143,9 @@ Page({
             isMenuDialogShow: false
         });
     },
+    onAddRecordSuccess: function () {
+        this.requestGroupInfo();
+    },
     showLoading: function () {
         wx.showLoading({
             title: '加载中',
@@ -170,5 +170,9 @@ Page({
                 })
             }
         }
+    },
+    requestGroupInfo: function () {
+        this.showLoading();
+        indexViewModel.requestGroupInfo();
     }
 })

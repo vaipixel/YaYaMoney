@@ -142,7 +142,6 @@ Component({
             await this._addRecord(record);
         },
         _addRecord: async function (record) {
-            console.log(record);
             wx.showLoading({
                 title: '添加中',
                 mask: true
@@ -153,7 +152,8 @@ Component({
                     action: 'addRecord',
                     data: record
                 }
-            })
+            });
+            this.triggerEvent('add-record-success', { result: 'success' })
             wx.hideLoading();
             this.dismiss();
         }
@@ -164,7 +164,6 @@ Component({
             this.setData({
                 date: new Date()
             });
-            console.log(this.data)
         },
         ready: function () {
             // setAccount
@@ -190,7 +189,6 @@ Component({
             console.log('dialog moved');
         },
         detached: function () {
-            console.log(this.data)
             console.log('dialog detached');
         }
     }
