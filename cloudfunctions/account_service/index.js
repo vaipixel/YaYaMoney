@@ -108,12 +108,21 @@ async function getAccountMemberAmount(cond) {
     return incomeAmount - outcomeAmount;
 }
 
-async function addRecord(data) {
-    let {type} = data;
+async function addRecord(record) {
+    console.log('addRecord');
+    console.log(record);
+    let {OPENID} = cloud.getWXContext();
+    record.creator = await userDao.getUserIdByOpenid(OPENID);
+
+    console.log(record.date);
+    record.date = new Date(record.date);
+    console.log(record.date);
+
+    let {type} = record;
     if (type === TYPE_ADJUST_MONEY) {
-        await _addAdjustMoneyRecord(data);
+        await _addAdjustMoneyRecord(record);
     } else if (type === TYPE_TRANSFER) {
-        await _addTransferRecord(data);
+        await _addTransferRecord(record);
     }
     return 'success';
 }

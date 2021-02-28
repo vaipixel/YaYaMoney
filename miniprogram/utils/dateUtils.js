@@ -1,7 +1,11 @@
 // 将 '2020-05-05' 转换为 '2020 年 05 月 05 日'
 function formatDate(date) {
-    let array = date.split('-')
-    return array[0] + ' 年 ' + array[1] + ' 月 ' + array[2] + ' 日'
+    console.log(date);
+    let month = (date.getMonth() + 1).toString();
+    month = month[1] ? month : '0' + month;
+    let day = date.getDate().toString();
+    day = day[1] ? day : '0' + day;
+    return date.getFullYear() + ' 年 ' + month + ' 月 ' + day + ' 日';
 }
 
 function unFormatDate(date) {
@@ -22,7 +26,7 @@ function dateFormat(fmt, date) {
     for (let k in opt) {
         ret = new RegExp("(" + k + ")").exec(fmt);
         if (ret) {
-            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+            fmt = fmt.replace(ret[1], (ret[1].length === 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
         }
     }
     return fmt;

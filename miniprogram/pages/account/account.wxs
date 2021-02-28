@@ -47,7 +47,7 @@ var getRecordName = function (recordType) {
 
 var getRecordDate = function (date) {
     date = getDate(date);
-    var month = date.getMonth() + 1;
+    var month = (date.getMonth() + 1).toString();
     month = month[1] ? month : '0' + month;
     return month + '/' + date.getDate();
 }

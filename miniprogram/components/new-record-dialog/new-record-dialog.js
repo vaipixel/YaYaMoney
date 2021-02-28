@@ -1,7 +1,7 @@
 // components/new-record-dialog/new-record-dialog.js
 const dateUtils = require("../../utils/dateUtils.js");
 const computedBehavior = require('miniprogram-computed')
-import { TabCalculate } from 'tab-calculate.js';
+import {TabCalculate} from 'tab-calculate.js';
 
 let tabCalculate;
 Component({
@@ -16,6 +16,10 @@ Component({
         isShow: {
             type: Boolean,
             value: false
+        },
+        accounts: {
+            type: Array,
+            value: []
         }
     },
 
@@ -27,44 +31,52 @@ Component({
             '调整余额',
             '转账'
         ],
-        recordData: {
-            recordType: "调整余额",
-            date: dateUtils.dateFormat('YYYY-mm-dd', new Date())
-        },
+        recordType: "调整余额",
+        amount: '',
+        comment: '',
+        account: {},
+        fromAccount: {},
+        targetAccount: {},
+        date: new Date(),
+        formatDate: '',
         pageInfo: {
             formHeight: 1
         }
     },
-    computed: {
-        formatDate(data) {
-            return dateUtils.formatDate(data.recordData.date);
-        }
+    watch: {
+        'date': function(date) {
+            this.setData({
+                formatDate: dateUtils.formatDate(date)
+            })
+        },
     },
-    observers: {
-
-    },
+    observers: {},
     /**
      * 组件的方法列表
      */
     methods: {
-        dismiss: function() {
+        dismiss: function () {
             this.setData({
                 isShow: false
             })
         },
-        onDateChanged: function(e) {
+        onDateChanged: function (e) {
             let date = e.detail.value;
+            let now = new Date();
+            date.setHours(now.getHours());
+            date.setMinutes(now.getMinutes());
+            date.setSeconds(now.getSeconds());
             this.setData({
-                'recordData.date': date
+                'date': date
             });
         },
-        _getCurrentDate: function() {
+        _getCurrentDate: function () {
             return dateUtils.dateFormat('YYYY-mm-dd', new Date())
         },
-        onRecordTypeChange: async function(e) {
+        onRecordTypeChange: async function (e) {
             let recordType = e.detail.tab;
             this.setData({
-                'recordData.recordType': recordType
+                'recordType': recordType
             })
             if (recordType === '调整余额') {
                 this.setData({
@@ -75,20 +87,113 @@ Component({
                     'pageInfo.formHeight': await tabCalculate.getTransferTabHeight()
                 })
             }
+        },
+        onChoseAccount: async function () {
+            let accountList = this.data.accounts.map(account => account.accountName)
+            let tapIndex = (await wx.showActionSheet({
+                alertText: '请选择账户',
+                itemList: accountList
+            })).tapIndex;
+            this.setData({
+                'account': this.data.accounts[tapIndex]
+            });
+        },
+        onChoseFromAccount: async function() {
+            let accountList = this.data.accounts.map(account => account.accountName)
+            let tapIndex = (await wx.showActionSheet({
+                alertText: '请选择转出账户',
+                itemList: accountList
+            })).tapIndex;
+            this.setData({
+                fromAccount: this.data.accounts[tapIndex]
+            });
+        },
+        onChoseTargetAccount: async function() {
+            let accountList = this.data.accounts.map(account => account.accountName)
+            let tapIndex = (await wx.showActionSheet({
+                alertText: '请选择转入账户',
+                itemList: accountList
+            })).tapIndex;
+            this.setData({
+                targetAccount: this.data.accounts[tapIndex]
+            });
+        },
+        onAddAdjustMoneyRecord: async function () {
+            let data = this.data;
+            let record = {
+                amount: parseFloat(data.amount),
+                type: '调整余额',
+                accountId: data.account._id,
+                comment: data.comment,
+                date: data.date
+            };
+            wx.showLoading({
+                mask: true
+            })
+            await this._addRecord(record);
+            wx.hideLoading();
+            this.dismiss();
+        },
+        onAddTransferRecord: async function () {
+            let data = this.data;
+            let record = {
+                amount: parseFloat(data.amount),
+                type: '调整余额',
+                fromAccount: data.fromAccount._id,
+                targetAccount: data.targetAccount._id,
+                comment: data.comment,
+                date: data.date
+            };
+            wx.showLoading({
+                mask: true
+            })
+            await this._addRecord(record);
+            wx.hideLoading();
+            this.dismiss();
+        },
+        _addRecord: async function(record) {
+            await wx.cloud.callFunction({
+                name: 'account_service',
+                data: {
+                    action: 'addRecord',
+                    data: record
+                }
+            })
         }
     },
     lifetimes: {
-        attached: async function() {
+        attached: async function () {
             tabCalculate = new TabCalculate(this);
             this.setData({
-                'recordData.date': this._getCurrentDate()
+                date: new Date()
+            });
+            console.log(this.data)
+        },
+        ready: function () {
+            // setAccount
+            this.setData({
+                'account': this.data.accounts[0]
+            });
+            // setFromAccount
+            this.setData({
+                'fromAccount': this.data.accounts[0]
+            });
+            // setTargetAccount
+            let targetAccount;
+            if (this.data.accounts.length > 1) {
+                targetAccount = this.data.accounts[1];
+            } else {
+                targetAccount = this.data.accounts[0];
+            }
+            this.setData({
+                'targetAccount': targetAccount
             });
         },
-        ready: function() {},
-        moved: function() {
+        moved: function () {
             console.log('dialog moved');
         },
-        detached: function() {
+        detached: function () {
+            console.log(this.data)
             console.log('dialog detached');
         }
     }

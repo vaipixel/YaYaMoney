@@ -9,20 +9,20 @@
         <tab-bar tab-data="{{tabData}}" bind:tab-changed="onRecordTypeChange"></tab-bar>
       </view>
       <view class="forms" style="height: {{pageInfo.formHeight}}px">
-        <view class="form" wx:if="{{recordData.recordType === '调整余额'}}">
+        <view class="form" wx:if="{{recordType === '调整余额'}}">
           <view id="anchor-adjust-money-top" class="anchor"></view>
           <view class="form-item">
-            <fix-input class="input half" placeholder="账户"></fix-input>
-            <fix-input class="input half" type="digit" placeholder="金额"></fix-input>
+            <text class="input half account" catch:tap="onChoseAccount">{{account.accountName}}</text>
+            <fix-input class="input half" type="digit" placeholder="金额" model:value="{{amount}}"></fix-input>
           </view>
           <view class="form-item">
-            <fix-input class="input fill" placeholder="备注"></fix-input>
+            <fix-input class="input fill" placeholder="备注" model:value="{{comment}}"></fix-input>
           </view>
           <view class="form-item">
             <picker
               class="fill"
               mode="date"
-              value="{{recordData.date}}"
+              value="{{date}}"
               start="2015-09-01"
               bindchange="onDateChanged"
             >
@@ -30,10 +30,10 @@
             </picker>
           </view>
           <view class="form-item actions">
-            <view class="btn half cancel">
+            <view class="btn half cancel" catch:tap="dismiss">
               <text>取消</text>
             </view>
-            <view class="btn half add">
+            <view class="btn half add" catch:tap="onAddAdjustMoneyRecord">
               <text>添加</text>
             </view>
           </view>
@@ -42,31 +42,32 @@
         <view class="form" wx:else style="height: {{pageInfo.transferTabHeight}}px">
           <view id="anchor-transfer-top" class="anchor"></view>
           <view class="form-item">
-            <fix-input class="input fill" placeholder="金额"></fix-input>
+            <fix-input class="input fill" placeholder="金额" model:value="{{amount}}"></fix-input>
           </view>
           <view class="form-item">
-            <fix-input class="input half" placeholder="转出账户"></fix-input>
-            <fix-input class="input half" placeholder="转入账户"></fix-input>
+            <text class="input half account" catch:tap="onChoseFromAccount">{{fromAccount.accountName}}</text>
+            <text class="arrow"> => </text>
+            <text class="input half account" catch:tap="onChoseTargetAccount">{{targetAccount.accountName}}</text>
           </view>
           <view class="form-item">
-            <fix-input class="input fill" placeholder="备注"></fix-input>
+            <fix-input class="input fill" placeholder="备注" model:value="{{comment}}"></fix-input>
           </view>
           <view class="form-item">
             <picker
               class="fill"
               mode="date"
-              value="{{recordData.date}}"
+              value="{{date}}"
               start="2015-09-01"
               bindchange="onDateChanged"
             >
-              <view class="input date" placeholder="日期" value>{{formatDate}}</view>
+              <view class="input date" placeholder="日期">{{formatDate}}</view>
             </picker>
           </view>
           <view class="form-item actions">
-            <view class="btn half cancel">
+            <view class="btn half cancel" catch:tap="dismiss">
               <text>取消</text>
             </view>
-            <view class="btn half add">
+            <view class="btn half add" catch:tap="onAddTransferRrcoed">
               <text>添加</text>
             </view>
           </view>

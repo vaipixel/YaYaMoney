@@ -38,7 +38,7 @@
                     <text class="amount">¥ {{groupInfo.members.me.amount}}</text>
                 </view>
             </view>
-            <view class="user" >
+            <view class="user">
                 <image class="avatar" src="{{groupInfo.members.partner.avatarUrl}}"/>
                 <view class="info-group">
                     <view class="name-group">
@@ -124,4 +124,7 @@
         </view>
     </dialog>
 </view>
-<new-record-dialog wx:if="{{isAddRecordDialogShow}}" model:is-show="{{isAddRecordDialogShow}}"></new-record-dialog>
+<new-record-dialog
+        wx:if="{{isAddRecordDialogShow}}"
+        model:is-show="{{isAddRecordDialogShow}}"
+        accounts="{{groupInfo.accounts}}"></new-record-dialog>

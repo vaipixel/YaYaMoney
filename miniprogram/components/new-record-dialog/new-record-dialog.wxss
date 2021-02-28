@@ -11,11 +11,36 @@
     position: fixed;
 }
 
+.content {
+    width: 100%;
+}
+
+.forms {
+    width: 100%;
+}
+
+.arrow {
+    font-weight: normal;
+    font-size: 40rpx;
+    color: #38485A;
+    line-height: 90rpx;
+}
+
 .new-record-dialog .date {
     text-align: center;
+    line-height: 58rpx;
 }
 
 .new-record-dialog .anchor {
     width: 0;
     height: 0;
+}
+
+.new-record-dialog .account {
+    width: 45%;
+    font-weight: normal;
+    font-size: 40rpx;
+    color: #38485A;
+    line-height: 58rpx;
+    text-align: center;
 }
