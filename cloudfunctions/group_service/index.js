@@ -135,11 +135,11 @@ async function _calculateIncomeRate(groupInfo, interval) {
     let {overview, members, accounts} = groupInfo;
 
     let cutOffDate = _getDataByInterval(interval);
-    // accounts
     let lastIntervalAccounts = await getGroupAccounts({
         groupId: groupInfo.groupId,
         cutOffDate: cutOffDate
     });
+    // accounts
     lastIntervalAccounts.forEach((account, index) => {
         let nowAccount = accounts[index];
         nowAccount.income = {
@@ -159,14 +159,20 @@ async function _calculateIncomeRate(groupInfo, interval) {
     for (let key of Object.keys(members)) {
         let nowMember = members[key];
         let amount = await getMemberAmount({userId: nowMember._id, cutOffDate});
-        console.log(cutOffDate);
-        console.log(amount);
         nowMember.income = {
             amount: nowMember.amount - amount,
             rate: calculateIncomeRate(nowMember.amount, amount)
         }
     }
 
+    // overview
+    let overviewLastAmount = accounts.reduce((amount, account) => amount + account.income.amount, 0);
+    console.log(`overview.income: ${overview.amount}`);
+    console.log(`overviewLastAmount: ${overviewLastAmount}`);
+    overview.income = {
+        amount: overview.amount - overviewLastAmount,
+        rate: calculateIncomeRate(overview.amount, overviewLastAmount)
+    }
     return groupInfo;
 }
 
