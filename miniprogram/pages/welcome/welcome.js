@@ -71,11 +71,14 @@ Page({
 
     },
     create: async function() {
-        let groupService = wx.services.groupService;
-        await groupService.createGroup(this.data._userId);
-        wx.redirectTo({
-            url: "/pages/index/index"
-        })
+        wx.navigateTo({
+            url: "/pages/createGroup/createGroup"
+        });
+        // let groupService = wx.services.groupService;
+        // await groupService.createGroup(this.data._userId);
+        // wx.redirectTo({
+        //     url: "/pages/index/index"
+        // })
     },
     join: function() {
 

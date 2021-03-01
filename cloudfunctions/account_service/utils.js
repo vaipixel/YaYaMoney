@@ -1,5 +1,4 @@
 function getYearAndMonth(date) {
-    console.log(date);
     return `${date.getFullYear()}-${date.getMonth()}`
 }
 

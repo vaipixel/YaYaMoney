@@ -127,7 +127,6 @@ Page({
     },
     showEditRecordDialog: function (e) {
         let recordType = e.target.dataset.recordType;
-        console.log(recordType);
         switch (recordType) {
             case '转账':
                 // 转账

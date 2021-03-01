@@ -1,4 +1,4 @@
-// miniprogram/pages/index/index.js
+// miniprogram/pages/index/requests.js
 import {NotLoginError, UserHasNoGroupError} from "../../errors/errors";
 
 let indexViewModel;
@@ -21,7 +21,8 @@ Page({
             tabData: [
                 "全部", "我", "老婆"
             ]
-        }
+        },
+        isLoading: false
     },
     /**
      * 生命周期函数--监听页面加载
@@ -117,7 +118,7 @@ Page({
         })
     },
     navToAccountDetail: function (e) {
-        var accountId = e.target.dataset.accountId;
+        let accountId = e.target.dataset.accountId;
         wx.navigateTo({
             url: "/pages/account/account?accountId=" + accountId
         });
@@ -147,6 +148,12 @@ Page({
         this.requestGroupInfo();
     },
     showLoading: function () {
+        if (this.data.isLoading) {
+            return
+        }
+        this.setData({
+            isLoading: true
+        })
         wx.showLoading({
             title: '加载中',
             mask: true
@@ -157,6 +164,7 @@ Page({
         try {
             await indexViewModel.init();
         } catch (e) {
+            wx.hideLoading();
             if (e instanceof NotLoginError) {
                 console.log(e)
                 console.log('unauthed');

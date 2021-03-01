@@ -1,0 +1,58 @@
+/* miniprogram/pages/createGroup/createGroup.wxss */
+@import '/assets/css/main.wxss';
+.container {
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+
+}
+
+.title {
+    color: var(--button-text-color);
+    font-size: 36rpx;
+}
+
+.form {
+    width: 90%;
+    max-height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100rpx 0 0 0;
+}
+
+.check-group {
+    width: 100%;
+    height: 100%;
+    margin: 60rpx 0 0 0;
+    background: var(--content-color);
+    border-radius: 20rpx;
+    overflow: scroll;
+}
+
+.actions {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    margin: 0 0 100rpx 0;
+}
+
+.btn {
+    width: 48%;
+    height: 104rpx;
+    border-radius: 52rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--button-text-color);
+}
+
+.cancel {
+    background: var(--subtitle-color);
+}
+
+.create {
+    background: var(--shadow-color);
+}

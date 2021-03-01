@@ -13,7 +13,6 @@ class GroupService {
     }
 
     async createGroup(userId) {
-        console.log(userId);
         await wx.cloud.callFunction({
             name: CLOUD_FUNCTION_NAME,
             data: {
@@ -32,6 +31,7 @@ class GroupService {
                 data: {userId, interval}
             }
         });
+        console.log(result);
         return result.result;
     }
 

@@ -1,0 +1,24 @@
+<!--miniprogram/pages/createGroup/createGroup.wxml-->
+<view class="container">
+    <view class="form">
+        <text class="title">你在群组中是什么角色？</text>
+        <view class="check-group">
+            <mp-checkbox-group prop="radio" multi="{{false}}" bindchange="onCharacterChanged">
+                <mp-checkbox wx:for="{{characters}}" wx:key="item" label="{{item.name}}" value="{{item.name}}" model:checked="{{item.checked}}">
+                </mp-checkbox>
+            </mp-checkbox-group>
+        </view>
+
+    </view>
+    <view class="actions">
+        <view class="btn cancel" catch:tap="cancel">
+            <text>取消</text>
+        </view>
+        <view wx:if="{{pageType === 'create'}}" class="btn create" catch:tap="createGroup">
+            <text>创建</text>
+        </view>
+        <view wx:elif="{{pageType === 'join'}}" class="btn create" catch:tap="joinGroup">
+            <text>加入</text>
+        </view>
+    </view>
+</view>

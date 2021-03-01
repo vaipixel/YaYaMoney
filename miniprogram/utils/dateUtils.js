@@ -1,6 +1,5 @@
 // 将 '2020-05-05' 转换为 '2020 年 05 月 05 日'
 function formatDate(date) {
-    console.log(date);
     let month = (date.getMonth() + 1).toString();
     month = month[1] ? month : '0' + month;
     let day = date.getDate().toString();

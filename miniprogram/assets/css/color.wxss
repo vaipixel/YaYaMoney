@@ -1,0 +1,13 @@
+page {
+    --primary-color: #187A99;
+    --accent-color: #658089;
+    --title-color: #38485A;
+    --subtitle-color: #90B0B7;
+    --content-color: #F6F6F6;
+    --divider-color: #F0EFEC;
+    --button-text-color: #F8FFFF;
+    --item-color: #FEFEFE;
+    --red-color: #E64E64;
+    --green-color: #80A756;
+    --shadow-color: #74C8CF
+}
