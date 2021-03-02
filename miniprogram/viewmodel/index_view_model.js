@@ -15,7 +15,7 @@ class IndexViewModel extends ViewModel {
         try {
             let loginService = wx.services.loginService;
             let wxLoginData = await loginService.loginWx();
-            this.userInfo = await loginService.onUserLogin(wxLoginData);
+            // this.userInfo = await loginService.onUserLogin(wxLoginData);
         } catch (e) {
             console.warn('NotLoginError');
             throw new NotLoginError();

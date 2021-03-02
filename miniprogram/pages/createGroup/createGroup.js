@@ -97,7 +97,7 @@ Page({
         // let groupId = 'b00064a7603cfd2b07d4679b543f9138';
         this.hideLoading();
         console.log(groupId);
-        wx.navigateTo({
+        wx.redirectTo({
             url: `/pages/inviteMember/inviteMember?groupId=${groupId}`
         });
     },

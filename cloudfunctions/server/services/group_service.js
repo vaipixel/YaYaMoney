@@ -38,9 +38,7 @@ class GroupService {
 
     async currentUserIsGroupCreator(groupId) {
         let userInfo = await userUtils.getCurrentUserInfo();
-        console.log(userInfo);
         let creatorId = await dao.groupDao.getGroupCreatorId(groupId);
-        console.log(creatorId);
         return userInfo._id === creatorId;
     }
 

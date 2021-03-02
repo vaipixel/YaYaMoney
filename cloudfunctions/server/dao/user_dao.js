@@ -2,6 +2,13 @@ const cloud = require('wx-server-sdk');
 const user_collection_name = 'users';
 
 class UserDao {
+    async addUser(userInfo) {
+        const db = cloud.database();
+        await db.collection(user_collection_name).add({
+            data: {...userInfo, createTime: new Date()}
+        });
+    }
+
     async getUserInfoByOpenid(openid) {
         const db = cloud.database();
         const _ = db.command
@@ -31,6 +38,16 @@ class UserDao {
             .update({
                 data: userInfo
             });
+    }
+
+    async isUserRegistered(openid) {
+        const db = cloud.database();
+        const _ = db.command
+        let result = await db.collection(user_collection_name).where({
+            openid: _.eq(openid)
+        })
+            .get();
+        return result.data.length > 0;
     }
 
 }

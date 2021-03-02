@@ -29,14 +29,24 @@ async function joinGroup(groupId, character) {
     return await baseRequest('joinGroup', {groupId, character});
 }
 
+async function isUserRegistered() {
+    return await baseRequest('isUserRegistered');
+}
+
 async function isGroupReady(groupId) {
     return await baseRequest('isGroupReady', groupId);
 }
 
+async function login(loginData) {
+    return await baseRequest('login', loginData);
+}
+
 module.exports = {
+    login,
     createGroup,
     isUserAlreadyJoinGroup,
     currentUserIsGroupCreator,
     joinGroup,
-    isGroupReady
+    isGroupReady,
+    isUserRegistered
 }

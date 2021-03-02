@@ -1,5 +1,5 @@
 // miniprogram/pages/inviteMember/inviteMember.js
-const {isUserAlreadyJoinGroup, currentUserIsGroupCreator, isGroupReady} = require('../../requests');
+const {isUserAlreadyJoinGroup, currentUserIsGroupCreator, isGroupReady, isUserRegistered} = require('../../requests');
 Page({
 
     /**
@@ -15,8 +15,16 @@ Page({
      */
     onLoad: async function (options) {
         this.showLoading();
-
         let groupId = options.groupId;
+        // let groupId = '28ee4e3e603da917085fc2b943e61e18';
+        if (await this.checkUserStatus()) {
+            let sourcePage = '/pages/inviteMember/inviteMember';
+            wx.redirectTo({
+                url: `/pages/welcome/welcome?sourcePage=${sourcePage}&pageType=login&groupId=${groupId}`
+            })
+            return;
+        }
+
         this.setData({
             groupId: groupId
         });
@@ -26,8 +34,6 @@ Page({
                 url: '/pages/index/index'
             });
         }
-        //test
-        // options.groupId = 'b00064a7603cfd2b07d4679b543f9138';
 
         let isCreator = await this.currentUserIsGroupCreator(groupId);
         this.setData({
@@ -102,6 +108,11 @@ Page({
     },
     isGroupReady: async function (groupId) {
         return (await isGroupReady(groupId)).data;
+    },
+    checkUserStatus: async function () {
+        let result = (await isUserRegistered()).data;
+        console.log('isUserRegistered: ' + result);
+        return !result;
     },
     onJoinGroup() {
         wx.navigateTo({

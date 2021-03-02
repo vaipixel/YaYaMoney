@@ -1,7 +1,8 @@
 <!--miniprogram/pages/inviteMember/inviteMember.wxml-->
 <view class="container">
     <view class="wrap">
-        <text class="title">创建成功，需要邀请家庭另一个成员才能开始使用哦～</text>
+        <text wx:if="{{isCreator}}" class="title">创建成功，需要邀请家庭另一个成员才能开始使用哦～</text>
+        <text wx:else="{{isCreator}}" class="title">邀请你一起加入家庭资产管理～</text>
         <button wx:if="{{isCreator}}" class="btn" open-type="share">
             <text>现在去邀请</text>
         </button>

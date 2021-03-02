@@ -1,4 +1,5 @@
 // miniprogram/pages/welcome/welcome.js
+const {login} = require('../../requests');
 Page({
 
     /**
@@ -8,7 +9,9 @@ Page({
         welcomeDesc: "看来你是第一次用吖吖资产呢，\n你需要先创建或者加入一个“组”。",
         loginDesc: "先来授权登录咯。",
         pageType: "welcome",
-        _userId: ""
+        sourcePage: '/pages/index/index',
+        _userId: "",
+        _groupId: ''
     },
 
     /**
@@ -18,7 +21,13 @@ Page({
         let pageType = options.pageType;
         this.setData({
             pageType: pageType || 'login'
-        })
+        });
+        if (options.sourcePage) {
+            this.data.sourcePage = options.sourcePage;
+        }
+        if (options.groupId) {
+            this.data._groupId = options.groupId;
+        }
         this.data._userId = options.userId;
     },
 
@@ -83,15 +92,19 @@ Page({
     join: function() {
 
     },
-    onGetUserInfo: function(e) {
+    onGetUserInfo: async function(e) {
+        console.log('getUserInfo');
         let userData = e.detail;
         if (!userData.userInfo) {
             console.warn('The user deny login request.');
             return
         }
         // show loading
+        await login(userData);
+        console.log(this.data.sourcePage);
+
         wx.redirectTo({
-            url: "/pages/index/index"
+            url: `${this.data.sourcePage}?groupId=${this.data._groupId}`
         })
     }
 })
