@@ -1,12 +1,14 @@
-const {dao} = require('../inject');
+const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
-const {groupUtils, userUtils} = require('./utils');
+const {groupUtils, dateUtils} = require('./utils');
+const {userHandler} = require('./handler');
+
 class GroupService {
     async createGroup(character) {
         // todo check
-        let userInfo = await userUtils.getCurrentUserInfo();
+        let userInfo = await userHandler.getCurrentUserInfo();
         if (userInfo.groupId) {
-            throwError(errors.USER_ALREADY_JOIN_GROUP);
+            throwError(errors.GROUP_USER_ALREADY_JOIN_GROUP);
         }
         let groupId = await dao.groupDao.addGroup({creator: userInfo._id});
         await this.joinGroup({groupId, character});
@@ -17,13 +19,15 @@ class GroupService {
         // 检查用户之前有没有加入群组
         let {groupId, character} = data;
         await groupUtils.checkGroup(groupId);
-        let userInfo = await userUtils.getCurrentUserInfo();
+        let userInfo = await userHandler.getCurrentUserInfo();
         userInfo = {
             ...userInfo,
             groupId,
             character
         }
         await dao.userDao.updateUser(userInfo);
+
+        userHandler.refreshCurrentUser()
         return 'success';
     }
 
@@ -32,12 +36,12 @@ class GroupService {
     }
 
     async isUserAlreadyJoinGroup() {
-        let userInfo = await userUtils.getCurrentUserInfo();
+        let userInfo = await userHandler.getCurrentUserInfo();
         return !!userInfo.groupId;
     }
 
     async currentUserIsGroupCreator(groupId) {
-        let userInfo = await userUtils.getCurrentUserInfo();
+        let userInfo = await userHandler.getCurrentUserInfo();
         let creatorId = await dao.groupDao.getGroupCreatorId(groupId);
         return userInfo._id === creatorId;
     }
@@ -47,6 +51,51 @@ class GroupService {
         console.log('users.length === 2 ');
         console.log(users.length === 2)
         return users.length === 2;
+    }
+
+    async getGroupInfoWithIncomeRate(interval) {
+        let userInfo = await userHandler.getCurrentUserInfo();
+        let groupId = userInfo.groupId;
+        let cutOffDate = dateUtils.getDateByInterval(interval);
+        let accounts = await this.getGroupAccounts({groupId, cutOffDate});
+        let members = await this.getGroupMembers(groupId);
+        let overview = await this.getGroupOverview(groupId);
+        return {
+            overview,
+            members,
+            accounts
+        }
+    }
+
+    async getGroupAccounts(query) {
+        let {groupId, cutOffDate} = query;
+        let accounts = await services.accountService.getGroupAccounts(query);
+        return accounts;
+    }
+
+    async getGroupMembers(groupId) {
+        let members = await services.userService.getMembersInGroup(groupId);
+        console.log(members);
+        let currentUserInfo = await userHandler.getCurrentUserInfo();
+        let result = {};
+        for (let member of members) {
+            if (member._id === currentUserInfo._id) {
+                result.me = member;
+            } else {
+                result.partner = member;
+            }
+        }
+        return result;
+    }
+
+    async getGroupOverview(groupId) {
+        return {
+            amount: 1000,
+            income: {
+                amount: 100,
+                rate: '10%'
+            }
+        }
     }
 }
 

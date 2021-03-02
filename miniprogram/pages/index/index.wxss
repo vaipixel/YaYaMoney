@@ -2,6 +2,7 @@
 
 @import '/assets/css/main.wxss';
 @import '/assets/css/dialog.wxss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -262,9 +263,18 @@
     font-size: 24rpx;
     font-weight: 500;
     line-height: 34rpx;
-    color: #658089;
+    color: var(--accent-color);
 }
 
+.alert-no-account {
+    margin: 50rpx;
+    color: var(--subtitle-color);
+    text-align: center;
+}
+
+.alert-no-account text {
+    font-weight: normal;
+}
 
 /* 按钮 */
 

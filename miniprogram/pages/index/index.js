@@ -19,10 +19,40 @@ Page({
         pageInfo: {
             currentInterval: "每月",
             tabData: [
-                "全部", "我", "老婆"
+                "全部", "我", "**"
             ]
         },
-        isLoading: false
+        isLoading: false,
+        groupInfo: {
+            overview: {
+                amount: '****',
+                income: {
+                    amount: '**',
+                    rate: '**%'
+                }
+            },
+            members: {
+                me: {
+                    avatarUrl: '/assets/images/avatar.svg',
+                    character: '我',
+                    amount: '****',
+                    income: {
+                        amount: '**',
+                        rate: '**%'
+                    }
+                },
+                partner: {
+                    avatarUrl: '/assets/images/avatar.svg',
+                    character: '**',
+                    amount: '****',
+                    income: {
+                        amount: '**',
+                        rate: '**%'
+                    }
+                }
+            },
+            accounts: []
+        }
     },
     /**
      * 生命周期函数--监听页面加载
@@ -39,14 +69,14 @@ Page({
         indexViewModel.observerUserInfo(observer, userInfo => {
         });
         indexViewModel.observerGroupInfo(observer, groupInfo => {
+            console.log('observerGroupInfo ');
             this.setData({
                 groupInfo: groupInfo
             });
-            wx.hideLoading();
+            this.initTab(groupInfo.members.partner.character);
+            this.hideLoading();
         });
         indexViewModel.setCurrentInterval('每月');
-
-
     },
 
     /**
@@ -159,12 +189,25 @@ Page({
             mask: true
         });
     },
+    hideLoading: function () {
+        wx.hideLoading();
+        this.setData({
+            isLoading: false
+        })
+    },
+    initTab: function (character) {
+        let tabData = this.data.pageInfo.tabData;
+        tabData[2] = character;
+        this.setData({
+            'pageInfo.tabData': tabData
+        });
+    },
     initViewModel: async function () {
         indexViewModel = wx.viewModels.index;
         try {
             await indexViewModel.init();
         } catch (e) {
-            wx.hideLoading();
+            this.hideLoading();
             if (e instanceof NotLoginError) {
                 console.log(e)
                 console.log('unauthed');
@@ -182,5 +225,5 @@ Page({
     requestGroupInfo: function () {
         this.showLoading();
         indexViewModel.requestGroupInfo();
-    }
+    },
 })

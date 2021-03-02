@@ -1,6 +1,6 @@
-const GroupService = require('./group_service');
-const UserService = require('./user_service');
 module.exports = {
-    GroupService,
-    UserService
+    GroupService: require('./group_service'),
+    UserService: require('./user_service'),
+    AccountService: require('./account_service'),
+    RecordService: require('./record_service')
 }

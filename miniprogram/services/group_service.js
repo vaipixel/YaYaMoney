@@ -1,5 +1,5 @@
 const CLOUD_FUNCTION_NAME = 'group_service';
-
+const { getGroupInfo} = require('../requests');
 class GroupService {
     async isUserHasGroup(userId) {
         let result = await wx.cloud.callFunction({
@@ -22,29 +22,9 @@ class GroupService {
         })
     }
 
-    async getGroupInfoByUser(userId, interval) {
-        console.log('getGroupInfoByUser: ' + userId);
-        let result = await wx.cloud.callFunction({
-            name: CLOUD_FUNCTION_NAME,
-            data: {
-                action: 'getGroupInfoWithIncomeRate',
-                data: {userId, interval}
-            }
-        });
-        console.log(result);
-        return result.result;
-    }
-
-    async getGroupMembers(groupId) {
-        // let result = await wx.cloud.callFunction({
-        //     name: CLOUD_FUNCTION_NAME,
-        //     data: {
-        //         action: 'getGroupMembers',
-        //         data: groupId
-        //     }
-        // });
-        // return result.result;
-
+    async getGroupInfoByUser(interval) {
+        let groupInfo = await getGroupInfo(interval);
+        return groupInfo.data;
     }
 }
 

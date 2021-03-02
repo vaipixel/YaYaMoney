@@ -1,6 +1,6 @@
 <!-- miniprogram/pages/index/index.wxml -->
 <wxs module="utils" src="./index.wxs"></wxs>
-<mp-navigation-bar title="吖吖资产" background="#187A99" color="#FEFEFE" back="{{false}}">
+<mp-navigation-bar title="吖吖资产" background="#187A99" color="#FEFEFE" back="{{false}}" loading="{{isLoading}}">
     <image slot="left" class="menu" bind:tap="onMenuTaped" src="/assets/images/menu.svg"/>
 </mp-navigation-bar>
 <view class="container">
@@ -55,7 +55,7 @@
         <!-- filter -->
         <tab-bar tab-data="{{pageInfo.tabData}}" bind:tab-changed="onTabChanged"></tab-bar>
         <!-- 账户列表 -->
-        <view class="accounts">
+        <view wx:if="{{groupInfo.accounts.length !== 0}}" class="accounts">
             <view class="account" wx:for="{{groupInfo.accounts}}" wx:key="index" wx:for-item="account">
                 <view class="overview">
                     <view class="account-info">
@@ -95,9 +95,15 @@
                 </view>
             </view>
         </view>
+        <view wx:else class="alert-no-account">
+            <text>无账户</text>
+        </view>
     </view>
-    <view class="add-record-btn" catch:tap="showAddRecordDialog">
+    <view wx:if="{{groupInfo.accounts.length !== 0}}" class="add-record-btn" catch:tap="showAddRecordDialog">
         <text class="text">新增记录</text>
+    </view>
+    <view wx:else class="add-record-btn" catch:tap="onAddAccount">
+        <text class="text">创建账户</text>
     </view>
     <dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
         <view class="interval-container dialog center">

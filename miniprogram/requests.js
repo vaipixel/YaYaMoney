@@ -41,6 +41,14 @@ async function login(loginData) {
     return await baseRequest('login', loginData);
 }
 
+// async function getUserInfo() {
+//     return await baseRequest('getUserInfo');
+// }
+
+async function getGroupInfo(interval) {
+    return await baseRequest('getGroupInfoWithIncomeRate', interval);
+}
+
 module.exports = {
     login,
     createGroup,
@@ -48,5 +56,6 @@ module.exports = {
     currentUserIsGroupCreator,
     joinGroup,
     isGroupReady,
-    isUserRegistered
+    isUserRegistered,
+    getGroupInfo
 }

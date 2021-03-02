@@ -39,6 +39,8 @@ exports.main = async (event, context) => {
             case 'login':
                 data = await services.userService.login(event.data);
                 break;
+            case 'getGroupInfoWithIncomeRate':
+                data = await services.groupService.getGroupInfoWithIncomeRate(event.data);
         }
         return {
             ...result,

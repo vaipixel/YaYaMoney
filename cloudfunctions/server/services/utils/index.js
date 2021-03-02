@@ -1,6 +1,6 @@
-const groupUtils = require('./group_utils');
-const userUtils = require('./user_utils');
 module.exports = {
-    groupUtils,
-    userUtils
+    groupUtils: require('./group_utils'),
+    userUtils: require('./user_utils'),
+    dateUtils: require('./date_utils'),
+    numberUtils: require('./number_utils')
 }

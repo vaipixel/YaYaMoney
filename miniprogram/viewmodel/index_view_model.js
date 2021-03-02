@@ -1,5 +1,6 @@
 import {ViewModel} from "./view_model";
 import {NotLoginError, UserHasNoGroupError} from "../errors/errors";
+const {login} = require('../requests');
 
 class IndexViewModel extends ViewModel {
     constructor() {
@@ -7,7 +8,6 @@ class IndexViewModel extends ViewModel {
         this.currentInterval = '';
         this.userInfo = {};
         this.groupInfo = {};
-        this.accountInfo = {};
     }
 
     async init() {
@@ -15,7 +15,7 @@ class IndexViewModel extends ViewModel {
         try {
             let loginService = wx.services.loginService;
             let wxLoginData = await loginService.loginWx();
-            // this.userInfo = await loginService.onUserLogin(wxLoginData);
+            this.userInfo = await login(wxLoginData);
         } catch (e) {
             console.warn('NotLoginError');
             throw new NotLoginError();
@@ -35,12 +35,8 @@ class IndexViewModel extends ViewModel {
 
     // 请求群组总览
     async requestGroupInfo() {
-        this.groupInfo = await wx.services.groupService.getGroupInfoByUser(this.userInfo._id, this.currentInterval);
-    }
-
-    // 请求群组中所有账户的信息
-    requestAccountInfo() {
-
+        this.groupInfo = await wx.services.groupService.getGroupInfoByUser(this.currentInterval);
+        console.log(this.groupInfo);
     }
 
     observerUserInfo(observer, fn) {
