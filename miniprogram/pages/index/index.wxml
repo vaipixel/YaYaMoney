@@ -105,7 +105,7 @@
     <view wx:else class="add-record-btn" catch:tap="onAddAccount">
         <text class="text">创建账户</text>
     </view>
-    <dialog wx:if="{{isIntervalPickDialogShow}}" model:is-show="{{isIntervalPickDialogShow}}">
+    <dialog show="{{isIntervalPickDialogShow}}">
         <view class="interval-container dialog center">
             <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
             <view class="divider"></view>
@@ -116,7 +116,7 @@
             <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
         </view>
     </dialog>
-    <dialog wx:if="{{isMenuDialogShow}}" model:is-show="{{isMenuDialogShow}}">
+    <dialog show="{{isMenuDialogShow}}" position="top-left">
         <view class="menu-dialog dialog top-left">
             <view class="menu-item" bind:tap="onAddAccount">
                 <image class="menu-icon" src="/assets/images/add.svg"/>

@@ -1,0 +1,7 @@
+<!--components/new-dialog/dialog.wxml-->
+<view catch:tap="close" class="mask {{!show ? 'mask_hidden' : ''}}"></view>
+<view class="dialog-wrap">
+<view class="dialog {{position}}" wx:if="{{show}}" catch:tap="stopEvent">
+    <slot></slot>
+</view>
+</view>

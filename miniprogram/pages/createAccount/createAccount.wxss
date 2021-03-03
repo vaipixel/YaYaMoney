@@ -2,6 +2,7 @@
 
 @import '/assets/css/main.wxss';
 @import '/assets/css/form.wxss';
+
 .container {
     width: 100%;
     padding: 0 40rpx 0 40rpx;
@@ -43,6 +44,22 @@
 
 .label-group {
     margin: 0 0 14rpx 0;
+}
+
+.form .icon-and-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name {
+    width: 80%;
+    margin: 0 0 0 40rpx;
+}
+
+.icon {
+    width: 130rpx;
+    height: 130rpx;
 }
 
 .form .input {
@@ -108,4 +125,36 @@
 .money-partner {
     overflow: hidden;
     height: 0;
+}
+
+.icon-selector {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    padding: 25rpx;
+}
+
+.icon-selector .icon {
+    width: 130rpx;
+    height: 130rpx;
+    /*flex: 33.33%;*/
+    margin: 2%;
+}
+
+.type-selector {
+    width: 360rpx;
+    padding: 30rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.type-selector .type {
+    font-size: 40rpx;
+    font-weight: normal;
+    letter-spacing: 10rpx;
+    line-height: 100rpx;
+    color: var(--title-color);
 }

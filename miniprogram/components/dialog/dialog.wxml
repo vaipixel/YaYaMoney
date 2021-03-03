@@ -5,7 +5,6 @@
   <view
     class="item-container"
     catchtap="doNothing"
-    hover-stop-propagation="true"
     catch:touchmove="doNothing"
   >
     <slot></slot>

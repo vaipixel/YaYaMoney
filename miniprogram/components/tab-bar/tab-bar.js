@@ -11,7 +11,8 @@ Component({
     properties: {
         tabData: {
             type: Array,
-            value: []
+            value: [],
+            observer: '_onTabDataChanged'
         }
     },
 
@@ -31,15 +32,31 @@ Component({
      * 组件的方法列表
      */
     methods: {
-        initUI: async function() {
+        initUI: async function () {
+            this.data.tabs = [];
+            let tabs = this.data.tabs;
+            this.data.tabData.forEach(item => {
+                tabs.push({
+                    name: item,
+                    width: 10
+                })
+            });
+            if (tabs.length === 0) {
+                return
+            }
             await this.measureItem();
             this._changeSelected(0);
         },
-        changeSelected: function(e) {
+        _onTabDataChanged(value) {
+            console.log('_onTabDataChanged')
+            console.log(value);
+            this.initUI();
+        },
+        changeSelected: function (e) {
             let selectedIndex = e.target.dataset.selectedIndex;
             this._changeSelected(selectedIndex);
         },
-        _changeSelected: function(selectedIndex) {
+        _changeSelected: function (selectedIndex) {
             let tabs = this.data.tabs;
             let tab = tabs[selectedIndex];
             let selectedTabName = tab.name;
@@ -47,6 +64,8 @@ Component({
                 console.log('Same as current, skip.');
                 return
             }
+            console.log(this.data.tabData)
+            console.log(selectedTabName)
             this.setData({
                 currentSelected: selectedTabName
             });
@@ -54,9 +73,9 @@ Component({
                 'mask.width': tab.width + "px",
                 'mask.marginLeft': tab.marginLeft + "px",
             });
-            this.triggerEvent('tab-changed', { tab: this.data.currentSelected })
+            this.triggerEvent('tab-changed', {tab: this.data.currentSelected})
         },
-        measureItem: async function() {
+        measureItem: async function () {
             let tabs = this.data.tabs;
             let query = this.createSelectorQuery();
             let nodes = query.selectAll(".tab");
@@ -64,7 +83,7 @@ Component({
                 nodes.fields({
                     size: true,
                     computedStyle: ['marginLeft']
-                }, function(res) {
+                }, function (res) {
                     for (let index = 0; index < res.length; index++) {
                         const item = res[index];
                         // 得到 item 的 margin
@@ -86,35 +105,24 @@ Component({
         }
     },
     lifetimes: {
-        attached: function() {
-            let tabs = this.data.tabs
-            this.data.tabData.forEach(item => {
-                tabs.push({
-                    name: item,
-                    width: 10
-                })
-            });
-            if (tabs.length === 0) {
-                return
-            }
+        attached: function () {
             this.initUI();
-
         },
-        detached: function() {
+        detached: function () {
             console.log('detached');
         },
-        ready: function() {
+        ready: function () {
             console.log('ready');
         },
-        moved: function() {
+        moved: function () {
             console.log('moved');
         }
     },
     pageLifetimes: {
-        show: function() {
+        show: function () {
             console.log('show');
         },
-        resize: function() {
+        resize: function () {
             console.log('resize');
         }
     }

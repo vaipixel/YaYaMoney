@@ -59,7 +59,9 @@ Page({
      */
     onLoad: async function (options) {
         this.showLoading();
-        await this.initViewModel();
+        if (!(await this.initViewModel())) {
+            return
+        }
         indexViewModel.observerIntervalChanged(observer, interval => {
             this.setData({
                 'pageInfo.currentInterval': interval
@@ -69,7 +71,8 @@ Page({
         indexViewModel.observerUserInfo(observer, userInfo => {
         });
         indexViewModel.observerGroupInfo(observer, groupInfo => {
-            console.log('observerGroupInfo ');
+            console.log('observerGroupInfo');
+            console.log(groupInfo);
             this.setData({
                 groupInfo: groupInfo
             });
@@ -206,10 +209,11 @@ Page({
         indexViewModel = wx.viewModels.index;
         try {
             await indexViewModel.init();
+            return true;
         } catch (e) {
+            console.log(e)
             this.hideLoading();
             if (e instanceof NotLoginError) {
-                console.log(e)
                 console.log('unauthed');
                 wx.redirectTo({
                     url: "/pages/welcome/welcome?pageType=login"
@@ -220,6 +224,7 @@ Page({
                     url: "/pages/welcome/welcome?pageType=welcome&userId=" + indexViewModel.userInfo._id
                 })
             }
+            return false;
         }
     },
     requestGroupInfo: function () {

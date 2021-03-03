@@ -3,7 +3,6 @@ class TabCalculate {
         this._context = context;
     }
 
-
     async getAdjustMoneyTabHeight() {
         let anchorBottom = await wx.async.asyncSelector(this._context, '#anchor-adjust-money-bottom', {
             rect: true,

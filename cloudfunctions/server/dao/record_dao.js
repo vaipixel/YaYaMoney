@@ -3,6 +3,15 @@ const record_collection_name = 'records';
 
 class RecordDao {
 
+    async addRecord(record) {
+        let db = cloud.database();
+        let result = await db.collection(record_collection_name)
+            .add({
+                data: record
+            });
+        return result._id;
+    }
+
     async getRecords(cond) {
         let db = cloud.database();
         let _ = db.command.aggregate;
@@ -28,7 +37,7 @@ class RecordDao {
             .sort({
                 date: -1
             })
-            .get();
+            .end();
         return result.data;
     }
 }

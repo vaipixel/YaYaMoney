@@ -1,8 +1,8 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk');
-const {inject, services} = require('./inject');
-
 cloud.init();
+
+const {inject, services} = require('./inject');
 
 inject();
 
@@ -41,6 +41,15 @@ exports.main = async (event, context) => {
                 break;
             case 'getGroupInfoWithIncomeRate':
                 data = await services.groupService.getGroupInfoWithIncomeRate(event.data);
+                break;
+            case 'createAccount':
+                data = await services.accountService.createAccount(event.data);
+                break;
+            case 'getGroupMembers':
+                data = await services.groupService.getGroupMembers();
+                break;
+            case 'isUserHasGroup':
+                data = await services.userService.isUserHasGroup();
         }
         return {
             ...result,

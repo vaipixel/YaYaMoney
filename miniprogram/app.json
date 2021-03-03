@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/createAccount/createAccount",
     "pages/inviteMember/inviteMember",
     "pages/createGroup/createGroup",
-    "pages/createAccount/createAccount",
     "pages/account/account",
     "pages/welcome/welcome"
   ],

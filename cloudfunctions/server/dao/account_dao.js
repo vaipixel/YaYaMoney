@@ -4,6 +4,15 @@ const account_collection_name = 'accounts';
 const relation_user_account_collection_name = 'relation_user_account';
 
 class AccountDao {
+    async addAccount(accountInfo) {
+        let db = cloud.database();
+        let result = await db.collection(account_collection_name)
+            .add({
+                data: accountInfo
+            });
+        return result._id;
+    }
+
     async getGroupAccounts(groupId) {
         let db = cloud.database();
         const _ = db.command;
@@ -26,6 +35,14 @@ class AccountDao {
             })
             .end();
         return result.list;
+    }
+
+    async getGroupId(accountId) {
+        let db = cloud.database();
+        let result = await db.collection(account_collection_name)
+            .doc(accountId)
+            .get();
+        return result.data.groupId;
     }
 }
 

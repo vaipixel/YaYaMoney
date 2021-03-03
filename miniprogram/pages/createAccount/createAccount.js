@@ -1,48 +1,70 @@
 // miniprogram/pages/createAccount/createAccount.js
+const iconUtils = require("../../utils/iconUtils");
+const {getGroupMembers, createAccount} = require('../../requests');
+const {isStrEmpty} = require('../../utils/strUtils');
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        acocuntName: "",
+        accountName: "",
+        accountIcon: '/assets/images/fund.svg',
         accountType: "",
         accountInitMoneyOfMe: 0,
         accountInitMoneyOfPartner: 0,
-        comment: "",
+        accountDesc: "",
         members: {
             me: {
                 name: "我",
-                alias: "我",
+                character: "我",
                 checked: true
             },
             partner: {
                 name: "老婆",
-                alias: "老婆",
+                character: "**",
                 checked: false
             }
         },
-        _itemHeight: 0
+        _itemHeight: 0,
+        isIconDialogShown: false,
+        isTypeDialogShown: false,
+        icons: [
+            '/assets/images/fund.svg',
+            '/assets/images/stock.svg',
+            '/assets/images/saves.svg',
+            '/assets/images/cash.svg',
+            '/assets/images/home.svg',
+            '/assets/images/cars.svg',
+            '/assets/images/alipay.svg',
+            '/assets/images/wechatpay.svg'
+        ]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
-
+    onLoad: async function (options) {
+        this.showLoading();
+        let members = (await getGroupMembers()).data;
+        members.me.checked = true;
+        this.setData({
+            members: members
+        });
+        this.hideLoading();
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: async function() {
+    onShow: async function () {
         await this._getItemHeight('.member-money');
         let context = this;
         context._fadeIn('.money-me');
@@ -51,52 +73,52 @@ Page({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
+    onUnload: function () {
 
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     },
-    onMemberTaped: function(e) {
-        let tapedUser = e.target.dataset.userName;
+    onMemberTaped: function (e) {
+        let tapedUser = e.currentTarget.dataset.userName;
         this._onMemberTaped(tapedUser);
     },
-    _onMemberTaped: async function(tapedUser) {
+    _onMemberTaped: async function (tapedUser) {
         let members = this.data.members;
         let context = this;
-        var itemClass = '';
-        var dataKey = '';
-        var dataValue = false;
-        if (tapedUser === members.me.alias) {
+        let itemClass = '';
+        let dataKey = '';
+        let dataValue = false;
+        if (tapedUser === members.me.character) {
             itemClass = '.money-me';
             dataKey = 'members.me.checked';
             dataValue = !this.data.members.me.checked;
-        } else if (tapedUser === members.partner.alias) {
+        } else if (tapedUser === members.partner.character) {
             itemClass = '.money-partner';
             dataKey = 'members.partner.checked';
             dataValue = !this.data.members.partner.checked;
@@ -114,12 +136,12 @@ Page({
             })
         }
     },
-    _fadeOut: async function(selector, callback) {
+    _fadeOut: function (selector, callback) {
         let itemHeight = this.data._itemHeight;
         this.animate(selector, [{
-                height: itemHeight + 'px',
-                ease: 'ease-in'
-            },
+            height: itemHeight + 'px',
+            ease: 'ease-in'
+        },
             {
                 height: '0px',
                 ease: 'ease-in',
@@ -127,7 +149,7 @@ Page({
             }
         ], 250, callback);
     },
-    _fadeIn: async function(selector, callback) {
+    _fadeIn: async function (selector, callback) {
         let itemHeight = this.data._itemHeight;
         this.animate(selector, [{
             height: '0px',
@@ -137,8 +159,8 @@ Page({
             ease: 'ease-in'
         }], 250, callback && callback());
     },
-    _getItemHeight: async function(selector) {
-        var size = 0;
+    _getItemHeight: async function (selector) {
+        let size = 0;
         if (this.data._itemHeight === 0) {
             size = (await wx.async.asyncSelector(this, selector, {
                 size: true,
@@ -148,5 +170,99 @@ Page({
             size = this.data._itemHeight;
         }
         return size;
+    },
+    onChooseIcon: function () {
+        this.setData({
+            isIconDialogShown: true
+        });
+    },
+    showTypeSelectorDialog: function () {
+        this.setData({
+            isTypeDialogShown: true
+        });
+    },
+    onIconChanged: function (e) {
+        let icon = e.target.dataset.icon;
+        this.setData({
+            isIconDialogShown: false,
+            accountIcon: icon
+        });
+    },
+    onTypeChanged: function (e) {
+        let type = e.target.dataset.type;
+        this.setData({
+            accountType: type,
+            isTypeDialogShown: false
+        });
+    },
+    createAccount: async function () {
+        let data = this.data;
+
+        let members = [];
+        if (data.members.me.checked) {
+            data.members.me.initAmount = data.accountInitMoneyOfMe;
+            members.push(data.members.me);
+        }
+        if (data.members.partner.checked) {
+            data.members.partner.initAmount = data.accountInitMoneyOfMe;
+            members.push(data.members.partner);
+        }
+
+        let account = {
+            accountName: data.accountName,
+            accountIcon: data.accountIcon,
+            accountType: data.accountType,
+            accountDesc: data.accountDesc,
+            members
+        };
+
+        if (this.checkParams(account)) {
+            return
+        }
+        this.showLoading();
+        await createAccount(account);
+        this.hideLoading();
+        wx.navigateBack();
+    },
+    checkParams: function (account) {
+        let {accountName, accountType, members} = account;
+        if (isStrEmpty(accountName)) {
+            this.showError('账户名称为空');
+            return true;
+        }
+        if (isStrEmpty(accountType)) {
+            this.showError('账户类型为空');
+            return true;
+        }
+        if (members.length === 0) {
+            this.showError('至少要一名成员');
+            return true;
+        }
+        return false;
+    },
+    cancel: function () {
+        wx.navigateBack();
+    },
+    showLoading: function () {
+        this.setData({
+            isLoading: true
+        });
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+    },
+    hideLoading: function () {
+        wx.hideLoading();
+        this.setData({
+            isLoading: false
+        });
+    },
+    showError: function (msg) {
+        console.log(`showError: ${msg}`);
+        wx.showToast({
+            title: msg,
+            icon: 'error'
+        })
     }
 })

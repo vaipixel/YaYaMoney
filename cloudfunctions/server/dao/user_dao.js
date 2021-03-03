@@ -50,6 +50,14 @@ class UserDao {
         return result.data.length > 0;
     }
 
+    async getGroupId(userId) {
+        const db = cloud.database();
+        const _ = db.command
+        let result = await db.collection(user_collection_name)
+            .doc(userId)
+            .get();
+        return result.data.groupId;
+    }
 }
 
 module.exports = UserDao;

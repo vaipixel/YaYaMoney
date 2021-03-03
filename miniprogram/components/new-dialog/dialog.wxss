@@ -1,0 +1,46 @@
+/* components/new-dialog/dialog.wxss */
+
+.mask {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .6);
+
+    transition: all .3s
+}
+
+.mask.mask_hidden {
+    opacity:0;transform:scale3d(1, 1, 0)
+}
+
+.dialog {
+    position: fixed;
+    display: flex;
+    z-index: 5000;
+    text-align: center;
+    overflow: hidden;
+    max-height: 90%;
+    border-radius: 20rpx;
+    background-color: var(--content-color);
+
+}
+
+.center {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    flex-direction: column;
+}
+
+.bottom {
+    bottom: 0;
+    border-radius: 20rpx 20rpx 0 0;
+}
+
+.top-left {
+    left: 0;
+    top: 0;
+}

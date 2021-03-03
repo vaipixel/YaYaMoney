@@ -1,6 +1,10 @@
 {
     "navigationBarTitleText": "添加账户",
+    "navigationStyle": "custom",
     "usingComponents": {
-        "fix-input": "/components/fix-input/fix-input"
+        "fix-input": "/components/fix-input/fix-input",
+        "dialog": "/components/new-dialog/dialog",
+        "mp-navigation-bar": "weui-miniprogram/navigation-bar/navigation-bar",
+        "mp-toptips": "weui-miniprogram/toptips/toptips"
     }
 }

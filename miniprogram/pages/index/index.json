@@ -5,9 +5,8 @@
     "navigationBarTitleText": "吖吖资产",
     "usingComponents": {
         "tab-bar": "/components/tab-bar/tab-bar",
-        "dialog": "/components/dialog/dialog",
+        "dialog": "/components/new-dialog/dialog",
         "new-record-dialog": "/components/new-record-dialog/new-record-dialog",
-        "mp-navigation-bar": "weui-miniprogram/navigation-bar/navigation-bar",
-        "mp-dialog": "weui-miniprogram/dialog/dialog"
+        "mp-navigation-bar": "weui-miniprogram/navigation-bar/navigation-bar"
     }
 }

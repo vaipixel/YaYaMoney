@@ -49,6 +49,18 @@ async function getGroupInfo(interval) {
     return await baseRequest('getGroupInfoWithIncomeRate', interval);
 }
 
+async function createAccount(accountInfo) {
+    return await baseRequest('createAccount', accountInfo);
+}
+
+async function getGroupMembers() {
+    return await baseRequest('getGroupMembers');
+}
+
+async function isUserHasGroup() {
+    return await baseRequest('isUserHasGroup');
+}
+
 module.exports = {
     login,
     createGroup,
@@ -57,5 +69,8 @@ module.exports = {
     joinGroup,
     isGroupReady,
     isUserRegistered,
-    getGroupInfo
+    getGroupInfo,
+    getGroupMembers,
+    createAccount,
+    isUserHasGroup
 }

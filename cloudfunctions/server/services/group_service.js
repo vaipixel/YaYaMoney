@@ -58,7 +58,7 @@ class GroupService {
         let groupId = userInfo.groupId;
         let cutOffDate = dateUtils.getDateByInterval(interval);
         let accounts = await this.getGroupAccounts({groupId, cutOffDate});
-        let members = await this.getGroupMembers(groupId);
+        let members = await this.getGroupMembers();
         let overview = await this.getGroupOverview(groupId);
         return {
             overview,
@@ -73,10 +73,10 @@ class GroupService {
         return accounts;
     }
 
-    async getGroupMembers(groupId) {
-        let members = await services.userService.getMembersInGroup(groupId);
-        console.log(members);
+    async getGroupMembers() {
         let currentUserInfo = await userHandler.getCurrentUserInfo();
+        let groupId = currentUserInfo.groupId;
+        let members = await services.userService.getMembersInGroup(groupId);
         let result = {};
         for (let member of members) {
             if (member._id === currentUserInfo._id) {

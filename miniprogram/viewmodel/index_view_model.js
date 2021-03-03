@@ -1,6 +1,6 @@
 import {ViewModel} from "./view_model";
 import {NotLoginError, UserHasNoGroupError} from "../errors/errors";
-const {login} = require('../requests');
+const {login, isUserHasGroup} = require('../requests');
 
 class IndexViewModel extends ViewModel {
     constructor() {
@@ -20,9 +20,8 @@ class IndexViewModel extends ViewModel {
             console.warn('NotLoginError');
             throw new NotLoginError();
         }
-        let groupService = wx.services.groupService;
-        let isUserHasGroup = await groupService.isUserHasGroup(this.userInfo._id);
-        if (!isUserHasGroup) {
+        let result = (await isUserHasGroup()).data;
+        if (!result) {
             console.warn('UserHasNoGroupError');
             throw new UserHasNoGroupError();
         }
