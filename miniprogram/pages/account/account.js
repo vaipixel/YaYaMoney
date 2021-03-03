@@ -9,47 +9,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        accountInfo: {
-            recordList: [{
-                month: "2020-06",
-                name: "六月",
-                record: [{
-                    id: 1,
-                    type: 1,
-                    amount: 1001,
-                    desc: "招行 > 基金 @我",
-                    date: "06/23"
-                },
-                    {
-                        id: 2,
-                        type: 2,
-                        amount: 1000,
-                        desc: "招行 @老婆",
-                        date: "06/23"
-                    }
-                ]
-            },
-                {
-                    month: "2020-07",
-                    name: "七月",
-                    record: [{
-                        id: 3,
-                        type: 1,
-                        amount: 1000,
-                        desc: "招行 > 基金 @我",
-                        date: "07/23"
-                    },
-                        {
-                            id: 4,
-                            type: 2,
-                            amount: 1000,
-                            desc: "招行 @老婆",
-                            date: "07/23"
-                        }
-                    ]
-                }
-            ]
-        },
+        accountName: '',
+        _accountId: '',
+        records:[],
         pageInfo: {
             // 调整余额对话框是否隐藏
             isAdjustMoneyDialogShow: false,
@@ -63,7 +25,11 @@ Page({
      */
     onLoad: function (options) {
         this.showLoading();
+        this.data._accountId = options.accountId;
         this.initViewModel(options.accountId);
+        this.setData({
+            accountName: options.accountName
+        })
         accountViewModel.observerRecords(observer, records => {
             this.setData({
                 records: records
@@ -172,5 +138,10 @@ Page({
     },
     hideLoading: function () {
         wx.hideLoading();
+    },
+    onSettingTaped: function () {
+        wx.navigateTo({
+            url: `/pages/createAccount/createAccount?accountId=${this.data._accountId}`
+        })
     }
 })

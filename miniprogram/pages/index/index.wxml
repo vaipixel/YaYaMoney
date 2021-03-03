@@ -1,7 +1,7 @@
 <!-- miniprogram/pages/index/index.wxml -->
 <wxs module="utils" src="./index.wxs"></wxs>
 <mp-navigation-bar title="吖吖资产" background="#187A99" color="#FEFEFE" back="{{false}}" loading="{{isLoading}}">
-    <image slot="left" class="menu" bind:tap="onMenuTaped" src="/assets/images/menu.svg"/>
+    <image slot="left" class="menu" catch:tap="onMenuTaped" src="/assets/images/menu.svg"/>
 </mp-navigation-bar>
 <view class="container">
     <!-- 头部 -->
@@ -90,6 +90,7 @@
                                 class="btn"
                                 bindtap="navToAccountDetail"
                                 data-account-id="{{account._id}}"
+                                data-account-name="{{account.accountName}}"
                         >详细信息 >></text>
                     </view>
                 </view>

@@ -1,6 +1,8 @@
 {
+    "navigationStyle": "custom",
     "usingComponents": {
-        "dialog": "/components/dialog/dialog",
-        "fix-input": "/components/fix-input/fix-input"
+        "dialog": "/components/new-dialog/dialog",
+        "fix-input": "/components/fix-input/fix-input",
+        "mp-navigation-bar": "weui-miniprogram/navigation-bar/navigation-bar"
     }
 }

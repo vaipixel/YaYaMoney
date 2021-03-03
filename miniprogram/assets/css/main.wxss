@@ -13,3 +13,8 @@ text {
 .avatar {
     border-radius: 50rpx;
 }
+
+.menu {
+    width: 40rpx;
+    height: 40rpx;
+}

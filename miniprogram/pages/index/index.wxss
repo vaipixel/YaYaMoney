@@ -316,11 +316,6 @@
     transform: rotate(0.4deg);
 }
 
-.menu {
-    width: 40rpx;
-    height: 40rpx;
-}
-
 .menu-dialog {
     border-radius: 20rpx;
     padding: 26rpx 30rpx 26rpx 30rpx;

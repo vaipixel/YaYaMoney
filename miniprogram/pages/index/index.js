@@ -152,8 +152,9 @@ Page({
     },
     navToAccountDetail: function (e) {
         let accountId = e.target.dataset.accountId;
+        let accountName = e.target.dataset.accountName;
         wx.navigateTo({
-            url: "/pages/account/account?accountId=" + accountId
+            url: `/pages/account/account?accountId=${accountId}&accountName=${accountName}`
         });
     },
     changeInterval: function (e) {

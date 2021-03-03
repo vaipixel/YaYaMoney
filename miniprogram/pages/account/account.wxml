@@ -1,4 +1,7 @@
 <!-- miniprogram/pages/account/account.wxml -->
+<mp-navigation-bar title="{{accountName}}" background="#187A99" color="#FEFEFE" back="{{false}}">
+  <image slot="left" class="menu" src="/assets/images/setting.svg" catch:tap="onSettingTaped"></image>
+</mp-navigation-bar>
 <view class="container">
   <wxs src="./account.wxs" module="accountUtils"></wxs>
   <!-- Chart -->
