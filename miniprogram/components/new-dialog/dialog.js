@@ -42,7 +42,6 @@ Component({
 
         },
         _showChange(value) {
-            console.log('_showChange ' + value)
         }
     }
 })

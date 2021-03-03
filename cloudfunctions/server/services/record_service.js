@@ -21,15 +21,30 @@ class RecordService {
         }
     }
 
-    async getAdjustMoneyRecordByCutOffDate(cond) {
-        let {accountId, userId, cutOffDate} = cond;
-        if (!cutOffDate) {
-            cond.cutOffDate = new Date();
+    async getAdjustMoneyRecordByEndDate(cond) {
+        let {endDate} = cond;
+        if (!endDate) {
+            cond.endDate = new Date();
         }
         cond.type = '调整余额';
+
         let records = await dao.recordDao.getRecords(cond);
-        console.log(records);
-        //    todo
+        if (records.length === 0) {
+            return {
+                amount: 0
+            };
+        }
+        return records[0];
+    }
+
+    async getTransferRecordsByDate(cond) {
+        let {endDate} = cond;
+        if (!endDate) {
+            cond.endDate = new Date();
+        }
+        cond.type = '转账';
+
+        return await dao.recordDao.getRecords(cond);
     }
 
     async _addAdjustMoneyRecord(record) {

@@ -1,3 +1,4 @@
+const cloud = require('wx-server-sdk');
 const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
 const {userHandler} = require('./handler');
@@ -16,7 +17,6 @@ class AccountService {
         let members = accountInfo.members;
         delete accountInfo.members;
         let accountId = await dao.accountDao.addAccount(accountInfo);
-        console.log(`addAccount ID: ${accountId}`);
         for (let member of members) {
             await this.joinAccount({accountId, userId: member._id});
             if (member.initAmount !== 0) {
@@ -36,7 +36,6 @@ class AccountService {
 
     async joinAccount(relation) {
         let {accountId, userId} = relation;
-        console.log(`joinAccount  accountId: ${accountId}; userId: ${userId}`);
         relation.createDate = new Date();
         await dao.userAccountRelationDao.addRelation(relation);
     }
@@ -50,30 +49,65 @@ class AccountService {
     }
 
     async getGroupAccounts(query) {
-        let {groupId, cutOffDate} = query;
+        let {groupId, endDate} = query;
         let accounts = await dao.accountDao.getGroupAccounts(groupId);
         for (let account of accounts) {
+            account.amount = 0;
             let members = account.members;
             for (let member of members) {
-                let cond = {accountId: account._id, userId: member._id};
-                if (cutOffDate) {
-                    cond.cutOffDate = cutOffDate;
+                let cond = {accountId: account._id, creator: member._id};
+                if (endDate) {
+                    cond.endDate = endDate;
                 }
-                await this.getAccountMemberAmount(cond);
+                member.amount = await this.getAccountMemberAmount(cond);
+                account.amount += member.amount;
+                this._replaceCharacterForMe(member);
             }
+            members.sort((a, b) => {
+                if (a.character === '我') {
+                    return -1;
+                }
+                return 1;
+            });
         }
         return accounts;
     }
-
-    async getAccountMemberAmount(cond) {
-        if (cond.cutOffDate) {
-            cond.cutOffDate = new Date(cond.cutOffDate);
+    _replaceCharacterForMe(member) {
+        let {OPENID} = cloud.getWXContext();
+        if (OPENID === member.openid) {
+            member.character = '我';
         }
-        let {accountId, userId} = cond;
-        if (!accountId || !userId) {
+    }
+    async getAccountMemberAmount(cond) {
+        if (cond.endDate) {
+            cond.endDate = new Date(cond.endDate);
+        }
+        let {accountId, creator} = cond;
+        if (!accountId || !creator) {
             throwError(errors.ACCOUNT_ACCOUNT_ID_AND_USER_ID_IS_NECESSARY);
         }
-        await services.recordService.getAdjustMoneyRecordByCutOffDate(cond);
+        cond.pageSize = 1;
+
+        let lastAdjustMoneyRecord = await services.recordService.getAdjustMoneyRecordByEndDate(cond);
+        let transferCond = {
+            creator,
+            endDate: cond.endDate,
+            accountId
+        }
+        if (lastAdjustMoneyRecord.date) {
+            transferCond.startDate = lastAdjustMoneyRecord.date;
+        }
+
+        let transferRecords = await services.recordService.getTransferRecordsByDate(transferCond);
+        return this._calculateMemberAmount(accountId, lastAdjustMoneyRecord, transferRecords);
+    }
+
+    _calculateMemberAmount(accountId, adjustMoneyRecord, transferRecords) {
+        let outAmount = transferRecords.filter(record => record.fromAccount === accountId)
+            .reduce((result, record) => result + record.amount, 0);
+        let inAmount = transferRecords.filter(record => record.targetAccount === accountId)
+            .reduce((result, record) => result + record.amount, 0);
+        return adjustMoneyRecord.amount - outAmount + inAmount;
     }
 
     async getAccountRecords(query) {
@@ -99,13 +133,11 @@ class AccountService {
                 delete record.accountId;
             }
         }
-        console.log(records);
         let resultObj = records.reduce((result, record) => {
             (result[record.monthIndex] = result[record.monthIndex] || []).push(record);
             delete record.monthIndex;
             return result;
         }, {});
-        console.log(resultObj);
         let result = [];
         Object.keys(resultObj).forEach(key => {
             result.push({

@@ -4,6 +4,7 @@ const record_collection_name = 'records';
 class RecordDao {
 
     async addRecord(record) {
+        record.amount = parseFloat(record.amount);
         let db = cloud.database();
         let result = await db.collection(record_collection_name)
             .add({
@@ -15,8 +16,6 @@ class RecordDao {
     async getRecords(cond) {
         let db = cloud.database();
         let _ = db.command.aggregate;
-        console.log('getRecords');
-        console.log(cond);
         let {offset, pageSize} = cond;
         if (!offset) {
             offset = 0;
@@ -26,15 +25,14 @@ class RecordDao {
         }
 
         let matchRule = _.and(this._getMatchByCond(_, cond));
-
         let result = await db.collection(record_collection_name)
             .aggregate()
             .match(matchRule)
-            .skip(offset)
-            .limit(pageSize)
             .sort({
                 date: -1
             })
+            .skip(offset)
+            .limit(pageSize)
             .project({
                 _id: 1,
                 accountId: 1,
@@ -69,9 +67,9 @@ class RecordDao {
                 }
             ]));
         }
-        if (cond.userId) {
+        if (cond.creator) {
             match.push({
-                userId: aggregate.eq(cond.userId)
+                creator: aggregate.eq(cond.creator)
             });
         }
         if (cond.type) {
@@ -79,9 +77,14 @@ class RecordDao {
                 type: aggregate.eq(cond.type)
             });
         }
-        if (cond.cutOffDate) {
+        if (cond.startDate) {
             match.push({
-                date: aggregate.lte(cond.cutOffDate)
+                date: aggregate.gt(cond.startDate)
+            });
+        }
+        if (cond.endDate) {
+            match.push({
+                date: aggregate.lte(cond.endDate)
             });
         }
         return match;

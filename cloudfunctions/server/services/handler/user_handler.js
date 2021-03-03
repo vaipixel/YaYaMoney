@@ -5,16 +5,16 @@ const openidUserInfoMap = {};
 class UserHandler {
 
     async getCurrentUserInfo() {
-        console.log('getCurrentUserInfo');
         let {OPENID} = cloud.getWXContext();
         console.log(`OPENID: ${OPENID}`);
         if (openidUserInfoMap[OPENID]) {
+            console.log('getUserInfoFromMemory');
             return Promise.resolve(openidUserInfoMap[OPENID]);
         } else {
             const {dao} = require('../../inject');
             let userInfo = await dao.userDao.getUserInfoByOpenid(OPENID);
+            openidUserInfoMap[OPENID] = userInfo;
             console.log('getUserInfoFromDb');
-            console.log(userInfo);
             return userInfo;
         }
     }

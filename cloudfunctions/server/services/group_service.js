@@ -1,6 +1,7 @@
+const cloud = require('wx-server-sdk');
 const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
-const {groupUtils, dateUtils} = require('./utils');
+const {groupUtils, dateUtils, numberUtils} = require('./utils');
 const {userHandler} = require('./handler');
 
 class GroupService {
@@ -48,29 +49,98 @@ class GroupService {
 
     async isGroupReady(groupId) {
         let users = await dao.userDao.getUsersByGroupId(groupId);
-        console.log('users.length === 2 ');
-        console.log(users.length === 2)
         return users.length === 2;
     }
 
     async getGroupInfoWithIncomeRate(interval) {
         let userInfo = await userHandler.getCurrentUserInfo();
         let groupId = userInfo.groupId;
-        let cutOffDate = dateUtils.getDateByInterval(interval);
-        let accounts = await this.getGroupAccounts({groupId, cutOffDate});
+        let endDate = dateUtils.getDateByInterval(interval);
+        let currentGroupInfo = await this._getGroupInfo(groupId);
+        // 上一个统计周期的账户信息
+        let lastIntervalGroupInfo = await this._getGroupInfo(groupId, interval);
+        return this._calculateIncome(currentGroupInfo, lastIntervalGroupInfo)
+    }
+
+    async _getGroupInfo(groupId, interval) {
+        let query = {groupId};
+        if (interval) {
+            query.interval = interval;
+        }
+        let accounts = await this.getGroupAccounts(query);
         let members = await this.getGroupMembers();
-        let overview = await this.getGroupOverview(groupId);
+        members.me.amount = this._calculateMemberAmount(members.me, accounts);
+        members.partner.amount = this._calculateMemberAmount(members.partner, accounts);
+        let overview = await this.getGroupOverview(members);
         return {
             overview,
             members,
-            accounts
+            accounts: accounts
         }
     }
 
+    _calculateMemberAmount(member, accounts) {
+        return accounts.reduce((accountAmount, account) => {
+            let tmp = 0;
+            Object.keys(account.members)
+                .filter(key => account.members[key]._id === member._id)
+                .forEach(key => {
+                    tmp = account.members[key].amount;
+                });
+            return accountAmount + tmp;
+        }, 0);
+    }
+
+    _calculateIncome(groupInfo, lastIntervalGroupInfo) {
+        // 计算 overview
+        let overview = groupInfo.overview;
+        let lastIntervalOverview = lastIntervalGroupInfo.overview;
+        overview.income = {
+            amount: overview.amount - lastIntervalOverview.amount,
+            rate: numberUtils.calculateIncomeRate(overview.amount, lastIntervalOverview.amount)
+        };
+
+        // 计算 members
+        let members = groupInfo.members;
+        let lastIntervalMembers = lastIntervalGroupInfo.members;
+        members.me.income = {
+            amount: members.me.amount - lastIntervalMembers.me.amount,
+            rate: numberUtils.calculateIncomeRate(members.me.amount, lastIntervalMembers.me.amount)
+        }
+        members.partner.income = {
+            amount: members.partner.amount - lastIntervalMembers.partner.amount,
+            rate: numberUtils.calculateIncomeRate(members.partner.amount, lastIntervalMembers.partner.amount)
+        }
+
+        // 计算 accounts
+        let accounts = groupInfo.accounts;
+        let lastIntervalAccounts = lastIntervalGroupInfo.accounts;
+        accounts.forEach((account, index) => {
+            let lastIntervalAccount = lastIntervalAccounts[index];
+            account.income = {
+                amount: account.amount - lastIntervalAccount.amount,
+                rate: numberUtils.calculateIncomeRate(account.amount, lastIntervalAccount.amount)
+            };
+
+            // 计算 account 的 members
+            let lastAccountMembers = lastIntervalAccount.members;
+            account.members.forEach((member, index) => {
+                member.income = {
+                    amount: member.amount - lastAccountMembers[index].amount,
+                    rate: numberUtils.calculateIncomeRate(member.amount, lastAccountMembers[index].amount)
+                };
+            });
+        });
+        return groupInfo;
+    }
+
     async getGroupAccounts(query) {
-        let {groupId, cutOffDate} = query;
-        let accounts = await services.accountService.getGroupAccounts(query);
-        return accounts;
+        let {interval} = query;
+        if (interval) {
+            delete query.interval;
+            query.endDate = dateUtils.getDateByInterval(interval);
+        }
+        return await services.accountService.getGroupAccounts(query);
     }
 
     async getGroupMembers() {
@@ -88,13 +158,9 @@ class GroupService {
         return result;
     }
 
-    async getGroupOverview(groupId) {
+    async getGroupOverview(members) {
         return {
-            amount: 1000,
-            income: {
-                amount: 100,
-                rate: '10%'
-            }
+            amount: members.me.amount + members.partner.amount
         }
     }
 }

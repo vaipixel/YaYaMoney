@@ -3,6 +3,8 @@ const dateUtils = require("../../utils/dateUtils.js");
 const computedBehavior = require('miniprogram-computed')
 import {TabCalculate} from 'tab-calculate.js';
 
+const {addRecord} = require('../../requests');
+
 let tabCalculate;
 Component({
     options: {
@@ -62,6 +64,7 @@ Component({
         },
         onDateChanged: function (e) {
             let date = e.detail.value;
+            date = new Date(date);
             let now = new Date();
             date.setHours(now.getHours());
             date.setMinutes(now.getMinutes());
@@ -145,14 +148,8 @@ Component({
             wx.showLoading({
                 title: '添加中',
                 mask: true
-            })
-            await wx.cloud.callFunction({
-                name: 'account_service',
-                data: {
-                    action: 'addRecord',
-                    data: record
-                }
             });
+            await addRecord(record);
             this.triggerEvent('add-record-success', { result: 'success' })
             wx.hideLoading();
             this.dismiss();

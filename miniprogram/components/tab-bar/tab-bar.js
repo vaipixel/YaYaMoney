@@ -48,8 +48,6 @@ Component({
             this._changeSelected(0);
         },
         _onTabDataChanged(value) {
-            console.log('_onTabDataChanged')
-            console.log(value);
             this.initUI();
         },
         changeSelected: function (e) {
@@ -64,8 +62,6 @@ Component({
                 console.log('Same as current, skip.');
                 return
             }
-            console.log(this.data.tabData)
-            console.log(selectedTabName)
             this.setData({
                 currentSelected: selectedTabName
             });

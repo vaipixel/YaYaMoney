@@ -33,26 +33,29 @@ exports.main = async (event, context) => {
             case 'isGroupReady':
                 data = await services.groupService.isGroupReady(event.data);
                 break;
+            case 'getGroupInfoWithIncomeRate':
+                data = await services.groupService.getGroupInfoWithIncomeRate(event.data);
+                break;
+            case 'getGroupMembers':
+                data = await services.groupService.getGroupMembers();
+                break;
             case 'isUserRegistered':
                 data = await services.userService.isUserRegistered();
                 break;
             case 'login':
                 data = await services.userService.login(event.data);
                 break;
-            case 'getGroupInfoWithIncomeRate':
-                data = await services.groupService.getGroupInfoWithIncomeRate(event.data);
+            case 'isUserHasGroup':
+                data = await services.userService.isUserHasGroup();
                 break;
             case 'createAccount':
                 data = await services.accountService.createAccount(event.data);
                 break;
-            case 'getGroupMembers':
-                data = await services.groupService.getGroupMembers();
-                break;
-            case 'isUserHasGroup':
-                data = await services.userService.isUserHasGroup();
-                break;
             case 'getAccountRecords':
                 data = await services.accountService.getAccountRecords(event.data);
+                break;
+            case 'addRecord':
+                data = await services.recordService.addRecord(event.data);
                 break;
         }
         return {

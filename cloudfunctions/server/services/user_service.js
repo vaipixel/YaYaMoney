@@ -18,8 +18,6 @@ class UserService {
         if (await dao.userDao.isUserRegistered(OPENID)) {
             let currentUser = await userHandler.getCurrentUserInfo();
             userInfo._id = currentUser._id;
-            console.log('update ');
-            console.log(loginData.userInfo);
             await dao.userDao.updateUser(loginData.userInfo);
         } else {
             await dao.userDao.addUser({

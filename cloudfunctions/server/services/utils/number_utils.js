@@ -4,7 +4,10 @@ function toPercent(point) {
 }
 
 function calculateIncomeRate(now, last) {
-    return toPercent((now - last) / last)
+    if (last === 0) {
+        return '-%'
+    }
+    return toPercent((now - last) / last);
 }
 
 module.exports = {

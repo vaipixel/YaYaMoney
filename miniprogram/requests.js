@@ -65,6 +65,10 @@ async function getAccountRecords(query) {
     return await baseRequest('getAccountRecords', query);
 }
 
+async function addRecord(record) {
+    return await baseRequest('addRecord', record);
+}
+
 module.exports = {
     login,
     createGroup,
@@ -77,5 +81,6 @@ module.exports = {
     getGroupMembers,
     createAccount,
     isUserHasGroup,
-    getAccountRecords
+    getAccountRecords,
+    addRecord
 }
