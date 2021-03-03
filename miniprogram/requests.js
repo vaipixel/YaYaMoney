@@ -61,6 +61,10 @@ async function isUserHasGroup() {
     return await baseRequest('isUserHasGroup');
 }
 
+async function getAccountRecords(query) {
+    return await baseRequest('getAccountRecords', query);
+}
+
 module.exports = {
     login,
     createGroup,
@@ -72,5 +76,6 @@ module.exports = {
     getGroupInfo,
     getGroupMembers,
     createAccount,
-    isUserHasGroup
+    isUserHasGroup,
+    getAccountRecords
 }

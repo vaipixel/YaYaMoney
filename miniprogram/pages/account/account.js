@@ -62,11 +62,13 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.showLoading();
         this.initViewModel(options.accountId);
         accountViewModel.observerRecords(observer, records => {
             this.setData({
                 records: records
-            })
+            });
+            this.hideLoading();
         })
         accountViewModel.requestRecords();
     },
@@ -159,7 +161,16 @@ Page({
         })
     },
     editRecord: function (e) {
-        var recordId = e.target.dataset.recordId;
+        let recordId = e.target.dataset.recordId;
         console.log('editRecord ' + recordId);
+    },
+    showLoading: function () {
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+    },
+    hideLoading: function () {
+        wx.hideLoading();
     }
 })

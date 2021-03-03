@@ -61,6 +61,13 @@ class RecordService {
             throwError(errors.RECORD_NO_PERMISSION_EDIT_OTHER_GROUP);
         }
     }
+
+    async getRecords(query) {
+        const {accountId, offset, pageSize} = query;
+        let userInfo = await userHandler.getCurrentUserInfo();
+        let userId = userInfo._id;
+        return await dao.recordDao.getRecords(query);
+    }
 }
 
 module.exports = RecordService;

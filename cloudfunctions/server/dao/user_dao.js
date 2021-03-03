@@ -58,6 +58,13 @@ class UserDao {
             .get();
         return result.data.groupId;
     }
+
+    async getUserInfo(userId) {
+        let db = cloud.database();
+        return (await db.collection(user_collection_name)
+            .doc(userId)
+            .get()).data;
+    }
 }
 
 module.exports = UserDao;

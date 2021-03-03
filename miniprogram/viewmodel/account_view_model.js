@@ -1,5 +1,7 @@
 import {ViewModel} from "./view_model";
 
+const {getAccountRecords} = require('../requests');
+
 class AccountViewModel extends ViewModel {
     constructor() {
         super();
@@ -14,17 +16,11 @@ class AccountViewModel extends ViewModel {
     }
 
     async requestRecords() {
-        this.records = (await wx.cloud.callFunction({
-            name: 'account_service',
-            data: {
-                action: 'getAccountRecords',
-                data: {
-                    accountId: this.accountId,
-                    offset: this.offset,
-                    pageSize: this.pageSize
-                }
-            }
-        })).result;
+        this.records = (await getAccountRecords({
+            accountId: this.accountId,
+            offset: this.offset,
+            pageSize: this.pageSize
+        })).data;
     }
 
     observerRecords(observer, fn) {

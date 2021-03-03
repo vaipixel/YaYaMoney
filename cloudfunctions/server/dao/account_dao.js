@@ -13,6 +13,14 @@ class AccountDao {
         return result._id;
     }
 
+    async getAccountInfo(accountId) {
+        let db = cloud.database();
+        let result = await db.collection(account_collection_name)
+            .doc(accountId)
+            .get();
+        return result.data;
+    }
+
     async getGroupAccounts(groupId) {
         let db = cloud.database();
         const _ = db.command;

@@ -1,6 +1,10 @@
 const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
 const {userHandler} = require('./handler');
+const {dateUtils} = require('./utils');
+
+const TYPE_ADJUST_MONEY = '调整余额';
+const TYPE_TRANSFER = '转账';
 
 class AccountService {
 
@@ -71,6 +75,52 @@ class AccountService {
         }
         await services.recordService.getAdjustMoneyRecordByCutOffDate(cond);
     }
+
+    async getAccountRecords(query) {
+        let {accountId} = query;
+        let records = await services.recordService.getRecords(query);
+        let accountInfo = await this.getAccountInfo(accountId);
+        for (let record of records) {
+            record.creator = await services.userService.getUserInfo(record.creator);
+            let {type} = record;
+            if (type === TYPE_TRANSFER) {
+                if (record.fromAccount === accountId) {
+                    record.fromAccount = accountInfo;
+                } else {
+                    record.fromAccount = await this.getAccountInfo(record.fromAccount);
+                }
+                if (record.targetAccount === accountId) {
+                    record.targetAccount = accountInfo;
+                } else {
+                    record.targetAccount = await this.getAccountInfo(record.targetAccount);
+                }
+            } else if (type === TYPE_ADJUST_MONEY) {
+                record.account = accountInfo;
+                delete record.accountId;
+            }
+        }
+        console.log(records);
+        let resultObj = records.reduce((result, record) => {
+            (result[record.monthIndex] = result[record.monthIndex] || []).push(record);
+            delete record.monthIndex;
+            return result;
+        }, {});
+        console.log(resultObj);
+        let result = [];
+        Object.keys(resultObj).forEach(key => {
+            result.push({
+                month: key,
+                name: dateUtils.getChineseMonth(key),
+                records: resultObj[key]
+            });
+        });
+        return result;
+    }
+
+    getAccountInfo(accountId) {
+        return dao.accountDao.getAccountInfo(accountId);
+    }
+
 }
 
 module.exports = AccountService;

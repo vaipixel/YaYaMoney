@@ -39,6 +39,10 @@ class UserService {
         let groupId = await dao.userDao.getGroupId(currentUserInfo._id);
         return !strUtils.isStrEmpty(groupId);
     }
+
+    getUserInfo(userId) {
+        return dao.userDao.getUserInfo(userId);
+    }
 }
 
 module.exports = UserService;

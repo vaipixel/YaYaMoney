@@ -50,6 +50,10 @@ exports.main = async (event, context) => {
                 break;
             case 'isUserHasGroup':
                 data = await services.userService.isUserHasGroup();
+                break;
+            case 'getAccountRecords':
+                data = await services.accountService.getAccountRecords(event.data);
+                break;
         }
         return {
             ...result,
