@@ -4,6 +4,7 @@ let accountViewModel;
 
 const observer = 'account';
 const {deleteAccount} = require('../../requests');
+const dateUtils = require("../../utils/dateUtils.js");
 Page({
 
     /**
@@ -12,6 +13,7 @@ Page({
     data: {
         accountName: '',
         _accountId: '',
+        isEditing: false,
         records:[],
         pageInfo: {
             // 调整余额对话框是否隐藏
@@ -19,9 +21,12 @@ Page({
             // 转账对话框是否隐藏
             isTransferDialogShow: false,
             isSettingDialogShow: false,
-            isDeleteConfirmDialogShow: false,
+            isDeleteAccountConfirmDialogShow: false,
+            isDeleteRecordConfirmDialogShow: false,
             deleteConfirmDialogButtons: [{text: '取消'}, {text: '确定'}],
-        }
+        },
+        editingRecord: {},
+        amountFocus: false
     },
 
     /**
@@ -98,7 +103,8 @@ Page({
         console.log('requestAccountDetail ' + accountId);
     },
     showEditRecordDialog: function (e) {
-        let recordType = e.target.dataset.recordType;
+        let recordType = e.currentTarget.dataset.recordType;
+        let record = e.currentTarget.dataset.record;
         switch (recordType) {
             case '转账':
                 // 转账
@@ -109,6 +115,10 @@ Page({
                 this.showAdjustMoneyDialog()
                 break
         }
+        record.formatDate = dateUtils.formatDate(new Date(record.date));
+        this.setData({
+            editingRecord: record
+        });
     },
     showAdjustMoneyDialog: function () {
         this.setData({
@@ -165,11 +175,14 @@ Page({
     deleteAccount: async function () {
         await deleteAccount(this.data._accountId);
     },
-    onDeleteConfirmButtonTap: async function (e) {
+    deleteRecord: async function () {
+        // await deleteAccount(this.data._accountId);
+    },
+    onDeleteAccountConfirmButtonTap: async function (e) {
         let index = e.detail.index;
         switch (index) {
             case 0:
-                this.hideDialogConfirmDialog();
+                this.hideDeleteAccountConfirmDialog();
                 break;
             case 1:
                 this.showLoading();
@@ -178,18 +191,71 @@ Page({
                 this.hideLoading();
                 break;
             default:
-                this.hideDialogConfirmDialog();
+                this.hideDeleteAccountConfirmDialog();
                 break;
         }
     },
-    showDialogConfirmDialog: function () {
+    showDeleteAccountConfirmDialog: function () {
         this.setData({
-            'pageInfo.isDeleteConfirmDialogShow': true
+            'pageInfo.isDeleteAccountConfirmDialogShow': true
         });
     },
-    hideDialogConfirmDialog: function () {
+    hideDeleteAccountConfirmDialog: function () {
         this.setData({
-            'pageInfo.isDeleteConfirmDialogShow': false
+            'pageInfo.isDeleteAccountConfirmDialogShow': false
         });
+    },
+    onDeleteRecordConfirmButtonTap: async function (e) {
+        let index = e.detail.index;
+        switch (index) {
+            case 0:
+                this.hideDeleteRecordConfirmDialog();
+                break;
+            case 1:
+                this.showLoading();
+                await this.deleteRecord();
+                this.hideDeleteRecordConfirmDialog();
+                this.hideLoading();
+                break;
+            default:
+                this.hideDeleteRecordConfirmDialog();
+                break;
+        }
+    },
+    showDeleteRecordConfirmDialog: function () {
+        this.setData({
+            'pageInfo.isDeleteRecordConfirmDialogShow': true
+        });
+    },
+    hideDeleteRecordConfirmDialog: function () {
+        this.setData({
+            'pageInfo.isDeleteRecordConfirmDialogShow': false
+        });
+    },
+    onEditRecord: function () {
+        this.setData({
+            isEditing: true
+        });
+        setTimeout(() => {
+            this.setData({
+                focus: true
+            });
+        }, 100);
+
+    },
+    oEditDialogClose: function () {
+        this.cancelEdit();
+    },
+    showDeleteConfirmDialog: function () {
+
+    },
+    applyChanges: function () {
+
+    },
+    cancelEdit: function () {
+        this.setData({
+            isEditing: false
+        });
+
     }
 })

@@ -25,9 +25,15 @@ class AccountDao {
     async getAccountInfo(accountId) {
         let db = cloud.database();
         let result = await db.collection(account_collection_name)
-            .doc(accountId)
+            .where({
+                _id: accountId
+            })
             .get();
-        return result.data;
+        if (result.data.length === 0) {
+            return null;
+        } else {
+            return result.data[0];
+        }
     }
 
     async getGroupAccounts(groupId) {
@@ -90,8 +96,6 @@ class AccountDao {
     }
 
     async deleteAccount(accountId) {
-        console.log('deleteAccount');
-        console.log(accountId);
         let db = cloud.database();
         const _ = db.command;
         let result = await db.collection(account_collection_name)

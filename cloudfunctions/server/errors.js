@@ -25,6 +25,9 @@ const errors = {
     // 记录异常 5000 ～ 5999
     RECORD_NO_PERMISSION_EDIT_OTHER_GROUP: new ErrorEnum(5000, '没有权限修改其他群组的记录'),
 
+    // 用户异常 6000 ~ 6999
+    USER_OPENID_IS_NULL: new ErrorEnum(6000, 'OPENID 是空')
+
 };
 
 function throwError(error) {

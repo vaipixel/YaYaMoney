@@ -146,6 +146,7 @@ class AccountService extends Service {
                 delete record.accountId;
             }
         }
+        console.log(4)
         let resultObj = records.reduce((result, record) => {
             (result[record.monthIndex] = result[record.monthIndex] || []).push(record);
             delete record.monthIndex;
@@ -162,8 +163,15 @@ class AccountService extends Service {
         return result;
     }
 
-    getAccountInfo(accountId) {
-        return dao.accountDao.getAccountInfo(accountId);
+    async getAccountInfo(accountId) {
+        if (await this.isAccountExist(accountId)) {
+            return dao.accountDao.getAccountInfo(accountId);
+        } else {
+            return {
+                _id: accountId,
+                accountName: '[已删除]'
+            }
+        }
     }
 
     async getAccountInfoWithMembers(accountId) {

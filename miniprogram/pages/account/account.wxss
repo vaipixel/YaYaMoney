@@ -123,3 +123,19 @@
 .delete {
     color: var(--red-color);
 }
+
+.cancel {
+    color: var(--subtitle-color);
+}
+
+.transfer-dialog .form .account {
+    width: 44%;
+    text-align: center;
+}
+
+.arrow {
+    font-weight: normal;
+    font-size: 40rpx;
+    color: #38485A;
+    line-height: 90rpx;
+}

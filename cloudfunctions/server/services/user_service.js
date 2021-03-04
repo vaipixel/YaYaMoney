@@ -15,6 +15,9 @@ class UserService {
         const {OPENID} = cloud.getWXContext();
         let userInfo = loginData.userInfo;
         userInfo.openid = OPENID;
+        if (!OPENID) {
+            throwError(errors.USER_OPENID_IS_NULL);
+        }
         if (await dao.userDao.isUserRegistered(OPENID)) {
             let currentUser = await userHandler.getCurrentUserInfo();
             userInfo._id = currentUser._id;

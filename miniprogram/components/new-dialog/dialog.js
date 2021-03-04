@@ -36,12 +36,15 @@ Component({
             this.setData({
                 show: false
             });
-            this.triggerEvent('close', {}, {});
+            this.triggerEvent('close');
         },
         stopEvent() {
 
         },
         _showChange(value) {
+            if (!value) {
+                this.triggerEvent('close');
+            }
         }
     }
 })

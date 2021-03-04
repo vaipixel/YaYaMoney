@@ -27,6 +27,10 @@ Component({
         value: {
             type: String,
             value: ""
+        },
+        focus: {
+            type: Boolean,
+            value: false
         }
     },
 

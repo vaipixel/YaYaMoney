@@ -110,8 +110,6 @@
         <view class="interval-container dialog center">
             <text class="item" bindtap="changeInterval" data-interval="每日">每日</text>
             <view class="divider"></view>
-            <text class="item" bindtap="changeInterval" data-interval="每周">每周</text>
-            <view class="divider"></view>
             <text class="item" bindtap="changeInterval" data-interval="每月">每月</text>
             <view class="divider"></view>
             <text class="item" bindtap="changeInterval" data-interval="每年">每年</text>
@@ -123,11 +121,11 @@
                 <image class="menu-icon" src="/assets/images/add.svg"/>
                 <text class="menu-label">添加账户</text>
             </view>
-            <view class="divider"></view>
-            <view class="menu-item">
-                <image class="menu-icon" src="/assets/images/setting.svg"/>
-                <text class="menu-label">设置</text>
-            </view>
+<!--            <view class="divider"></view>-->
+<!--            <view class="menu-item">-->
+<!--                <image class="menu-icon" src="/assets/images/setting.svg"/>-->
+<!--                <text class="menu-label">设置</text>-->
+<!--            </view>-->
         </view>
     </dialog>
 </view>
