@@ -1,4 +1,3 @@
-// 云函数入口文件
 const cloud = require('wx-server-sdk');
 cloud.init();
 
@@ -10,6 +9,8 @@ inject();
 exports.main = async (event, context) => {
     console.log(event.action);
     console.log(event.data);
+    let {OPENID} = cloud.getWXContext();
+    console.log(`indexOpenId： ${OPENID}`);
 
     let result = {
         code: 200,
@@ -51,8 +52,17 @@ exports.main = async (event, context) => {
             case 'createAccount':
                 data = await services.accountService.createAccount(event.data);
                 break;
+            case 'updateAccount':
+                data = await services.accountService.updateAccount(event.data);
+                break;
             case 'getAccountRecords':
                 data = await services.accountService.getAccountRecords(event.data);
+                break;
+            case 'getAccountInfoWithMembers':
+                data = await services.accountService.getAccountInfoWithMembers(event.data);
+                break;
+            case 'isAccountExist':
+                data = await services.accountService.isAccountExist(event.data);
                 break;
             case 'addRecord':
                 data = await services.recordService.addRecord(event.data);

@@ -1,6 +1,6 @@
 // miniprogram/pages/createAccount/createAccount.js
 const iconUtils = require("../../utils/iconUtils");
-const {getGroupMembers, createAccount} = require('../../requests');
+const {getGroupMembers, createAccount, updateAccount, isAccountExist, getAccountInfoWithMembers} = require('../../requests');
 const {isStrEmpty} = require('../../utils/strUtils');
 Page({
 
@@ -8,6 +8,9 @@ Page({
      * 页面的初始数据
      */
     data: {
+        title: "",
+        _accountId: '',
+        accountExist: false,
         accountName: "",
         accountIcon: '/assets/images/fund.svg',
         accountType: "",
@@ -46,12 +49,52 @@ Page({
      */
     onLoad: async function (options) {
         this.showLoading();
+        console.log(options);
+        this.data._accountId = options.accountId;
+        let isAccountExist = await this.isAccountExist();
+        this.setData({
+            accountExist: isAccountExist
+        })
+        if (isAccountExist) {
+            await this.onEditAccount();
+        } else {
+            this.onCreateAccount();
+        }
+
+        this.hideLoading();
+    },
+    onEditAccount: async function () {
+        console.log('onEditAccount');
+        this.setData({
+            title: '编辑账户',
+        });
+        let accountInfo = (await getAccountInfoWithMembers(this.data._accountId)).data;
+        let members = (await getGroupMembers()).data;
+        if (accountInfo.members.me) {
+            members.me.checked = true;
+        }
+        if (accountInfo.members.partner) {
+            members.partner.checked = true;
+        }
+        this.setData({
+            accountName: accountInfo.accountName,
+            accountType: accountInfo.accountType,
+            accountIcon: accountInfo.accountIcon,
+            accountDesc: accountInfo.accountDesc,
+            members: members
+        });
+    },
+
+    onCreateAccount: async function () {
+        console.log('onCreateAccount');
+        this.setData({
+            title: '创建账户',
+        });
         let members = (await getGroupMembers()).data;
         members.me.checked = true;
         this.setData({
             members: members
         });
-        this.hideLoading();
     },
 
     /**
@@ -195,6 +238,9 @@ Page({
             isTypeDialogShown: false
         });
     },
+    isAccountExist: async function () {
+        return (await isAccountExist(this.data._accountId)).data;
+    },
     createAccount: async function () {
         let data = this.data;
 
@@ -221,6 +267,35 @@ Page({
         }
         this.showLoading();
         await createAccount(account);
+        this.hideLoading();
+        wx.navigateBack();
+    },
+    editAccount: async function () {
+        this.showLoading();
+
+        let data = this.data;
+
+        let members = [];
+        if (data.members.me.checked) {
+            members.push(data.members.me);
+        }
+        if (data.members.partner.checked) {
+            members.push(data.members.partner);
+        }
+
+        let account = {
+            accountId: data._accountId,
+            accountName: data.accountName,
+            accountIcon: data.accountIcon,
+            accountType: data.accountType,
+            accountDesc: data.accountDesc,
+            members
+        };
+
+        if (this.checkParams(account)) {
+            return
+        }
+        await updateAccount(account);
         this.hideLoading();
         wx.navigateBack();
     },

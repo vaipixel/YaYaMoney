@@ -1,10 +1,10 @@
-const cloud = require('wx-server-sdk');
+const Service = require('./base');
 const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
 const {groupUtils, dateUtils, numberUtils} = require('./utils');
 const {userHandler} = require('./handler');
 
-class GroupService {
+class GroupService extends Service {
     async createGroup(character) {
         // todo check
         let userInfo = await userHandler.getCurrentUserInfo();
@@ -147,6 +147,7 @@ class GroupService {
         let currentUserInfo = await userHandler.getCurrentUserInfo();
         let groupId = currentUserInfo.groupId;
         let members = await services.userService.getMembersInGroup(groupId);
+        this._replaceCharacterForMeInList(members);
         let result = {};
         for (let member of members) {
             if (member._id === currentUserInfo._id) {

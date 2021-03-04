@@ -53,6 +53,10 @@ async function createAccount(accountInfo) {
     return await baseRequest('createAccount', accountInfo);
 }
 
+async function updateAccount(accountInfo) {
+    return await baseRequest('updateAccount', accountInfo);
+}
+
 async function getGroupMembers() {
     return await baseRequest('getGroupMembers');
 }
@@ -69,6 +73,14 @@ async function addRecord(record) {
     return await baseRequest('addRecord', record);
 }
 
+async function isAccountExist(accountId) {
+    return await baseRequest('isAccountExist', accountId);
+}
+
+async function getAccountInfoWithMembers(accountId) {
+    return await baseRequest('getAccountInfoWithMembers', accountId);
+}
+
 module.exports = {
     login,
     createGroup,
@@ -80,7 +92,10 @@ module.exports = {
     getGroupInfo,
     getGroupMembers,
     createAccount,
+    updateAccount,
     isUserHasGroup,
     getAccountRecords,
-    addRecord
+    addRecord,
+    isAccountExist,
+    getAccountInfoWithMembers
 }

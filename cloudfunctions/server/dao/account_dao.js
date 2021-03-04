@@ -13,6 +13,15 @@ class AccountDao {
         return result._id;
     }
 
+    async updateAccount(id, accountInfo) {
+        let db = cloud.database();
+        await db.collection(account_collection_name)
+            .doc(id)
+            .update({
+                data: accountInfo
+            });
+    }
+
     async getAccountInfo(accountId) {
         let db = cloud.database();
         let result = await db.collection(account_collection_name)
@@ -51,6 +60,33 @@ class AccountDao {
             .doc(accountId)
             .get();
         return result.data.groupId;
+    }
+
+    async getAccountWithMembers(accountId) {
+        let db = cloud.database();
+        const _ = db.command;
+        let result = await db.collection(account_collection_name)
+            .aggregate()
+            .match({
+                _id: _.eq(accountId)
+            })
+            .lookup({
+                from: relation_user_account_collection_name,
+                localField: '_id',
+                foreignField: 'accountId',
+                as: 'members'
+            })
+            .lookup({
+                from: 'users',
+                localField: 'members.userId',
+                foreignField: '_id',
+                as: 'members'
+            })
+            .end();
+        if (result.list.length === 0) {
+            return null;
+        }
+        return result.list[0];
     }
 }
 

@@ -1,4 +1,5 @@
 const cloud = require('wx-server-sdk');
+const Service = require('./base');
 const {dao, services} = require('../inject');
 const {throwError, errors} = require('../errors');
 const {userHandler} = require('./handler');
@@ -7,7 +8,7 @@ const {dateUtils} = require('./utils');
 const TYPE_ADJUST_MONEY = '调整余额';
 const TYPE_TRANSFER = '转账';
 
-class AccountService {
+class AccountService extends Service {
 
     async createAccount(accountInfo) {
         let userInfo = await userHandler.getCurrentUserInfo();
@@ -34,8 +35,28 @@ class AccountService {
         return accountId;
     }
 
+    async updateAccount(accountInfo) {
+        let {accountId, accountName, accountType, accountIcon, accountDesc, members} = accountInfo;
+        let updateData = {
+            accountName,
+            accountType,
+            accountIcon,
+            accountDesc
+        }
+        await dao.accountDao.updateAccount(accountId, updateData);
+        for (const member of members) {
+            if (!(await this.isUserInAccount(member._id, accountId))) {
+                let relation = {
+                    accountId,
+                    userId: member._id
+                }
+                await this.joinAccount(relation);
+            }
+        }
+        return accountId;
+    }
+
     async joinAccount(relation) {
-        let {accountId, userId} = relation;
         relation.createDate = new Date();
         await dao.userAccountRelationDao.addRelation(relation);
     }
@@ -72,12 +93,7 @@ class AccountService {
         }
         return accounts;
     }
-    _replaceCharacterForMe(member) {
-        let {OPENID} = cloud.getWXContext();
-        if (OPENID === member.openid) {
-            member.character = '我';
-        }
-    }
+
     async getAccountMemberAmount(cond) {
         if (cond.endDate) {
             cond.endDate = new Date(cond.endDate);
@@ -153,6 +169,33 @@ class AccountService {
         return dao.accountDao.getAccountInfo(accountId);
     }
 
+    async getAccountInfoWithMembers(accountId) {
+        let accountInfo = await dao.accountDao.getAccountWithMembers(accountId);
+        if (accountInfo === null) {
+            throwError(errors.ACCOUNT_ACCOUNT_NOT_EXIST);
+        }
+        let accountInfoMembers = accountInfo.members;
+        this._replaceCharacterForMeInList(accountInfoMembers);
+        let currentUserInfo = await userHandler.getCurrentUserInfo();
+        accountInfo.members = {};
+        for (let member of accountInfoMembers) {
+            if (member._id === currentUserInfo._id) {
+                accountInfo.members.me = member;
+            } else {
+                accountInfo.members.partner = member;
+            }
+        }
+        return accountInfo;
+    }
+
+    async isAccountExist(accountId) {
+        let accountInfo = await dao.accountDao.getAccountInfo(accountId);
+        return accountInfo !== null;
+    }
+
+    async isUserInAccount(userId, accountId) {
+        return await dao.userAccountRelationDao.isUserInAccount(userId, accountId);
+    }
 }
 
 module.exports = AccountService;

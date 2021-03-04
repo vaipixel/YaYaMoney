@@ -20,6 +20,7 @@ const errors = {
 
     // 账户异常 4000 ～ 4999
     ACCOUNT_ACCOUNT_ID_AND_USER_ID_IS_NECESSARY: new ErrorEnum(4000, '账户 ID 和 用户 ID 必须上传'),
+    ACCOUNT_ACCOUNT_NOT_EXIST: new ErrorEnum(4001, '账户不存在'),
 
     // 记录异常 5000 ～ 5999
     RECORD_NO_PERMISSION_EDIT_OTHER_GROUP: new ErrorEnum(5000, '没有权限修改其他群组的记录'),

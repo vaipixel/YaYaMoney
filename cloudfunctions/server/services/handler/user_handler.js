@@ -5,6 +5,7 @@ const openidUserInfoMap = {};
 class UserHandler {
 
     async getCurrentUserInfo() {
+        cloud.init();
         let {OPENID} = cloud.getWXContext();
         console.log(`OPENID: ${OPENID}`);
         if (openidUserInfoMap[OPENID]) {

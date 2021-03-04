@@ -1,5 +1,6 @@
 const cloud = require('wx-server-sdk');
 const relation_user_account_collection_name = 'relation_user_account';
+
 class UserAccountRelationDao {
 
     async addRelation(relation) {
@@ -20,6 +21,32 @@ class UserAccountRelationDao {
                 userId: _.eq(relation.userId)
             })
             .remove();
+    }
+
+    async getAccountMembersId(accountId) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(relation_user_account_collection_name)
+            .where({
+                accountId: _.eq(accountId),
+            })
+            .get();
+        return result.data;
+    }
+
+    async isUserInAccount(userId, accountId) {
+        let db = cloud.database();
+        let _ = db.command;
+        let result = await db.collection(relation_user_account_collection_name)
+            .where({
+                accountId: _.eq(accountId),
+                userId: _.eq(userId)
+            })
+            .get();
+        if (result.data) {
+            return result.data.length > 0;
+        }
+        return false;
     }
 }
 

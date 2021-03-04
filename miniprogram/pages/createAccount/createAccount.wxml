@@ -56,7 +56,7 @@
                 </view>
             </view>
         </view>
-        <view class="money-me" wx:if="{{members.me.checked}}">
+        <view class="money-me" wx:if="{{members.me.checked && !accountExist}}">
             <view class="form-item member-money">
                 <view class="label-group">
                     <text class="label">初始金额 - 我</text>
@@ -65,7 +65,7 @@
                 <fix-input class="input fill" placeholder="初始金额 - 我" model:value="{{accountInitMoneyOfMe}}"></fix-input>
             </view>
         </view>
-        <view class="money-partner" wx:if="{{members.partner.checked}}">
+        <view class="money-partner" wx:if="{{members.partner.checked && !accountExist}}">
             <view class="form-item">
                 <view class="label-group">
                     <text class="label">初始金额 - 老婆</text>
@@ -83,7 +83,10 @@
             <view class="btn half cancel" catch:tap="cancel">
                 <text>取消</text>
             </view>
-            <view class="btn half add" catch:tap="createAccount">
+            <view wx:if="{{accountExist}}" class="btn half add" catch:tap="editAccount">
+                <text>修改</text>
+            </view>
+            <view wx:else class="btn half add" catch:tap="createAccount">
                 <text>添加</text>
             </view>
         </view>
