@@ -88,6 +88,17 @@ class AccountDao {
         }
         return result.list[0];
     }
+
+    async deleteAccount(accountId) {
+        console.log('deleteAccount');
+        console.log(accountId);
+        let db = cloud.database();
+        const _ = db.command;
+        let result = await db.collection(account_collection_name)
+            .doc(accountId)
+            .remove();
+        return result.data;
+    }
 }
 
 module.exports = AccountDao;

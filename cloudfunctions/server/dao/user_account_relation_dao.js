@@ -15,11 +15,12 @@ class UserAccountRelationDao {
     async deleteRelation(relation) {
         let db = cloud.database();
         let _ = db.command;
-        db.collection(relation_user_account_collection_name)
-            .where({
-                accountId: _.eq(relation.accountId),
-                userId: _.eq(relation.userId)
-            })
+        let match = {accountId: _.eq(relation.accountId)};
+        if (relation.userId) {
+            match.userId = _.eq(relation.userId);
+        }
+        await db.collection(relation_user_account_collection_name)
+            .where(match)
             .remove();
     }
 

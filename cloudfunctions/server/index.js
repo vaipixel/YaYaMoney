@@ -55,6 +55,9 @@ exports.main = async (event, context) => {
             case 'updateAccount':
                 data = await services.accountService.updateAccount(event.data);
                 break;
+            case 'deleteAccount':
+                data = await services.accountService.deleteAccount(event.data);
+                break;
             case 'getAccountRecords':
                 data = await services.accountService.getAccountRecords(event.data);
                 break;

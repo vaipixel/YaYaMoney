@@ -108,3 +108,13 @@
     </view>
   </view>
 </dialog>
+<dialog show="{{pageInfo.isSettingDialogShow}}" position="center">
+  <view class="action-selector">
+    <text class="action" catch:tap="editAccount" data-type="现金账户">编辑账户</text>
+    <view class="divider"></view>
+    <text class="action delete" catch:tap="showDialogConfirmDialog" data-type="储蓄账户">删除账户</text>
+  </view>
+</dialog>
+<mp-dialog show="{{pageInfo.isDeleteConfirmDialogShow}}" buttons="{{pageInfo.deleteConfirmDialogButtons}}" bindbuttontap="onDeleteConfirmButtonTap">
+  <text>确定要删除此账户吗？</text>
+</mp-dialog>

@@ -43,6 +43,7 @@ class AccountService extends Service {
             accountIcon,
             accountDesc
         }
+        await this.leaveAccount({accountId});
         await dao.accountDao.updateAccount(accountId, updateData);
         for (const member of members) {
             if (!(await this.isUserInAccount(member._id, accountId))) {
@@ -61,11 +62,7 @@ class AccountService extends Service {
         await dao.userAccountRelationDao.addRelation(relation);
     }
 
-    async leaveAccount(accountId, userId) {
-        let relation = {
-            accountId,
-            userId
-        }
+    async leaveAccount(relation) {
         await dao.userAccountRelationDao.deleteRelation(relation);
     }
 
@@ -195,6 +192,11 @@ class AccountService extends Service {
 
     async isUserInAccount(userId, accountId) {
         return await dao.userAccountRelationDao.isUserInAccount(userId, accountId);
+    }
+
+    async deleteAccount(accountId) {
+        await this.leaveAccount({accountId});
+        return await dao.accountDao.deleteAccount(accountId);
     }
 }
 

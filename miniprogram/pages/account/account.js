@@ -1,8 +1,9 @@
 // miniprogram/pages/account/account.js
 
 let accountViewModel;
-const observer = 'account'
 
+const observer = 'account';
+const {deleteAccount} = require('../../requests');
 Page({
 
     /**
@@ -16,7 +17,10 @@ Page({
             // 调整余额对话框是否隐藏
             isAdjustMoneyDialogShow: false,
             // 转账对话框是否隐藏
-            isTransferDialogShow: false
+            isTransferDialogShow: false,
+            isSettingDialogShow: false,
+            isDeleteConfirmDialogShow: false,
+            deleteConfirmDialogButtons: [{text: '取消'}, {text: '确定'}],
         }
     },
 
@@ -139,9 +143,53 @@ Page({
     hideLoading: function () {
         wx.hideLoading();
     },
+    showSettingMenu: function () {
+        this.setData({
+            'pageInfo.isSettingDialogShow': true
+        });
+    },
+    hideSettingMenu: function () {
+        this.setData({
+            'pageInfo.isSettingDialogShow': false
+        });
+    },
     onSettingTaped: function () {
+        this.showSettingMenu();
+    },
+    editAccount: function () {
         wx.navigateTo({
             url: `/pages/createAccount/createAccount?accountId=${this.data._accountId}`
-        })
+        });
+        this.hideSettingMenu();
+    },
+    deleteAccount: async function () {
+        await deleteAccount(this.data._accountId);
+    },
+    onDeleteConfirmButtonTap: async function (e) {
+        let index = e.detail.index;
+        switch (index) {
+            case 0:
+                this.hideDialogConfirmDialog();
+                break;
+            case 1:
+                this.showLoading();
+                await this.deleteAccount();
+                wx.navigateBack();
+                this.hideLoading();
+                break;
+            default:
+                this.hideDialogConfirmDialog();
+                break;
+        }
+    },
+    showDialogConfirmDialog: function () {
+        this.setData({
+            'pageInfo.isDeleteConfirmDialogShow': true
+        });
+    },
+    hideDialogConfirmDialog: function () {
+        this.setData({
+            'pageInfo.isDeleteConfirmDialogShow': false
+        });
     }
 })

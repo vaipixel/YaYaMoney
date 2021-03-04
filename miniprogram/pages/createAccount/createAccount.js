@@ -152,6 +152,8 @@ Page({
         this._onMemberTaped(tapedUser);
     },
     _onMemberTaped: async function (tapedUser) {
+        console.log('_onMemberTaped');
+        console.log(tapedUser);
         let members = this.data.members;
         let context = this;
         let itemClass = '';
@@ -166,18 +168,25 @@ Page({
             dataKey = 'members.partner.checked';
             dataValue = !this.data.members.partner.checked;
         }
-        if (dataValue) {
+        if (this.data.accountExist) {
             let data = {};
             data[dataKey] = dataValue;
-            this.setData(data);
-            this._fadeIn(itemClass);
+            context.setData(data);
         } else {
-            this._fadeOut(itemClass, () => {
+            if (dataValue) {
                 let data = {};
                 data[dataKey] = dataValue;
-                context.setData(data);
-            })
+                this.setData(data);
+                this._fadeIn(itemClass);
+            } else {
+                this._fadeOut(itemClass, () => {
+                    let data = {};
+                    data[dataKey] = dataValue;
+                    context.setData(data);
+                })
+            }
         }
+
     },
     _fadeOut: function (selector, callback) {
         let itemHeight = this.data._itemHeight;

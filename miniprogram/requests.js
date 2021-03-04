@@ -57,6 +57,10 @@ async function updateAccount(accountInfo) {
     return await baseRequest('updateAccount', accountInfo);
 }
 
+async function deleteAccount(accountId) {
+    return await baseRequest('deleteAccount', accountId);
+}
+
 async function getGroupMembers() {
     return await baseRequest('getGroupMembers');
 }
@@ -93,6 +97,7 @@ module.exports = {
     getGroupMembers,
     createAccount,
     updateAccount,
+    deleteAccount,
     isUserHasGroup,
     getAccountRecords,
     addRecord,

@@ -102,3 +102,24 @@
     color: #90B0B7;
     margin: 16rpx 0 0 0;
 }
+
+.action-selector {
+    width: 360rpx;
+    padding: 30rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-selector .action {
+    font-size: 40rpx;
+    font-weight: normal;
+    letter-spacing: 10rpx;
+    line-height: 100rpx;
+    color: var(--title-color);
+}
+
+.delete {
+    color: var(--red-color);
+}
