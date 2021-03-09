@@ -83,6 +83,16 @@ class RecordService {
         let userId = userInfo._id;
         return await dao.recordDao.getRecords(query);
     }
+
+    async updateRecord(record) {
+        await dao.recordDao.updateRecord(record);
+        return 'success';
+    }
+
+    async deleteRecord(recordId) {
+        await dao.recordDao.deleteRecord(recordId);
+        return 'success';
+    }
 }
 
 module.exports = RecordService;

@@ -89,6 +89,24 @@ class RecordDao {
         }
         return match;
     }
+
+    async updateRecord(record) {
+        let id = record._id;
+        delete record._id;
+        let db = cloud.database();
+        let result = await db.collection(record_collection_name)
+            .doc(id)
+            .update({
+                data: record
+            });
+    }
+
+    async deleteRecord(recordId) {
+        let db = cloud.database();
+        await db.collection(record_collection_name)
+            .doc(recordId)
+            .remove();
+    }
 }
 
 module.exports = RecordDao;

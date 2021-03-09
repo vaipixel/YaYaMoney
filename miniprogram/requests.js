@@ -77,6 +77,14 @@ async function addRecord(record) {
     return await baseRequest('addRecord', record);
 }
 
+async function updateRecord(record) {
+    return await baseRequest('updateRecord', record);
+}
+
+async function deleteRecord(recordId) {
+    return await baseRequest('deleteRecord', recordId);
+}
+
 async function isAccountExist(accountId) {
     return await baseRequest('isAccountExist', accountId);
 }
@@ -101,6 +109,8 @@ module.exports = {
     isUserHasGroup,
     getAccountRecords,
     addRecord,
+    updateRecord,
+    deleteRecord,
     isAccountExist,
     getAccountInfoWithMembers
 }

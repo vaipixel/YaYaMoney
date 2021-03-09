@@ -11,9 +11,19 @@ class ErrorEnum {
         this.code = code;
         this.message = message;
     }
+
+    getErrorResponse() {
+        return {
+            code: this.code,
+            message: this.message
+        };
+    }
 }
 
 const errors = {
+    // 公共异常 2000 ～ 2999
+    COMMON_OPENID_IS_NULL: new ErrorEnum(2000, 'OPENID 为空'),
+
     // 群组异常 3000 ～ 3999
     GROUP_USER_ALREADY_JOIN_GROUP: new ErrorEnum(3000, '用户已经加入组了'),
     GROUP_IS_FULL: new ErrorEnum(3001, '群组已经满员了'),
@@ -36,5 +46,6 @@ function throwError(error) {
 
 module.exports = {
     throwError,
-    errors
+    errors,
+    ErrorEnum
 }

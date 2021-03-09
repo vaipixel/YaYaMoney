@@ -50,18 +50,18 @@
     <view class="dialog bottom">
         <view class="title-bar between">
             <text class="title">调整余额</text>
-            <image class="close" src="/assets/images/close.svg" bindtap="dismissAdjustMoneyDialog"/>
+            <image class="close" src="/assets/images/close.svg" bindtap="dismissRecordDetailDialog"/>
         </view>
         <view class="form">
             <view class="form-item line-1">
-                <fix-input class="input half account" placeholder="账户" disabled="{{true}}" value="{{editingRecord.account.accountName}}"/>
-                <fix-input class="input half amount" placeholder="金额" disabled="{{!isEditing}}" type="digit" value="{{editingRecord.amount}}" focus="{{amountFocus}}"/>
+                <fix-input class="input half account" placeholder="账户" disabled="{{true}}" model:value="{{editingRecordAccountName}}"/>
+                <fix-input class="input half amount" placeholder="金额" disabled="{{!isEditing}}" type="digit" model:value="{{editingRecordAmount}}" focus="{{amountFocus}}"/>
             </view>
             <view class="form-item line-2">
-                <fix-input class="input fill comment" placeholder="备注" disabled="{{!isEditing}}" value="{{editingRecord.comment}}"/>
+                <fix-input class="input fill comment" placeholder="备注" disabled="{{!isEditing}}" model:value="{{editingRecordComment}}"/>
             </view>
             <view class="form-item line-3">
-                <fix-input class="input fill date" value="{{editingRecord.formatDate}}" disabled="{{true}}"/>
+                <fix-input class="input fill date" model:value="{{editingRecordFormatDate}}" disabled="{{true}}"/>
             </view>
             <view wx:if="{{isEditing}}" class="form-item actions">
                 <view class="btn half cancel" catch:tap="cancelEdit">
@@ -91,22 +91,22 @@
     <view class="dialog bottom transfer-dialog">
         <view class="title-bar between">
             <text class="title">转账</text>
-            <image class="close" src="/assets/images/close.svg" bindtap="dismissTransferDialog"/>
+            <image class="close" src="/assets/images/close.svg" bindtap="dismissRecordDetailDialog"/>
         </view>
         <view class="form">
             <view class="form-item line-1">
-                <fix-input class="input fill amount" placeholder="金额" disabled="{{!isEditing}}" type="digit" value="{{editingRecord.amount}}" focus="{{amountFocus}}"/>
+                <fix-input class="input fill amount" placeholder="金额" disabled="{{!isEditing}}" type="digit" model:value="{{editingRecordAmount}}" focus="{{amountFocus}}"/>
             </view>
             <view class="form-item line-2">
-                <fix-input class="input half account" placeholder="转出账户" disabled="{{true}}" value="{{editingRecord.fromAccount.accountName}}"/>
+                <fix-input class="input half account" placeholder="转出账户" disabled="{{true}}" model:value="{{editingRecordFromAccount}}"/>
                 <text class="arrow"> => </text>
-                <fix-input class="input half account" placeholder="转入账户" disabled="{{true}}" value="{{editingRecord.targetAccount.accountName}}"/>
+                <fix-input class="input half account" placeholder="转入账户" disabled="{{true}}" model:value="{{editingRecordTargetAccount}}"/>
             </view>
             <view class="form-item line-3">
-                <fix-input class="input fill comment" placeholder="备注" disabled="{{!isEditing}}" value="{{editingRecord.comment}}"/>
+                <fix-input class="input fill comment" placeholder="备注" disabled="{{!isEditing}}" model:value="{{editingRecordComment}}"/>
             </view>
             <view class="form-item line-4">
-                <fix-input class="input fill date" value="{{editingRecord.formatDate}}" disabled="{{true}}"/>
+                <fix-input class="input fill date" model:value="{{editingRecordFormatDate}}" disabled="{{true}}"/>
             </view>
             <view wx:if="{{isEditing}}" class="form-item actions">
                 <view class="btn half cancel" catch:tap="cancelEdit">

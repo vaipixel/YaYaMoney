@@ -5,6 +5,8 @@ const {inject, services} = require('./inject');
 
 inject();
 
+const {ErrorEnum, throwError, errors} = require('./errors');
+
 // 云函数入口函数
 exports.main = async (event, context) => {
     console.log(event.action);
@@ -17,6 +19,9 @@ exports.main = async (event, context) => {
         message: 'success'
     };
     try {
+        if (!OPENID) {
+            throwError(errors.COMMON_OPENID_IS_NULL);
+        }
         let data;
         switch (event.action) {
             case 'createGroup':
@@ -70,6 +75,12 @@ exports.main = async (event, context) => {
             case 'addRecord':
                 data = await services.recordService.addRecord(event.data);
                 break;
+            case 'updateRecord':
+                data = await services.recordService.updateRecord(event.data);
+                break;
+            case 'deleteRecord':
+                data = await services.recordService.deleteRecord(event.data);
+                break
         }
         return {
             ...result,
@@ -77,8 +88,12 @@ exports.main = async (event, context) => {
         };
     } catch (e) {
         console.log(e);
-        return {
-
+        if (e instanceof ErrorEnum) {
+            return e.getErrorResponse();
         }
+        return {
+            code: 19999,
+            message: `unknown: ${e.message}`
+        };
     }
 };

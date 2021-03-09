@@ -3,7 +3,7 @@
 let accountViewModel;
 
 const observer = 'account';
-const {deleteAccount} = require('../../requests');
+const {deleteAccount, updateRecord, deleteRecord} = require('../../requests');
 const dateUtils = require("../../utils/dateUtils.js");
 Page({
 
@@ -14,7 +14,7 @@ Page({
         accountName: '',
         _accountId: '',
         isEditing: false,
-        records:[],
+        records: [],
         pageInfo: {
             // 调整余额对话框是否隐藏
             isAdjustMoneyDialogShow: false,
@@ -26,7 +26,14 @@ Page({
             deleteConfirmDialogButtons: [{text: '取消'}, {text: '确定'}],
         },
         editingRecord: {},
-        amountFocus: false
+        amountFocus: false,
+
+        editingRecordId: '',
+        editingRecordAmount: 0,
+        editingRecordAccountName: '',
+        editingRecordComment: '',
+        editingRecordFormatDate: ''
+
     },
 
     /**
@@ -99,45 +106,49 @@ Page({
     onShareAppMessage: function () {
 
     },
-    requestAccountDetail: function (accountId) {
-        console.log('requestAccountDetail ' + accountId);
-    },
     showEditRecordDialog: function (e) {
         let recordType = e.currentTarget.dataset.recordType;
         let record = e.currentTarget.dataset.record;
+
         switch (recordType) {
             case '转账':
                 // 转账
                 this.showTransferDialog();
+                this.setData({
+                    editingRecordFromAccount: record.fromAccount.accountName,
+                    editingRecordTargetAccount: record.targetAccount.accountName
+                })
                 break
             case '调整余额':
                 // 调整余额
-                this.showAdjustMoneyDialog()
+                this.showAdjustMoneyDialog();
+                this.setData({
+                    editingRecordAccountName: record.account.accountName
+                })
                 break
         }
-        record.formatDate = dateUtils.formatDate(new Date(record.date));
         this.setData({
-            editingRecord: record
+            editingRecordId: record._id,
+            editingRecordAmount: record.amount,
+            editingRecordComment: record.comment,
+            editingRecordFormatDate: dateUtils.formatDate(new Date(record.date))
         });
+
     },
     showAdjustMoneyDialog: function () {
         this.setData({
             'pageInfo.isAdjustMoneyDialogShow': true
         })
     },
-    dismissAdjustMoneyDialog: function () {
+    dismissRecordDetailDialog: function () {
         this.setData({
-            'pageInfo.isAdjustMoneyDialogShow': false
+            'pageInfo.isAdjustMoneyDialogShow': false,
+            'pageInfo.isTransferDialogShow': false
         })
     },
     showTransferDialog: function () {
         this.setData({
             'pageInfo.isTransferDialogShow': true
-        })
-    },
-    dismissTransferDialog: function () {
-        this.setData({
-            'pageInfo.isTransferDialogShow': false
         })
     },
     editRecord: function (e) {
@@ -174,9 +185,6 @@ Page({
     },
     deleteAccount: async function () {
         await deleteAccount(this.data._accountId);
-    },
-    deleteRecord: async function () {
-        // await deleteAccount(this.data._accountId);
     },
     onDeleteAccountConfirmButtonTap: async function (e) {
         let index = e.detail.index;
@@ -232,6 +240,14 @@ Page({
             'pageInfo.isDeleteRecordConfirmDialogShow': false
         });
     },
+    deleteRecord: async function () {
+        this.showLoading();
+        await deleteRecord(this.data.editingRecord._id);
+        this.dismissRecordDetailDialog();
+        this.hideDeleteRecordConfirmDialog();
+        this.hideLoading();
+        accountViewModel.requestRecords();
+    },
     onEditRecord: function () {
         this.setData({
             isEditing: true
@@ -243,19 +259,25 @@ Page({
         }, 100);
 
     },
+    applyChanges: async function () {
+        this.showLoading();
+        let data = this.data;
+        let record = {
+            _id: data.editingRecordId,
+            amount: data.editingRecordAmount,
+            comment: data.editingRecordComment
+        }
+        await updateRecord(record);
+        this.dismissRecordDetailDialog();
+        this.hideLoading();
+        accountViewModel.requestRecords();
+    },
     oEditDialogClose: function () {
         this.cancelEdit();
-    },
-    showDeleteConfirmDialog: function () {
-
-    },
-    applyChanges: function () {
-
     },
     cancelEdit: function () {
         this.setData({
             isEditing: false
         });
-
     }
 })
