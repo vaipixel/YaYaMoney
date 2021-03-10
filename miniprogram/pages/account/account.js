@@ -242,7 +242,7 @@ Page({
     },
     deleteRecord: async function () {
         this.showLoading();
-        await deleteRecord(this.data.editingRecord._id);
+        await deleteRecord(this.data.editingRecordId);
         this.dismissRecordDetailDialog();
         this.hideDeleteRecordConfirmDialog();
         this.hideLoading();
