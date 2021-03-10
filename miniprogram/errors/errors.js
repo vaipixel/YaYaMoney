@@ -12,7 +12,15 @@ class UserHasNoGroupError extends Error {
         this.name = 'UserHasNoGroupError';
         this.message = '用户没有加入群组';
     }
-
 }
 
-export {NotLoginError, UserHasNoGroupError}
+class GroupNotReadyError extends Error {
+    constructor(props) {
+        super(props);
+        this.name = 'GroupNotReadyError';
+        this.message = '群组没有准备好';
+    }
+}
+
+
+export {NotLoginError, UserHasNoGroupError, GroupNotReadyError}

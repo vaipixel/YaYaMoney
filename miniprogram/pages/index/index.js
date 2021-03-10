@@ -1,6 +1,7 @@
 // miniprogram/pages/index/requests.js
-import {NotLoginError, UserHasNoGroupError} from "../../errors/errors";
+import {NotLoginError, UserHasNoGroupError, GroupNotReadyError} from "../../errors/errors";
 
+const {getUserGroupId} = require('../../requests');
 let indexViewModel;
 
 const observer = 'index';
@@ -223,6 +224,11 @@ Page({
                 console.log('no group found');
                 wx.redirectTo({
                     url: "/pages/welcome/welcome?pageType=welcome&userId=" + indexViewModel.userInfo._id
+                })
+            } else if (e instanceof GroupNotReadyError) {
+                let groupId = (await getUserGroupId()).data;
+                wx.redirectTo({
+                    url: `/pages/inviteMember/inviteMember?groupId=${groupId}`
                 })
             }
             return false;

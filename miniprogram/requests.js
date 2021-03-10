@@ -1,4 +1,6 @@
 async function baseRequest(api, data) {
+    console.log(`call api ${api}`);
+    console.log(data);
     try {
         let result = await wx.cloud.callFunction({
             name: 'server',
@@ -7,7 +9,12 @@ async function baseRequest(api, data) {
                 data: data
             }
         });
-        return result.result;
+        result = result.result;
+        if (result.code !== 200) {
+            console.log(`[${api}] api failed`);
+            console.log(result);
+        }
+        return result;
     } catch (e) {
         console.log(e);
     }
@@ -41,9 +48,9 @@ async function login(loginData) {
     return await baseRequest('login', loginData);
 }
 
-// async function getUserInfo() {
-//     return await baseRequest('getUserInfo');
-// }
+async function getUserGroupId() {
+    return await baseRequest('getUserGroupId');
+}
 
 async function getGroupInfo(interval) {
     return await baseRequest('getGroupInfoWithIncomeRate', interval);
@@ -67,6 +74,10 @@ async function getGroupMembers() {
 
 async function isUserHasGroup() {
     return await baseRequest('isUserHasGroup');
+}
+
+async function isUserGroupReady() {
+    return await baseRequest('isUserGroupReady');
 }
 
 async function getAccountRecords(query) {
@@ -101,12 +112,14 @@ module.exports = {
     joinGroup,
     isGroupReady,
     isUserRegistered,
+    getUserGroupId,
     getGroupInfo,
     getGroupMembers,
     createAccount,
     updateAccount,
     deleteAccount,
     isUserHasGroup,
+    isUserGroupReady,
     getAccountRecords,
     addRecord,
     updateRecord,

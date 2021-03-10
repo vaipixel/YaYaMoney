@@ -8,6 +8,7 @@ Page({
     data: {
         groupId: '',
         isCreator: false,
+        intervalHandler: -1
     },
 
     /**
@@ -30,9 +31,7 @@ Page({
         });
         if (await this.isUserAlreadyJoinGroup() && await this.isGroupReady(groupId)) {
             this.hiddenLoading();
-            wx.redirectTo({
-                url: '/pages/index/index'
-            });
+            this.redirectToIndex();
         }
 
         let isCreator = await this.currentUserIsGroupCreator(groupId);
@@ -47,28 +46,30 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+        console.log('onReady');
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        console.log('onShow');
+        this.startPollGroupStatus();
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
     onHide: function () {
-
+        console.log('onHide');
+        this.stopPollGroupStatus();
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
+        console.log('onUnload');
     },
 
     /**
@@ -118,5 +119,28 @@ Page({
         wx.navigateTo({
             url: `/pages/createGroup/createGroup?pageType=join&groupId=${this.data.groupId}`
         })
+    },
+    startPollGroupStatus() {
+        if (this.data.intervalHandler !== -1) {
+            console.log('already polling');
+            return;
+        }
+        this.data.intervalHandler = setInterval(async () => {
+            let ready = (await isGroupReady(this.data.groupId)).data;
+            console.log(`isGroupReady: ${ready}`)
+            if (ready) {
+                this.redirectToIndex();
+                this.stopPollGroupStatus();
+            }
+        }, 5000);
+    },
+    stopPollGroupStatus() {
+        clearInterval(this.data.intervalHandler);
+        this.data.intervalHandler = -1;
+    },
+    redirectToIndex() {
+        wx.redirectTo({
+            url: '/pages/index/index'
+        });
     }
 });

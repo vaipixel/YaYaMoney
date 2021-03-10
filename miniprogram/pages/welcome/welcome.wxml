@@ -1,15 +1,12 @@
 <!--miniprogram/pages/welcome/welcome.wxml-->
-<mp-navigation-bar background="#187A99" back="{{false}}"></mp-navigation-bar>
+<mp-navigation-bar background="#187A99" color="#FEFEFE"  back="{{false}}" title="欢迎 👏"></mp-navigation-bar>
 <view class="container">
   <text class="desc" wx:if="{{pageType === 'welcome'}}">{{welcomeDesc}}</text>
   <text class="desc" wx:elif="{{pageType === 'login'}}">{{loginDesc}}</text>
 
   <view class="actions welcome" wx:if="{{pageType === 'welcome'}}">
-    <view class="btn half cancel" bind:tap="create">
+    <view class="btn create" bind:tap="create">
       <text>创建</text>
-    </view>
-    <view class="btn half add" bind:tap="join">
-      <text>加入</text>
     </view>
   </view>
   <view class="actions login" wx:elif="{{pageType === 'login'}}">

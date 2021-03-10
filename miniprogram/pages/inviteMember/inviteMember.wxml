@@ -1,4 +1,6 @@
 <!--miniprogram/pages/inviteMember/inviteMember.wxml-->
+<mp-navigation-bar title="邀请成员" background="#187A99" color="#FEFEFE" back="{{false}}">
+</mp-navigation-bar>
 <view class="container">
     <view class="wrap">
         <text wx:if="{{isCreator}}" class="title">创建成功，需要邀请家庭另一个成员才能开始使用哦～</text>

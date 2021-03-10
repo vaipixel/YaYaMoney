@@ -6,7 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        welcomeDesc: "看来你是第一次用吖吖资产呢，\n你需要先创建或者加入一个“组”。",
+        welcomeDesc: "看来你是第一次用吖吖资产呢，\n\n你需要先创建一个组，\n或者让别人邀请你加入一个“组”。",
         loginDesc: "先来授权登录咯。",
         pageType: "welcome",
         sourcePage: '/pages/index/index',

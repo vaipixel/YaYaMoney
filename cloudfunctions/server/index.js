@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     };
     try {
         if (!OPENID) {
-            throwError(errors.COMMON_OPENID_IS_NULL);
+            throwError(errors.USER_OPENID_IS_NULL);
         }
         let data;
         switch (event.action) {
@@ -39,6 +39,9 @@ exports.main = async (event, context) => {
             case 'isGroupReady':
                 data = await services.groupService.isGroupReady(event.data);
                 break;
+            case 'getUserGroupId':
+                data = await services.groupService.getUserGroupId();
+                break;
             case 'getGroupInfoWithIncomeRate':
                 data = await services.groupService.getGroupInfoWithIncomeRate(event.data);
                 break;
@@ -53,6 +56,9 @@ exports.main = async (event, context) => {
                 break;
             case 'isUserHasGroup':
                 data = await services.userService.isUserHasGroup();
+                break;
+            case 'isUserGroupReady':
+                data = await services.userService.isUserGroupReady();
                 break;
             case 'createAccount':
                 data = await services.accountService.createAccount(event.data);

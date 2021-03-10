@@ -93,6 +93,10 @@ class RecordService {
         await dao.recordDao.deleteRecord(recordId);
         return 'success';
     }
+
+    async deleteAccountRecord(accountId) {
+
+    }
 }
 
 module.exports = RecordService;

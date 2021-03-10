@@ -1,4 +1,4 @@
-const {dao} = require('../inject');
+const {dao, services} = require('../inject');
 const cloud = require('wx-server-sdk');
 const {throwError, errors} = require('../errors');
 const {userHandler} = require('./handler');
@@ -37,12 +37,20 @@ class UserService {
 
     async isUserHasGroup() {
         let currentUserInfo = await userHandler.getCurrentUserInfo();
+        console.log(currentUserInfo);
         let groupId = await dao.userDao.getGroupId(currentUserInfo._id);
         return !strUtils.isStrEmpty(groupId);
     }
 
     getUserInfo(userId) {
         return dao.userDao.getUserInfo(userId);
+    }
+
+    async isUserGroupReady() {
+        let hasGroup = await this.isUserHasGroup();
+        let currentUserInfo = await userHandler.getCurrentUserInfo();
+        let result = await services.groupService.isGroupReady(currentUserInfo.groupId);
+        return hasGroup && result;
     }
 }
 

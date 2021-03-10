@@ -21,8 +21,6 @@ class ErrorEnum {
 }
 
 const errors = {
-    // 公共异常 2000 ～ 2999
-    COMMON_OPENID_IS_NULL: new ErrorEnum(2000, 'OPENID 为空'),
 
     // 群组异常 3000 ～ 3999
     GROUP_USER_ALREADY_JOIN_GROUP: new ErrorEnum(3000, '用户已经加入组了'),
@@ -36,7 +34,8 @@ const errors = {
     RECORD_NO_PERMISSION_EDIT_OTHER_GROUP: new ErrorEnum(5000, '没有权限修改其他群组的记录'),
 
     // 用户异常 6000 ~ 6999
-    USER_OPENID_IS_NULL: new ErrorEnum(6000, 'OPENID 是空')
+    USER_OPENID_IS_NULL: new ErrorEnum(6000, 'OPENID 是空'),
+    USER_ALREADY_JOIN_GROUP: new ErrorEnum(6001, '用户已经加入一个群组了'),
 
 };
 

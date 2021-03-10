@@ -107,6 +107,16 @@ class RecordDao {
             .doc(recordId)
             .remove();
     }
+
+    async deleteRecordByAccountId(accountId) {
+        let db = cloud.database();
+        await db.collection(record_collection_name)
+            .where({
+                accountId: accountId
+            })
+            .remove();
+
+    }
 }
 
 module.exports = RecordDao;

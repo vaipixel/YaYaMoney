@@ -1,6 +1,6 @@
 import {ViewModel} from "./view_model";
-import {NotLoginError, UserHasNoGroupError} from "../errors/errors";
-const {login, isUserHasGroup} = require('../requests');
+import {NotLoginError, UserHasNoGroupError, GroupNotReadyError} from "../errors/errors";
+const {login, isUserHasGroup, isUserGroupReady} = require('../requests');
 
 class IndexViewModel extends ViewModel {
     constructor() {
@@ -25,6 +25,11 @@ class IndexViewModel extends ViewModel {
             console.warn('UserHasNoGroupError');
             throw new UserHasNoGroupError();
         }
+        let ready = (await isUserGroupReady()).data;
+        if (!ready) {
+            console.warn(`This group not ready`);
+            throw new GroupNotReadyError();
+        }
     }
 
 
@@ -35,7 +40,6 @@ class IndexViewModel extends ViewModel {
     // 请求群组总览
     async requestGroupInfo() {
         this.groupInfo = await wx.services.groupService.getGroupInfoByUser(this.currentInterval);
-        console.log(this.groupInfo);
     }
 
     observerUserInfo(observer, fn) {

@@ -19,13 +19,13 @@ class GroupService extends Service {
     async joinGroup(data) {
         // 检查用户之前有没有加入群组
         let {groupId, character} = data;
-        await groupUtils.checkGroup(groupId);
         let userInfo = await userHandler.getCurrentUserInfo();
         userInfo = {
             ...userInfo,
             groupId,
             character
         }
+        await groupUtils.checkGroup(groupId, userInfo._id);
         await dao.userDao.updateUser(userInfo);
 
         userHandler.refreshCurrentUser()
@@ -163,6 +163,11 @@ class GroupService extends Service {
         return {
             amount: members.me.amount + members.partner.amount
         }
+    }
+
+    async getUserGroupId() {
+        let currentUserInfo = await userHandler.getCurrentUserInfo();
+        return currentUserInfo.groupId;
     }
 }
 
