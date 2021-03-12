@@ -21,6 +21,7 @@ exports.main = async (event, context) => {
     let {OPENID} = cloud.getWXContext();
     console.log(`indexOpenId： ${OPENID}`);
     cloud.isTest = event.test;
+    console.log(`isTest: ${cloud.isTest}`);
     let result = {
         code: 200,
         message: 'success'
