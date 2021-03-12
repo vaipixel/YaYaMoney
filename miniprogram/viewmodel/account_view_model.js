@@ -7,7 +7,7 @@ class AccountViewModel extends ViewModel {
         super();
         this.accountId = '';
         this.offset = 0;
-        this.pageSize = 50;
+        this.pageSize = 99999;
         this.records = [];
     }
     init(accountId) {

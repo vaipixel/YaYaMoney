@@ -12,8 +12,8 @@ async function baseRequest(api, data) {
         result = result.result;
         if (result.code !== 200) {
             console.log(`[${api}] api failed`);
-            console.log(result);
         }
+        console.log(result);
         return result;
     } catch (e) {
         console.log(e);

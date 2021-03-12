@@ -126,7 +126,7 @@
 
 .header .user .amount {
     font-size: 28rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
 }
 
 .body {
@@ -191,7 +191,7 @@
     font-size: 24rpx;
     font-weight: normal;
     line-height: 34rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
     margin: 4rpx 0 0 0;
 }
 
@@ -243,7 +243,7 @@
 .account .user .amount {
     font-size: 24rpx;
     line-height: 34rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
 }
 
 .account .user .status {

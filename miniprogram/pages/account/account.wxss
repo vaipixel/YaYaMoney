@@ -3,6 +3,7 @@
 @import '/assets/css/main.wxss';
 @import '/assets/css/form.wxss';
 @import '/assets/css/dialog.wxss';
+
 .record-list {
     width: 100%;
     display: flex;
@@ -29,7 +30,7 @@
     font-family: 'Raleway';
     font-size: 28rpx;
     line-height: 32rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
     margin: 0 0 0 10rpx;
 }
 
@@ -79,7 +80,7 @@
     font-weight: normal;
     font-size: 24rpx;
     line-height: 34rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
     margin: 14rpx 0 0 0;
 }
 
@@ -99,7 +100,7 @@
     font-size: 24rpx;
     font-weight: 500;
     line-height: 34rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
     margin: 16rpx 0 0 0;
 }
 
@@ -138,4 +139,24 @@
     font-size: 40rpx;
     color: #38485A;
     line-height: 90rpx;
+}
+
+.alert.empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.alert .text {
+    font-size: 40rpx;
+    font-weight: 400;
+    line-height: 56rpx;
+    color: var(--subtitle-color);
 }

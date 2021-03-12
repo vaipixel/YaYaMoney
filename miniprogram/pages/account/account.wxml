@@ -6,7 +6,7 @@
     <wxs src="./account.wxs" module="accountUtils"></wxs>
     <!-- Chart -->
     <view class="chart"></view>
-    <view class="record-list">
+    <view class="record-list" wx:if="{{records.length > 0}}">
         <view
                 class="month"
                 wx:for="{{records}}"
@@ -39,6 +39,9 @@
                 </view>
             </view>
         </view>
+    </view>
+    <view wx:else class="alert empty">
+        <text class="text">当前账户暂无任何记录</text>
     </view>
 </view>
 <dialog

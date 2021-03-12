@@ -248,7 +248,10 @@ Page({
         });
     },
     isAccountExist: async function () {
-        return (await isAccountExist(this.data._accountId)).data;
+        let newVar = await isAccountExist(this.data._accountId);
+        console.log('isAccountExist');
+        console.log(newVar);
+        return newVar.data;
     },
     createAccount: async function () {
         let data = this.data;
@@ -277,6 +280,7 @@ Page({
         this.showLoading();
         await createAccount(account);
         this.hideLoading();
+        this.notifyRefreshGroup();
         wx.navigateBack();
     },
     editAccount: async function () {
@@ -306,6 +310,7 @@ Page({
         }
         await updateAccount(account);
         this.hideLoading();
+        this.notifyRefreshGroup();
         wx.navigateBack();
     },
     checkParams: function (account) {
@@ -348,5 +353,9 @@ Page({
             title: msg,
             icon: 'error'
         })
+    },
+    notifyRefreshGroup: function () {
+        let eventChannel = this.getOpenerEventChannel();
+        eventChannel.emit('refreshGroupData');
     }
 })

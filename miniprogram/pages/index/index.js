@@ -24,6 +24,8 @@ Page({
             ]
         },
         isLoading: false,
+        isRequesting: false,
+        isIniting: true,
         groupInfo: {
             overview: {
                 amount: '****',
@@ -60,9 +62,11 @@ Page({
      */
     onLoad: async function (options) {
         this.showLoading();
+        this.data.isIniting = true;
         if (!(await this.initViewModel())) {
             return
         }
+        this.data.isIniting = false;
         indexViewModel.observerIntervalChanged(observer, interval => {
             this.setData({
                 'pageInfo.currentInterval': interval
@@ -72,13 +76,13 @@ Page({
         indexViewModel.observerUserInfo(observer, userInfo => {
         });
         indexViewModel.observerGroupInfo(observer, groupInfo => {
-            console.log('observerGroupInfo');
-            console.log(groupInfo);
             this.setData({
                 groupInfo: groupInfo
             });
             this.initTab(groupInfo.members.partner.character);
             this.hideLoading();
+            wx.stopPullDownRefresh();
+            this.data.isRequesting = false;
         });
         indexViewModel.setCurrentInterval('每月');
     },
@@ -94,7 +98,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        if (this.data.isIniting) {
+            this.requestGroupInfo();
+        }
     },
 
     /**
@@ -115,7 +121,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        this.requestGroupInfo();
     },
 
     /**
@@ -235,6 +241,12 @@ Page({
         }
     },
     requestGroupInfo: function () {
+        console.log('---requestGroupInfo');
+        if (this.data.isRequesting) {
+            console.log('return')
+            return;
+        }
+        this.data.isRequesting = true;
         this.showLoading();
         indexViewModel.requestGroupInfo();
     },

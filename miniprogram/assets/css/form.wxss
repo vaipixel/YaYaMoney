@@ -52,7 +52,7 @@
 }
 
 .form .actions .cancel {
-    background: #90B0B7;
+    background: var(--subtitle-color);
 }
 
 .form .actions .add {

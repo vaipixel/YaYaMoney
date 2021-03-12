@@ -2,6 +2,7 @@
     "navigationBarBackgroundColor": "#187A99",
     "navigationBarTextStyle": "white",
     "navigationStyle": "custom",
+    "enablePullDownRefresh": true,
     "navigationBarTitleText": "吖吖资产",
     "usingComponents": {
         "tab-bar": "/components/tab-bar/tab-bar",

@@ -51,6 +51,7 @@ Page({
                 records: records
             });
             this.hideLoading();
+            wx.stopPullDownRefresh();
         })
         accountViewModel.requestRecords();
     },
@@ -90,7 +91,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-
+        accountViewModel.requestRecords();
     },
 
     /**
@@ -245,7 +246,6 @@ Page({
         await deleteRecord(this.data.editingRecordId);
         this.dismissRecordDetailDialog();
         this.hideDeleteRecordConfirmDialog();
-        this.hideLoading();
         accountViewModel.requestRecords();
     },
     onEditRecord: function () {
@@ -269,7 +269,6 @@ Page({
         }
         await updateRecord(record);
         this.dismissRecordDetailDialog();
-        this.hideLoading();
         accountViewModel.requestRecords();
     },
     oEditDialogClose: function () {

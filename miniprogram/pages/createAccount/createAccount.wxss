@@ -38,7 +38,7 @@
     font-weight: bold;
     font-size: 20rpx;
     line-height: 28rpx;
-    color: #90B0B7;
+    color: var(--subtitle-color);
     margin: 0 0 0 10rpx;
 }
 
@@ -83,7 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #90B0B7;
+    background: var(--subtitle-color);
     border-radius: 10rpx;
     font-size: 30rpx;
     font-weight: normal;

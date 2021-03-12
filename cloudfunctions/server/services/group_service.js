@@ -28,7 +28,6 @@ class GroupService extends Service {
         await groupUtils.checkGroup(groupId, userInfo._id);
         await dao.userDao.updateUser(userInfo);
 
-        userHandler.refreshCurrentUser()
         return 'success';
     }
 

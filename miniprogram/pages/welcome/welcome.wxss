@@ -49,5 +49,5 @@
     align-items: center;
     color: #F8FFFF;
     font-size: 34rpx;
-    background: #90B0B7;
+    background: var(--subtitle-color);
 }

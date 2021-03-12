@@ -1,5 +1,6 @@
 {
     "navigationStyle": "custom",
+    "enablePullDownRefresh": true,
     "usingComponents": {
         "dialog": "/components/new-dialog/dialog",
         "fix-input": "/components/fix-input/fix-input",
