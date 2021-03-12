@@ -126,6 +126,11 @@
 <!--                <image class="menu-icon" src="/assets/images/setting.svg"/>-->
 <!--                <text class="menu-label">设置</text>-->
 <!--            </view>-->
+            <view class="divider" wx:if="{{test}}"></view>
+            <view class="menu-item" wx:if="{{test}}" catch:tap="exitTest">
+                <image class="menu-icon" src="/assets/images/exit.svg"/>
+                <text class="menu-label exit">退出测试</text>
+            </view>
         </view>
     </dialog>
 </view>

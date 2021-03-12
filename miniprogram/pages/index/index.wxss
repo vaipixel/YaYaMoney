@@ -342,3 +342,7 @@
     line-height: 50rpx;
     color: #38485A;
 }
+
+.menu-dialog .menu-item .menu-label.exit {
+    color: var(--red-color);
+}

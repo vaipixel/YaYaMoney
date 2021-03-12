@@ -83,6 +83,10 @@ Page({
             wx.stopPullDownRefresh();
         });
         indexViewModel.setCurrentInterval('每月');
+
+        this.setData({
+            test: wx.isTest
+        });
     },
 
     /**
@@ -243,4 +247,10 @@ Page({
         this.showLoading();
         indexViewModel.requestGroupInfo();
     },
+    exitTest: function () {
+        wx.isTest = false;
+        wx.redirectTo({
+            url: '/pages/index/index'
+        });
+    }
 })
