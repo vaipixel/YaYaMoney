@@ -1,17 +1,20 @@
 <!--miniprogram/pages/welcome/welcome.wxml-->
-<mp-navigation-bar background="#187A99" color="#FEFEFE"  back="{{false}}" title="欢迎 👏"></mp-navigation-bar>
+<mp-navigation-bar background="#187A99" color="#FEFEFE" back="{{false}}" title="欢迎 👏"></mp-navigation-bar>
 <view class="container">
-  <text class="desc" wx:if="{{pageType === 'welcome'}}">{{welcomeDesc}}</text>
-  <text class="desc" wx:elif="{{pageType === 'login'}}">{{loginDesc}}</text>
+    <text class="desc" wx:if="{{pageType === 'welcome'}}">{{welcomeDesc}}</text>
+    <text class="desc" wx:elif="{{pageType === 'login'}}">{{loginDesc}}</text>
 
-  <view class="actions welcome" wx:if="{{pageType === 'welcome'}}">
-    <view class="btn create" bind:tap="create">
-      <text>创建</text>
+    <view class="actions welcome" wx:if="{{pageType === 'welcome'}}">
+        <view class="btn create" bind:tap="create">
+            <text>创建</text>
+        </view>
     </view>
-  </view>
-  <view class="actions login" wx:elif="{{pageType === 'login'}}">
-    <button open-type="getUserInfo" class="btn auth cancel" bindgetuserinfo="onGetUserInfo">
-      <text>授权登录</text>
-    </button>
-  </view>
+    <view class="actions login" wx:elif="{{pageType === 'login'}}">
+        <button open-type="getUserInfo" class="btn auth cancel" bindgetuserinfo="onGetUserInfo">
+            <text>授权登录</text>
+        </button>
+        <view class="test-wrapper" catch:tap="onUseTestUser">
+            <text class="test">使用测试账户体验</text>
+        </view>
+    </view>
 </view>

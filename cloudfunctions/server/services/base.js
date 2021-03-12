@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk');
-cloud.init();
+
 class Service {
     _replaceCharacterForMe(member) {
         let {OPENID} = cloud.getWXContext();

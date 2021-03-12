@@ -106,5 +106,11 @@ Page({
         wx.redirectTo({
             url: `${this.data.sourcePage}?groupId=${this.data._groupId}`
         })
+    },
+    onUseTestUser: function () {
+        wx.isTest = true;
+        wx.redirectTo({
+            url: '/pages/index/index'
+        });
     }
 })

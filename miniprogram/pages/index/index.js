@@ -24,7 +24,6 @@ Page({
             ]
         },
         isLoading: false,
-        isRequesting: false,
         isIniting: true,
         groupInfo: {
             overview: {
@@ -82,7 +81,6 @@ Page({
             this.initTab(groupInfo.members.partner.character);
             this.hideLoading();
             wx.stopPullDownRefresh();
-            this.data.isRequesting = false;
         });
         indexViewModel.setCurrentInterval('每月');
     },
@@ -98,7 +96,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        if (this.data.isIniting) {
+        if (!this.data.isIniting) {
             this.requestGroupInfo();
         }
     },
@@ -242,11 +240,6 @@ Page({
     },
     requestGroupInfo: function () {
         console.log('---requestGroupInfo');
-        if (this.data.isRequesting) {
-            console.log('return')
-            return;
-        }
-        this.data.isRequesting = true;
         this.showLoading();
         indexViewModel.requestGroupInfo();
     },

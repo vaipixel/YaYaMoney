@@ -52,6 +52,10 @@ class UserService {
         let result = await services.groupService.isGroupReady(currentUserInfo.groupId);
         return hasGroup && result;
     }
+
+    async getUserInfoByOpenid() {
+        return await userHandler.getCurrentUserInfo();
+    }
 }
 
 module.exports = UserService;
