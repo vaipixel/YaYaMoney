@@ -1,11 +1,13 @@
 async function baseRequest(api, data) {
     console.log(`call api ${api}`);
     console.log(data);
+    console.log(`isTest: ${wx.isTest}`);
     try {
         let result = await wx.cloud.callFunction({
             name: 'server',
             data: {
                 action: api,
+                test: wx.isTest,
                 data: data
             }
         });
@@ -38,6 +40,10 @@ async function joinGroup(groupId, character) {
 
 async function isUserRegistered() {
     return await baseRequest('isUserRegistered');
+}
+
+async function getUserInfo() {
+    return await baseRequest('getUserInfo');
 }
 
 async function isGroupReady(groupId) {
@@ -112,6 +118,7 @@ module.exports = {
     joinGroup,
     isGroupReady,
     isUserRegistered,
+    getUserInfo,
     getUserGroupId,
     getGroupInfo,
     getGroupMembers,

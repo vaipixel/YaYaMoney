@@ -1,6 +1,6 @@
 import {ViewModel} from "./view_model";
 import {NotLoginError, UserHasNoGroupError, GroupNotReadyError} from "../errors/errors";
-const {login, isUserHasGroup, isUserGroupReady} = require('../requests');
+const {login, isUserHasGroup, isUserGroupReady, getUserInfo} = require('../requests');
 
 class IndexViewModel extends ViewModel {
     constructor() {
@@ -13,9 +13,13 @@ class IndexViewModel extends ViewModel {
     async init() {
         super.init();
         try {
-            let loginService = wx.services.loginService;
-            let wxLoginData = await loginService.loginWx();
-            this.userInfo = await login(wxLoginData);
+            if (wx.isTest) {
+                this.userInfo = await getUserInfo();
+            } else {
+                let loginService = wx.services.loginService;
+                let wxLoginData = await loginService.loginWx();
+                this.userInfo = await login(wxLoginData);
+            }
         } catch (e) {
             console.warn('NotLoginError');
             throw new NotLoginError();
